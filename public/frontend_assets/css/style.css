@@ -1,0 +1,486 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+    border: 0;
+    outline: 0;
+    list-style: none;
+}
+
+html {
+    overflow-x: clip;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --theme-color: #FD6602;
+    --white: #fff;
+    --light-color: #ddd;
+    --box-shadow: 0 5px 10px rgba(0, 0, 0, .15);
+    --black: #000;
+    --paragraph: #6a6e83;
+    --yellow: #FFA41C;
+}
+
+/* utilities start  */
+h1 {
+    font-size: 30px;
+    color: var(--black);
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 25px;
+    color: var(--black);
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 20px;
+    color: var(--black);
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 18px;
+    color: var(--black);
+    font-weight: 500;
+}
+
+
+textarea {
+    resize: none !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.card:hover {
+    box-shadow: var(--box-shadow);
+}
+
+#pills-tab .nav-link,
+#pills-tab2 .nav-link {
+    background: none !important;
+    color: var(--black) !important;
+    border-radius: 0 !important;
+    font-size: 18px;
+}
+
+#pills-tab .nav-link.active,
+#pills-tab2 .nav-link.active {
+    border-bottom: 2px solid var(--theme-color);
+}
+
+.card-title-price {
+    font-size: 20px;
+    color: var(--theme-color) !important;
+    font-weight: 500;
+}
+
+.card-text-para {
+    color: var(--paragraph);
+    font-size: 16px;
+}
+p {
+    color: var(--paragraph);
+    font-size: 16px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.card-subtitle {
+    font-size: 20px;
+    color: var(--black);
+}
+
+.card-text {
+    color: var(--paragraph);
+    font-size: 16px;
+}
+
+.heading-border {
+    position: relative;
+    display: block;
+    width: 115px;
+    height: 5px;
+    background: var(--theme-color);
+}
+
+.square-block-btn {
+    background: var(--theme-color);
+    outline: 0;
+    text-decoration: none;
+    color: var(--white);
+    padding: 8px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 17px;
+}
+
+.square-sm-btn {
+    background: var(--theme-color);
+    outline: 0;
+    text-decoration: none;
+    color: var(--white);
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 17px;
+}
+
+.square-block-btn:hover,.square-sm-btn:hover,
+.pills-block-btn:hover,
+.pills-sm-btn:hover {
+    background: var(--theme-color);
+    color: var(--white);
+    box-shadow: var(--box-shadow);
+}
+
+.pills-block-btn {
+    border: 2px solid var(--theme-color);
+    outline: 0;
+    text-decoration: none;
+    color: var(--black);
+    background: var(--white);
+    padding: 8px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    border-radius: 50px;
+    font-size: 17px;
+}
+
+.pills-sm-btn {
+    border: 2px solid var(--theme-color);
+    outline: 0;
+    text-decoration: none;
+    background: var(--white);
+    color: var(--black);
+    padding: 8px 20px;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 17px;
+}
+
+.addtoCompare {
+    font-size: 15px;
+    color: var(--black);
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: var(--theme-color) !important;
+}
+
+.swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: var(--theme-color);
+}
+
+/* utilities end  */
+
+/* main CSS start ---------------------------------------- */
+
+/* header start  */
+.dropdown-menu li {
+    position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 75vw;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+}
+
+.dropdown-menu>li:hover>.dropdown-submenu {
+    display: block;
+}
+
+.dropdown-menu .dropdown-submenu h6 {
+    color: var(--theme-color);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.category .bx-headphone {
+    font-size: 15px;
+}
+
+.category .number {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.searchBar input[type=search] {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    float: left;
+    padding: 8px 15px;
+    width: 80%;
+    border: 1px solid var(--white);
+}
+
+.searchBar input[type=search]:focus {
+    border: 1px solid var(--theme-color);
+}
+
+.searchBar button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: var(--theme-color);
+    color: var(--white);
+    font-size: 15px;
+    float: left;
+    width: 20%;
+    padding: 9px 10px;
+}
+
+form.searchBar::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.sidenav {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: -100%;
+    background-color: var(--white);
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: all .3s linear ;
+    box-shadow: var(--box-shadow);
+    overflow-y: auto;
+}
+.sidenav.active{
+    left: 0;
+}
+
+.sidenav a,
+.sidenav .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    color: var(--black);
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+.sidenav .sideNavsubmenu {
+    display: none;
+    background-color: var(--light-color);
+    padding-left: 8px;
+}
+
+.sidenav #sideNavCloseMenuBar{
+    font-size: 25px;
+    color: var(--theme-color);
+    float: right;
+    padding-right: 5px;
+}
+
+.sidenav .bx-chevron-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* header end  */
+
+
+/* banner start  */
+.main-banner .bannerSwiper .swiper-wrapper .swiper-slide {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-size: 100% 100% !important;
+    max-width: 100vw;
+}
+
+.main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content span {
+    font-size: 15px;
+    color: var(--theme-color);
+}
+
+.main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content h1 {
+    font-size: 45px;
+    color: var(--white);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content p {
+    font-size: 16px;
+    color: var(--white);
+}
+
+/* banner end  */
+
+/* satisfactory section start  */
+.satisfaction-section .main-boxes {
+    border: 1px solid var(--light-color);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.satisfaction-section .main-boxes .box .caption h5 {
+    color: var(--black);
+    font-size: 20px;
+}
+
+.satisfaction-section .main-boxes .box .caption p {
+    color: var(--paragraph);
+    font-size: 15px;
+}
+
+/* satisfactory section end  */
+
+/* notice start  */
+.notice-line {
+    background-color: var(--theme-color);
+    padding: 10px 0;
+}
+
+.notice-line p {
+    color: var(--white);
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+/* notice end   */
+
+/* category start  */
+.category span {
+    color: var(--theme-color);
+    font-size: 16px;
+}
+
+.category .featured-heading h5 {
+    color: var(--black);
+    font-size: 30px;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+.category .featured-heading .fullCatalog {
+    color: var(--black);
+    font-size: 17px;
+    text-decoration: none;
+}
+
+.category .featured-heading .fullCatalog:hover {
+    color: var(--theme-color);
+}
+
+.category .catBoxes .card-footer a {
+    color: var(--black);
+    font-size: 17px;
+    text-decoration: none;
+}
+
+/* category end  */
+
+/* landscape section start  */
+.landscape h5 {
+    font-size: 30px;
+    color: var(--black);
+}
+
+.landscape .addtoWishList {
+    color: var(--black);
+    font-size: 19px;
+}
+
+/* landscape section end  */
+
+
+/* hot new arrivals start  */
+
+.new-arrivals .products .card-title {
+    font-size: 20px;
+    color: var(--theme-color);
+}
+
+/* hot new arrivals end  */
+
+
+
+
+/* responsive queries start  */
+
+@media (max-width: 768px) {
+
+    /* utilities start  */
+    .square-block-btn,
+    .pills-block-btn {
+        font-size: 15px;
+    }
+
+    /* utilities wnd  */
+
+    /* banner start  */
+    .main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content {
+        padding-left: 25px;
+    }
+
+    .main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content h1 {
+        font-size: 25px;
+    }
+
+    .main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content p {
+        font-size: 15px;
+    }
+
+    /* banner end  */
+
+    .satisfaction-section .main-boxes {
+        text-align: center;
+    }
+
+    .category .featured-heading {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    /* notice start  */
+    .notice-line p {
+        font-size: 12px;
+    }
+
+    /* notice end  */
+}
