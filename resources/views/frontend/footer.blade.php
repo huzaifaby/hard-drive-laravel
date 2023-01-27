@@ -14,23 +14,18 @@
 
         <!-- Right -->
         <div>
-            <a href="#" class="me-4 text-reset">
+            <a href="{{ $settings[0]->facebook}}" class="me-4 text-reset">
                 <i class="bx bxl-facebook"></i>
             </a>
-            <a href="#" class="me-4 text-reset">
+            <a href="{{ $settings[0]->twitter}}" class="me-4 text-reset">
                 <i class="bx bxl-twitter"></i>
             </a>
-            <a href="#" class="me-4 text-reset">
-                <i class="bx bxl-google"></i>
-            </a>
-            <a href="#" class="me-4 text-reset">
+      
+            <a href="{{ $settings[0]->instagram}}" class="me-4 text-reset">
                 <i class="bx bxl-instagram"></i>
             </a>
-            <a href="#" class="me-4 text-reset">
+            <a href="{{ $settings[0]->linkedin}}" class="me-4 text-reset">
                 <i class="bx bxl-linkedin"></i>
-            </a>
-            <a href="#" class="me-4 text-reset">
-                <i class="bx bxl-github"></i>
             </a>
         </div>
         <!-- Right -->
@@ -46,11 +41,11 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        Hard Disk
+                    <img src="{{ asset('image/logo/'.$settings[0]->logo) }}" class="img-fluid" loading="lazy"
+                        width="150" alt="">
                     </h6>
                     <p>
-                        Here you can use rows and columns to organize your footer content. Lorem ipsum
-                        dolor sit amet, consectetur adipisicing elit.
+                    {{ $settings[0]->footer_description}}
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -101,13 +96,13 @@
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                    <p><i class="bx bx-home me-3"></i> New York, NY 10012, US</p>
+                    <p><i class="bx bx-home me-3"></i> {{ $settings[0]->Address}}</p>
                     <p>
                         <i class="bx bx-envelope me-3"></i>
-                        info@example.com
+                        {{ $settings[0]->email}}
                     </p>
-                    <p><i class="bx bx-phone me-3"></i> + 01 234 567 88</p>
-                    <p><i class="bx bx-printer me-3"></i> + 01 234 567 89</p>
+                    <p><i class="bx bx-phone me-3"></i> {{ $settings[0]->phone_no_1}}</p>
+                    <p><i class="bx bx-printer me-3"></i> {{ $settings[0]->phone_no_2}}</p>
                 </div>
                 <!-- Grid column -->
             </div>
@@ -118,7 +113,7 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        COPYRIGHT © 2022. All Rights Reserved By
+        COPYRIGHT © <?php echo date("Y"); ?>. All Rights Reserved By
         <a class="text-reset fw-bold" href="https://mdbootstrap.com/">harddisk.com</a>
     </div>
     <!-- Copyright -->
@@ -132,6 +127,7 @@
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <!-- custom js  -->
+<script src="../frontend_assets/js/slider.js"></script>
 <script src="../frontend_assets/js/script.js"></script>
 <!-- MDB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>

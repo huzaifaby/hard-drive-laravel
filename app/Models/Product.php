@@ -15,6 +15,7 @@ class Product extends Model
      * @return response()
      */
     protected $fillable = [
-        'product_title', 'product_price','product_image', 'product_sku', 'product_condition', 'product_description', 'product_slug', 'product_meta_title', 'product_meta_description'
+        'product_title', 'product_price','product_image', 'product_sku', 'product_condition', 'product_description', 'product_slug', 'product_meta_title', 'product_meta_description','is_sale','is_featured'
+        ,'category_id','brand_id','availability','quantity'
     ];
 }

@@ -1,7 +1,6 @@
 @include('frontend.header')
 
-
-<div class="single-product-wrapper mt-5">
+<div class="single-product-wrapper">
     <div class="container">
         <!-- breadcrumb start  -->
         <nav aria-label="breadcrumb">
@@ -15,11 +14,11 @@
 
         <!-- single product start  -->
         <div class="row">
-            <div class="col-md-3">
-                <div class="imgbx">
+            <div class="col-md-3 mb-3">
+                <button type="button" class="imgbx" data-bs-toggle="modal" data-bs-target="#imageModal">
                     <img src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail"
                         loading="lazy" alt="">
-                </div>
+                </button>
             </div>
             <!-- center  -->
             <div class="col-md-6">
@@ -34,12 +33,12 @@
                     <tbody>
                         <tr>
                             <td>SKU</td>
-                            <td> {{ $product->product_sku }}</td>
+                            <td>{{ $product->product_sku }}</td>
                         </tr>
                         <tr>
                             <td>Manufacturer</td>
                             <td>
-                                <a href="#">HP</a>
+                                <a href="#">{{ $product_brand->brand_name }}</a>
                             </td>
                         </tr>
                         <tr>
@@ -48,7 +47,11 @@
                         </tr>
                         <tr>
                             <td>Availability</td>
+                            @if($product->availability == 0 )
+                            <td><a href="#" class="text-success">Out of Stock</a></td>
+                            @else
                             <td><a href="#" class="text-success">In Stock</a></td>
+                            @endif
                         </tr>
                     </tbody>
                 </table>
@@ -264,6 +267,10 @@
             <button class="nav-link" id="pills-q-a-tab" data-bs-toggle="pill" data-bs-target="#pills-q-a" type="button"
                 role="tab" aria-controls="pills-q-a" aria-selected="false">Q&A</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews"
+                type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">Reviews</button>
+        </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab"
@@ -435,6 +442,170 @@
             <!-- Q&A start  -->
 
         </div>
+        <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab" tabindex="0">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+
+                        <div class="review-detail">
+                            <h3 class="border-bottom pb-3 mb-3">Review (45)</h3>
+                            <p class="mb-3 fs-3">4.8
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                            </p>
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="mb-0">35</p>
+                                </div>
+                                <div class="col">
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar"
+                                            aria-label="Basic example" style="width: 30%" aria-valuenow="30"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star-half text-warning"></i>
+                                    <i class="bx bxs-star-half text-warning"></i>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="mb-0">35</p>
+                                </div>
+                                <div class="col">
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar"
+                                            aria-label="Basic example" style="width: 20%" aria-valuenow="20"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star text-warning"></i>
+                                    <i class="bx bxs-star-half text-warning"></i>
+                                    <i class="bx bxs-star-half text-warning"></i>
+                                    <i class="bx bxs-star-half text-warning"></i>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="mb-0">35</p>
+                                </div>
+                                <div class="col">
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar"
+                                            aria-label="Basic example" style="width: 5%" aria-valuenow="5"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <h3>Add a review</h3>
+                        <span class="heading-border mb-3"></span>
+                        <p>Your Rating <br>
+                            <i class="bx bxs-star text-warning"></i>
+                            <i class="bx bxs-star text-warning"></i>
+                            <i class="bx bxs-star text-warning"></i>
+                            <i class="bx bxs-star text-warning"></i>
+                            <i class="bx bxs-star text-warning"></i>
+                        </p>
+                        <!-- form start  -->
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control shadow-none" id="name">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Email <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control shadow-none" id="name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message <span
+                                        class="text-danger">*</span></label>
+                                <textarea id="message" cols="30" rows="5" class="form-control shadow-none"></textarea>
+                            </div>
+                            <button type="submit" class="square-block-btn">Add Review</button>
+                        </form>
+                        <!-- form end  -->
+                    </div>
+                </div>
+
+                <div class="reviews bg-light p-4 mt-4 rounded">
+                    <div class="row border-bottom pb-3 mb-3">
+                        <div class="col-md-2 text-center">
+                            <h6>Andrew</h6>
+                            <p>Jan 22, 2023</p>
+                            <span>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                            </span>
+                        </div>
+                        <div class="col-md-8">
+                            <p>good prices</p>
+                        </div>
+                        <div class="col-md-2 d-inline-flex">
+                            <img loading="lazy" width="24" height="24"
+                                src="https://jbsdevices.com/assets/images/shield.png" alt="">
+                            <p>Verified Buyer</p>
+                        </div>
+                    </div>
+                    <div class="row border-bottom pb-3 mb-3">
+                        <div class="col-md-2 text-center">
+                            <h6>Andrew</h6>
+                            <p>Jan 22, 2023</p>
+                            <span>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                            </span>
+                        </div>
+                        <div class="col-md-8">
+                            <p>good prices</p>
+                        </div>
+                        <div class="col-md-2 d-inline-flex">
+                            <img loading="lazy" width="24" height="24"
+                                src="https://jbsdevices.com/assets/images/shield.png" alt="">
+                            <p>Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
     <!-- tab end  -->
 </div>
@@ -524,5 +695,19 @@
     </div>
 </div>
 <!-- related section end -->
+
+
+<!-- image show on click start  -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="https://jbsdevices.com/assets/images/products/BF0720B26A.jpg" class="img-thumbnail"
+                    loading="lazy" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- image show on click end -->
 
 @include('frontend.footer')

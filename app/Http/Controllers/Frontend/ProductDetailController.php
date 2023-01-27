@@ -15,7 +15,10 @@ class ProductDetailController extends Controller
     public function ProductDetail($product_slug)
     {
         $product = Product::where('product_slug', $product_slug)->first();
-        return view('frontend.product-detail')->with(compact('product'));
+
+        $product_brand = Product::join('product_brands', 'product_brands.id', '=', 'products.brand_id')->
+        where('products.product_slug', $product_slug)->first();
+        return view('frontend.product-detail')->with(compact('product'))->with(compact('product_brand'));
     }  
       
    

@@ -6,56 +6,25 @@
     <div class="swiper bannerSwiper">
         <div class="swiper-wrapper">
 
+            @foreach($banners as $key=>$banner)
             <div class="swiper-slide"
-                style="background:url(https://azdev.harddiskdirect.com/media/wysiwyg/home-slider/Harddisk_direct-Banner_1_-_1188_by_550_-min.jpg) no-repeat;">
+                style="background:url({{ asset('image/banner/'.$banner->banner_image) }}) no-repeat;">
                 <div class="container">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-6">
                             <div class="content">
                                 <span>upto 50% off</span>
-                                <h1 class="mt-3">smartphones</h1>
+                                <h1 class="mt-3">{{ $banner->banner_name }}</h1>
                                 <p class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Blanditiis, voluptate?</p>
-                                <a href="#" class="pills-sm-btn text-white">shop now </a>
+                                <a href="product-detail/{{ $banner->banner_slug }}" class="pills-sm-btn">shop now </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div class="swiper-slide"
-                style="background:url(https://azdev.harddiskdirect.com/media/wysiwyg/home-slider/Harddisk_direct-Banner_1_-_1188_by_550_-min.jpg) no-repeat;">
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-md-6">
-                            <div class="content">
-                                <span>upto 50% off</span>
-                                <h1 class="mt-3">smartphones</h1>
-                                <p class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Blanditiis, voluptate?</p>
-                                <a href="#" class="pills-sm-btn text-white">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide"
-                style="background:url(https://azdev.harddiskdirect.com/media/wysiwyg/home-slider/Harddisk_direct-Banner_1_-_1188_by_550_-min.jpg) no-repeat;">
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-md-6">
-                            <div class="content">
-                                <span>upto 50% off</span>
-                                <h1 class="mt-3">smartphones</h1>
-                                <p class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Blanditiis, voluptate?</p>
-                                <a href="#" class="pills-sm-btn text-white">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
         <div class="swiper-button-next"></div>
@@ -177,88 +146,34 @@
 
                             <!-- box start  -->
                             <!-- Swiper -->
+
                             <div class="swiper productSlide">
                                 <div class="swiper-wrapper pb-5">
 
+                                    @foreach($latest_products as $key=>$latestproducts)
                                     <div class="swiper-slide">
                                         <div class="card">
                                             <div class="card-body">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
+                                                <a href="product-detail/{{ $latestproducts->product_slug }}">
+                                                    <img src="{{ asset('image/products/'.$latestproducts->product_image) }}"
                                                         class="img-fluid" loading="lazy" alt="...">
-                                                    <h5 class="card-title-price text-center">$171.93/-</h5>
-                                                    <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                        4200RPM ATA-100
-                                                        2MB
-                                                        Cache</p>
-                                                    <a href="#" class="mb-2 pills-block-btn">
-                                                        <i class="bx bx-cart"></i> Add to Cart</a>
+                                                    <h5 class="card-title-price text-center">
+                                                        ${{ $latestproducts->product_price }}/-</h5>
+                                                    <p class="card-text-para">{{ $latestproducts->product_title }}</p>
+                                                    <a href="#" class="mb-2 pills-block-btn add-to-cart"
+                                                        data-id="{{ $latestproducts->id }}"
+                                                        data-name="{{ $latestproducts->product_title }}"
+                                                        data-price="{{ $latestproducts->product_price }}">
+                                                        <i class="bx bx-cart"></i> Add to Cart
+                                                    </a>
                                                     <a href="#" class="addtoCompare">+ Add to
                                                         Compare</a>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
 
-                                    <div class="swiper-slide">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                        class="img-fluid" loading="lazy" alt="...">
-                                                    <h5 class="card-title-price text-center">$171.93/-</h5>
-                                                    <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                        4200RPM ATA-100
-                                                        2MB
-                                                        Cache</p>
-                                                    <a href="#" class="mb-2 pills-block-btn">
-                                                        <i class="bx bx-cart"></i> Add to Cart</a>
-                                                    <a href="#" class="addtoCompare">+ Add to
-                                                        Compare</a>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="swiper-slide">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                        class="img-fluid" loading="lazy" alt="...">
-                                                    <h5 class="card-title-price text-center">$171.93/-</h5>
-                                                    <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                        4200RPM ATA-100
-                                                        2MB
-                                                        Cache</p>
-                                                    <a href="#" class="mb-2 pills-block-btn">
-                                                        <i class="bx bx-cart"></i> Add to Cart</a>
-                                                    <a href="#" class="addtoCompare">+ Add to
-                                                        Compare</a>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="swiper-slide">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                        class="img-fluid" loading="lazy" alt="...">
-                                                    <h5 class="card-title-price text-center">$171.93/-</h5>
-                                                    <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                        4200RPM ATA-100
-                                                        2MB
-                                                        Cache</p>
-                                                    <a href="#" class="mb-2 pills-block-btn">
-                                                        <i class="bx bx-cart"></i> Add to Cart</a>
-                                                    <a href="#" class="addtoCompare">+ Add to
-                                                        Compare</a>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                                 <div class="swiper-pagination"></div>
@@ -270,56 +185,75 @@
                             tabindex="0">
 
                             <!-- box start  -->
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <a href="">
-                                                <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                    class="img-fluid" loading="lazy" alt="...">
-                                                <h5 class="card-title-price text-center">$171.93/-</h5>
-                                                <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                    4200RPM ATA-100
-                                                    2MB
-                                                    Cache</p>
-                                                <a href="#" class="mb-2 pills-block-btn">
-                                                    <i class="bx bx-cart"></i> Add to Cart</a>
-                                                <a href="#" class="addtoCompare ">+ Add to
-                                                    Compare</a>
-                                            </a>
+                            <!-- Swiper -->
+
+                            <div class="swiper productSlide">
+                                <div class="swiper-wrapper pb-5">
+
+                                    @foreach($sale_products as $key=>$saleproducts)
+                                    <div class="swiper-slide">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="product-detail/{{ $saleproducts->product_slug }}">
+                                                    <img src="{{ asset('image/products/'.$saleproducts->product_image) }}"
+                                                        class="img-fluid" loading="lazy" alt="...">
+                                                    <h5 class="card-title-price text-center">
+                                                        ${{ $saleproducts->product_price }}/-</h5>
+                                                    <p class="card-text-para">{{ $saleproducts->product_title }}</p>
+                                                    <a href="#" class="mb-2 pills-block-btn">
+                                                        <i class="bx bx-cart"></i> Add to Cart
+                                                    </a>
+                                                    <a href="#" class="addtoCompare">+ Add to
+                                                        Compare</a>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
+                                    @endforeach
+
+
                                 </div>
+                                <div class="swiper-pagination"></div>
                             </div>
-                            <!-- box end  -->
+                            <!-- box end -->
+
+
 
                         </div>
                         <div class="tab-pane fade" id="pills-bestRated" role="tabpanel"
                             aria-labelledby="pills-bestRated-tab" tabindex="0">
 
                             <!-- box start  -->
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <a href="">
-                                                <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                    class="img-fluid" loading="lazy" alt="...">
-                                                <h5 class="card-title-price text-center">$171.93/-</h5>
-                                                <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                    4200RPM ATA-100
-                                                    2MB
-                                                    Cache</p>
-                                                <a href="#" class="mb-2 pills-block-btn">
-                                                    <i class="bx bx-cart"></i> Add to Cart</a>
-                                                <a href="#" class="addtoCompare ">+ Add to
-                                                    Compare</a>
-                                            </a>
+                            <!-- Swiper -->
+
+                            <div class="swiper productSlide">
+                                <div class="swiper-wrapper pb-5">
+
+                                    @foreach($featured_products as $key=>$featuredproducts)
+                                    <div class="swiper-slide">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="product-detail/{{ $featuredproducts->product_slug }}">
+                                                    <img src="{{ asset('image/products/'.$featuredproducts->product_image) }}"
+                                                        class="img-fluid" loading="lazy" alt="...">
+                                                    <h5 class="card-title-price text-center">
+                                                        ${{ $featuredproducts->product_price }}/-</h5>
+                                                    <p class="card-text-para">{{ $featuredproducts->product_title }}</p>
+                                                    <a href="#" class="mb-2 pills-block-btn">
+                                                        <i class="bx bx-cart"></i> Add to Cart</a>
+                                                    <a href="#" class="addtoCompare">+ Add to
+                                                        Compare</a>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
+                                    @endforeach
+
+
                                 </div>
+                                <div class="swiper-pagination"></div>
                             </div>
-                            <!-- box end  -->
+                            <!-- box end -->
 
                         </div>
                     </div>
@@ -404,7 +338,7 @@
                 <div class="featured-heading">
                     <span>Featured</span>
                     <h5>Our Featured <br> Categories</h5>
-                    <a href="#" class="fullCatalog">FULL CATALOG</a>
+                    <a href="category" class="fullCatalog">FULL CATALOG</a>
                 </div>
                 <!-- right heading end  -->
             </div>
@@ -413,62 +347,22 @@
                 <!-- category box start  -->
                 <div class="catBoxes">
                     <div class="row">
-
+                        @foreach($featured_categories as $key=>$featuredcategories)
                         <div class="col-md-3 mb-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="">
-                                        <img src="https://jbsdevices.com/assets/images/categories/1652913625Both.jpg"
+                                    <a href="category/{{ $featuredcategories->category_slug }}">
+                                        <img src="{{ asset('image/category/'.$featuredcategories->category_image) }}"
                                             class="img-fluid" loading="lazy" alt="...">
                                     </a>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <a href="#" class="card-text text-center">Memory</a>
+                                    <a href="#"
+                                        class="card-text text-center">{{ $featuredcategories->category_name }}</a>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="">
-                                        <img src="https://jbsdevices.com/assets/images/categories/1652913625Both.jpg"
-                                            class="img-fluid" loading="lazy" alt="...">
-                                    </a>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="#" class="card-text text-center">Memory</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="">
-                                        <img src="https://jbsdevices.com/assets/images/categories/1652913625Both.jpg"
-                                            class="img-fluid" loading="lazy" alt="...">
-                                    </a>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="#" class="card-text text-center">Memory</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="">
-                                        <img src="https://jbsdevices.com/assets/images/categories/1652913625Both.jpg"
-                                            class="img-fluid" loading="lazy" alt="...">
-                                    </a>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="#" class="card-text text-center">Memory</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
 
                     </div>
                 </div>
@@ -489,7 +383,7 @@
 
         <!-- boxes start  -->
         <div class="row mt-4">
-            @foreach($products as $key=>$product)
+            @foreach($desktop_motherboard as $key=>$desktopmotherboard)
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-header border border-0 text-end bg-white">
@@ -498,13 +392,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <img src="{{ asset('image/products/'.$product->product_image) }}"
+                                <img src="{{ asset('image/products/'.$desktopmotherboard->product_image) }}"
                                     class="img-fluid" loading="lazy" alt="...">
                             </div>
                             <div class="col-md-6">
-                                <a href="product-detail/{{ $product->product_slug }}">
-                                    <h5 class="card-title-price">{{ $product->product_price }}</h5>
-                                    <p class="card-text mb-3">{{ $product->product_title }}
+                                <a href="product-detail/{{ $desktopmotherboard->product_slug }}">
+                                    <h5 class="card-title-price">{{ $desktopmotherboard->product_price }}</h5>
+                                    <p class="card-text mb-3">{{ $desktopmotherboard->product_title }}
                                     </p>
                                 </a>
                                 <a href="#" class="mb-2 pills-block-btn"> <i class="bx bx-cart"></i>
@@ -556,17 +450,16 @@
                     <div class="swiper newArrivalsSlide">
                         <div class="swiper-wrapper pb-5">
 
+                            @foreach($Networking as $key=>$Network)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
+                                        <a href="product-detail/{{ $Network->product_slug }}">
+                                            <img src="{{ asset('image/products/'.$Network->product_image) }}"
                                                 class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
+                                            <h5 class="card-title-price text-center">${{ $Network->product_price }}/-
+                                            </h5>
+                                            <p class="card-text-para">${{ $Network->product_title }}/-</p>
                                         </a>
                                         <a href="#" class="mb-2 pills-block-btn">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
@@ -575,6 +468,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
+
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -589,17 +484,16 @@
                     <div class="swiper newArrivalsSlide">
                         <div class="swiper-wrapper pb-5">
 
+                            @foreach($power_supply_unit as $key=>$powersupplyunit)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
+                                        <a href="product-detail/{{ $powersupplyunit->product_slug }}">
+                                            <img src="{{ asset('image/products/'.$powersupplyunit->product_image) }}"
                                                 class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
+                                            <h5 class="card-title-price text-center">
+                                                ${{ $powersupplyunit->product_price }}/-</h5>
+                                            <p class="card-text-para">${{ $powersupplyunit->product_title }}/-</p>
                                         </a>
                                         <a href="#" class="mb-2 pills-block-btn">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
@@ -608,87 +502,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="swiper-slide">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
-                                        </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
-                                        <a href="#" class="addtoCompare">+ Add to
-                                            Compare</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
-                                        </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
-                                        <a href="#" class="addtoCompare">+ Add to
-                                            Compare</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
-                                        </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
-                                        <a href="#" class="addtoCompare">+ Add to
-                                            Compare</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
-                                        </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
-                                        <a href="#" class="addtoCompare">+ Add to
-                                            Compare</a>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endforeach
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -703,17 +517,16 @@
                     <div class="swiper newArrivalsSlide">
                         <div class="swiper-wrapper pb-5">
 
+                            @foreach($memory as $key=>$memories)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
+                                        <a href="product-detail/{{ $memories->product_slug }}">
+                                            <img src="{{ asset('image/products/'.$memories->product_image) }}"
                                                 class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
+                                            <h5 class="card-title-price text-center">${{ $memories->product_price }}/-
+                                            </h5>
+                                            <p class="card-text-para">${{ $memories->product_title }}/-</p>
                                         </a>
                                         <a href="#" class="mb-2 pills-block-btn">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
@@ -722,26 +535,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="swiper-slide">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="">
-                                            <img src="https://jbsdevices.com/assets/images/products/CA06297-B24300CR.jpg"
-                                                class="img-fluid" loading="lazy" alt="...">
-                                            <h5 class="card-title-price text-center">$171.93/-</h5>
-                                            <p class="card-text-para">CA06297-B24300CR Fujitsu 30GB
-                                                4200RPM ATA-100
-                                                2MB
-                                                Cache</p>
-                                        </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
-                                        <a href="#" class="addtoCompare">+ Add to
-                                            Compare</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -766,35 +560,13 @@
     <div class="swiper brandsSlide">
         <div class="swiper-wrapper p-4">
 
+            @foreach($brands as $key=>$brand)
             <div class="swiper-slide">
-                <img src="https://jbsdevices.com/assets/images/partner/1619634894Samsung.jpg" class="img-fluid"
-                    width="145" loading="lazy" height="50" alt="...">
+                <img src="{{ asset('image/brand/'.$brand->brand_image) }}" class="img-fluid" width="145" loading="lazy"
+                    height="50" alt="...">
             </div>
+            @endforeach
 
-            <div class="swiper-slide">
-                <img src="https://jbsdevices.com/assets/images/partner/1619634894Samsung.jpg" class="img-fluid"
-                    width="145" loading="lazy" height="50" alt="...">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="https://jbsdevices.com/assets/images/partner/1619634894Samsung.jpg" class="img-fluid"
-                    width="145" loading="lazy" height="50" alt="...">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="https://jbsdevices.com/assets/images/partner/1619634894Samsung.jpg" class="img-fluid"
-                    width="145" loading="lazy" height="50" alt="...">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="https://jbsdevices.com/assets/images/partner/1619634894Samsung.jpg" class="img-fluid"
-                    width="145" loading="lazy" height="50" alt="...">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="https://jbsdevices.com/assets/images/partner/1619634894Samsung.jpg" class="img-fluid"
-                    width="145" loading="lazy" height="50" alt="...">
-            </div>
 
         </div>
         <div class="swiper-button-next"></div>
@@ -805,5 +577,40 @@
     <!-- </div> -->
 </div>
 <!-- brand section end  -->
+
+
+<script>
+$(document).on('click', '.add-to-cart', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var name = $(this).data('name');
+    var price = $(this).data('price');
+
+    $.ajax({
+        url: '/cart/add',
+        method: 'POST',
+        data: {
+            id: id,
+            name: name,
+            price: price,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(data) {
+            console.log(data);
+            // update the cart count and subtotal in the HTML
+            // or show a message indicating that the product was added to the cart
+            Swal.fire({
+                position: 'top-end',
+                // icon: 'success',
+                title: '✔️ Product added to cart',
+                showConfirmButton: false,
+                timer: 1500
+            })
+                //   $('.cart-btn').load(location.href + ' .cart-btn');
+                  location.reload();
+        }
+    });
+});
+</script>
 
 @include('frontend.footer')

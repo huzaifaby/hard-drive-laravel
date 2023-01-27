@@ -15,17 +15,33 @@
 
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="name"> Category Name</label>
-                        <input type="text" class="form-control" name="up_category_name" id="up_category_name" placeholder="Category Name">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3">
+                                <label for="name"> Category Name</label>
+                                <input type="text" class="form-control" name="up_category_name" id="up_category_name"
+                                    placeholder="Category Name">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group mb-3">
+                                <label for="name"> Category Slug</label>
+                                <input type="text" class="form-control" name="up_category_slug" id="up_category_slug"
+                                    placeholder="Category Slug">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="name"> Category Slug</label>
-                        <input type="text" class="form-control" name="up_up_category_slug" id="up_detail"
-                            placeholder="Category Slug">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="up_sub_category_name"> Sub Category Name</label>
+                                <input type="text" class="form-control" name="up_sub_category_name"
+                                    id="up_sub_category_name" placeholder="Sub Category Name">
+                            </div>
+                        </div>
+                  
                     </div>
-
 
 
                     <div class="row align-items-center">
@@ -36,10 +52,9 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                        
-                        <img width="100"  class="img-thumbnail" src=""
-                                id="img-preview">
-                          
+
+                            <img width="100" class="img-thumbnail" src="" id="img-preview">
+
 
                         </div>
 

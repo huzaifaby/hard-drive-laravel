@@ -24,6 +24,18 @@ html {
 }
 
 /* utilities start  */
+.header-sticky{
+    position: sticky !important;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    background-color: var(--white);
+    padding: 10px;
+}
+
 h1 {
     font-size: 30px;
     color: var(--black);
@@ -84,6 +96,7 @@ a {
     color: var(--paragraph);
     font-size: 16px;
 }
+
 p {
     color: var(--paragraph);
     font-size: 16px;
@@ -137,7 +150,8 @@ p {
     font-size: 17px;
 }
 
-.square-block-btn:hover,.square-sm-btn:hover,
+.square-block-btn:hover,
+.square-sm-btn:hover,
 .pills-block-btn:hover,
 .pills-sm-btn:hover {
     background: var(--theme-color);
@@ -188,6 +202,10 @@ p {
     background-color: var(--theme-color);
 }
 
+.theme-color{
+    color: var(--theme-color) !important;
+}
+
 /* utilities end  */
 
 /* main CSS start ---------------------------------------- */
@@ -201,10 +219,10 @@ p {
     display: none;
     position: absolute;
     left: 100%;
-    top: -7px;
+    top: -9px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    width: 75vw;
+    width: 600px;
 }
 
 .dropdown-menu .dropdown-submenu-left {
@@ -242,11 +260,12 @@ p {
     float: left;
     padding: 8px 15px;
     width: 80%;
-    border: 1px solid var(--white);
+    border: 2px solid var(--light-color);
+    border-right: 0;
 }
 
-.searchBar input[type=search]:focus {
-    border: 1px solid var(--theme-color);
+.category .megamenu ul {
+    padding-left: 1rem !important;
 }
 
 .searchBar button {
@@ -259,7 +278,7 @@ p {
     font-size: 15px;
     float: left;
     width: 20%;
-    padding: 9px 10px;
+    padding: 10px 10px;
 }
 
 form.searchBar::after {
@@ -270,19 +289,19 @@ form.searchBar::after {
 
 .sidenav {
     height: 100%;
-    width: 300px;
+    width: 250px;
     position: fixed;
     z-index: 1;
     top: 0;
-    left: -100%;
+    left: -150%;
     background-color: var(--white);
     overflow-x: hidden;
-    padding-top: 20px;
-    transition: all .3s linear ;
+    transition: all .3s linear;
     box-shadow: var(--box-shadow);
     overflow-y: auto;
 }
-.sidenav.active{
+
+.sidenav.active {
     left: 0;
 }
 
@@ -296,6 +315,7 @@ form.searchBar::after {
     border: none;
     background: none;
     width: 100%;
+    font-weight: 300;
     text-align: left;
     cursor: pointer;
     outline: none;
@@ -304,17 +324,14 @@ form.searchBar::after {
 .sidenav .sideNavsubmenu {
     display: none;
     background-color: var(--light-color);
-    padding-left: 8px;
 }
 
-.sidenav #sideNavCloseMenuBar{
+.sidenav #sideNavCloseMenuBar {
     font-size: 25px;
-    color: var(--theme-color);
-    float: right;
-    padding-right: 5px;
+    color: var(--black);
 }
 
-.sidenav .bx-chevron-down {
+.sidenav .bx-plus {
     float: right;
     padding-right: 8px;
 }

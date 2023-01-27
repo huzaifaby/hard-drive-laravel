@@ -45,24 +45,27 @@ class CategoryController extends Controller
         ProductCategory::create([
             'category_name' => $request->category_name,
             'category_slug' => $request->category_slug,
+            'sub_category' => $request->sub_category_name,
+            'category_is_featured' => 0,
             'category_image' => $imageName,
         ]);
        
         return response()->json([
             'status' => 'success',
         ]);
+
+        
    }
 
 
 
    //update category
-public function updatecategory(Request $request){
+   public function updatecategory(Request $request){
 
     $request->validate(
         [
-            'up_category_name' => 'required|unique:category,name,'.$request->up_id,
+            'up_category_name' => 'required|unique:category,name,'.$request->up_category_id,
             'up_category_slug' => 'required',
-            'up_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ],
         [
             'up_category_name.required' => 'category is Required',
@@ -72,22 +75,25 @@ public function updatecategory(Request $request){
     );
 
     //get the category and image file
-    $category = ProductCategory::find($request->up_id);
-    $image = $request->file('up_image');
-
-    //delete old image from folder
-    if(file_exists(public_path('image/category/' . $category->image))) {
-        unlink(public_path('image/category/' . $category->image));
+    $category = ProductCategory::find($request->up_category_id);
+    $image = $request->file('up_category_image');
+    $new_image = $category->category_image;
+    // check if image file exists
+    if ($image) {
+        //delete old image from folder
+        if(file_exists(public_path('image/category/' . $category->category_image))) {
+            unlink(public_path('image/category/' . $category->category_image));
+        }
+        //upload new image to folder
+        $new_image = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('image/category'), $new_image);
     }
-
-    //upload new image to folder
-    $new_image = time().'.'.$image->getClientOriginalExtension();
-    $image->move(public_path('image/category'), $new_image);
 
     //update category with new image name
     $category->update([
-        'category_name' => $request->category_name,
-        'category_slug' => $request->category_slug,
+        'category_name' => $request->up_category_name,
+        'category_slug' => $request->up_category_slug,
+        'sub_category' => $request->up_sub_category_name,
         'category_image' => $new_image,
     ]);
 
@@ -96,14 +102,32 @@ public function updatecategory(Request $request){
     ]);
 }
 
+
+ //update Featured category status
+ public function featuredCategory(Request $request){
+
+    //get the id
+    $id = $request->category_id;
+    $category = ProductCategory::find($id);
+
+    $category->update([
+        'category_is_featured'=>$request->featured,
+    ]);
+
+    return response()->json([
+        'status' => 'success',
+    ]);
+}
+
+
     //delete category
     public function deletecategory(Request $request){
 
     $id = $request->category_id;
     $category = ProductCategory::find($id);
-    $deleteOldImage = public_path('image/category/'.$category->image); //corrected path
-    if(file_exists(public_path('image/category/' . $category->image))) {
-        unlink(public_path('image/category/' . $category->image));
+    $deleteOldImage = public_path('image/category/'.$category->category_image); //corrected path
+    if(file_exists(public_path('image/category/' . $category->category_image))) {
+        unlink(public_path('image/category/' . $category->category_image));
     }
     $category->delete();
 
@@ -120,7 +144,7 @@ public function updatecategory(Request $request){
    public function pagination(Request $request){
 
     $category = ProductCategory::latest()->paginate(5);
-    return view('admin.ProductCategory.pagination_category',compact('productCategory'))->render();
+    return view('admin.ProductCategory.pagination_category',compact('category'))->render();
 
    }
 
@@ -132,7 +156,7 @@ public function updatecategory(Request $request){
     ->paginate(5);
 
     if($category->count() >= 1){
-        return view('admin.ProductCategory.pagination_category',compact('productCategory'))->render();
+        return view('admin.ProductCategory.pagination_category',compact('category'))->render();
     }else{
         return response()->json([
             'status' => 'nothing_found',

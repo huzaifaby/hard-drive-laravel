@@ -1,6 +1,7 @@
-<?php include("header.php"); ?>
+@include('frontend.header')
 
-<div class="cart-wrapper mt-5">
+
+<div class="cart-wrapper">
     <div class="container">
 
         <!-- breadcrumb start  -->
@@ -17,78 +18,130 @@
                 <h1>Billing Details</h1>
                 <span class="heading-border mb-4"></span>
                 <!-- form start  -->
-                <form>
+                <form action="{{ route('order.add') }}" method="POST">
+                @csrf
                     <div class="row mb-3">
                         <div class="col">
+                            <input type="text" name="total_price" value="{{$subtotal}}">
                             <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control shadow-none" placeholder="Full Name" id="name">
+                            <input type="text" class="form-control shadow-none" placeholder="Full Name" name="full_name" id="name">
                         </div>
                         <div class="col">
                             <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control shadow-none" placeholder="Phone" id="phone">
+                            <input type="tel" class="form-control shadow-none" placeholder="Phone" name="phone_no" id="phone">
                         </div>
                     </div>
                     <div class="col mb-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control shadow-none" placeholder="Email" id="email">
+                        <input type="email" class="form-control shadow-none" placeholder="Email" name="email" id="email">
                     </div>
                     <div class="col mb-3">
                         <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control shadow-none" placeholder="Address" id="address">
+                        <input type="text" class="form-control shadow-none" name="address" placeholder="Address" id="address">
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="country" class="form-label">Country Code <span
                                     class="text-danger">*</span></label>
-                            <select id="country" class="form-control shadow-none">
+                            <select id="country" name="country" class="form-control shadow-none">
                                 <option value="" hidden>Select</option>
-                                <option value="">USA</option>
-                                <option value="">Pakistan</option>
+                                <option value="USA">USA</option>
+                                <option value="Pakistan">Pakistan</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="state" class="form-label">State Code <span class="text-danger">*</span></label>
-                            <select id="state" class="form-control shadow-none">
+                            <select id="state" name="state" class="form-control shadow-none">
                                 <option value="" hidden>Select</option>
-                                <option value="">Sindh</option>
-                                <option value="">Punjab</option>
+                                <option value="Sindh">Sindh</option>
+                                <option value="Punjab">Punjab</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="city" class="form-label">Town / City <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control shadow-none" placeholder="Town / City" id="city">
+                            <input type="text" name="city" class="form-control shadow-none" placeholder="Town / City" id="city">
                         </div>
                         <div class="col">
                             <label for="zip" class="form-label">Postcode / ZIP <span
                                     class="text-danger">*</span></label>
-                            <input type="text" class="form-control shadow-none" placeholder="Postcode / ZIP" id="zip">
+                            <input type="text" class="form-control shadow-none" name="post_code" placeholder="Postcode / ZIP" id="zip">
                         </div>
                     </div>
                     <div class="col mb-3">
                         <label for="company" class="form-label">Company Name (optional) <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control shadow-none" placeholder="Company Name" id="company">
+                        <input type="text" class="form-control shadow-none" name="company_name" placeholder="Company Name" id="company">
                     </div>
                     <div class="mb-3 form-check border-bottom pb-3">
-                        <input type="checkbox" class="form-check-input shadow-none" id="check">
+                        <input type="checkbox" class="form-check-input shadow-none" id="checkDiffAddress">
                         <label class="form-check-label" for="check">Ship to a different address?</label>
+                    </div>
+                    <div id="shiptoDiffAddress" style="display:none;">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="name" class="form-label">Full Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control shadow-none" placeholder="Full Name" id="name">
+                            </div>
+                            <div class="col">
+                                <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control shadow-none" placeholder="Phone" id="phone">
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control shadow-none" placeholder="Address" id="address">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="country" class="form-label">Country Code <span
+                                        class="text-danger">*</span></label>
+                                <select id="country" class="form-control shadow-none">
+                                    <option value="" hidden>Select</option>
+                                    <option value="">USA</option>
+                                    <option value="">Pakistan</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="state" class="form-label">State Code <span
+                                        class="text-danger">*</span></label>
+                                <select id="state" class="form-control shadow-none">
+                                    <option value="" hidden>Select</option>
+                                    <option value="">Sindh</option>
+                                    <option value="">Punjab</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="city" class="form-label">Town / City <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control shadow-none" placeholder="Town / City" id="city">
+                            </div>
+                            <div class="col">
+                                <label for="zip" class="form-label">Postcode / ZIP <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control shadow-none" placeholder="Postcode / ZIP"
+                                    id="zip">
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3 mt-4">
                         <label for="orderNotes" class="form-label">Order Notes <span
                                 class="text-danger">*</span></label>
-                        <textarea id="orderNotes" class="form-control shadow-none"
+                        <textarea id="orderNotes" name="order_notes" class="form-control shadow-none"
                             placeholder="Notes about your order, e.g. special notes for delivery." cols="30"
                             rows="5"></textarea>
                     </div>
-                </form>
+                
                 <!-- form end -->
             </div>
             <div class="col-md-4">
 
                 <!-- side card  -->
-                <div class="card bg-light border border-0">
+                <div class="card bg-light border border-0 px-4">
                     <div class="card-body">
                         <h3 class="p-2 border-bottom">Your Order</h3>
                         <div class="table-responsive">
@@ -98,13 +151,17 @@
                                         <td>Product</td>
                                         <td class="text-end">Total</td>
                                     </tr>
+                                    @if(!empty($cart))
+                                    @foreach($cart as $id => $details)
                                     <tr>
-                                        <td>1 × C911R Dell 80GB 5400RPM SATA 2.5-inch Hard Drive</td>
-                                        <td class="text-end">$153.55</td>
+                                        <td>{{ $details['quantity'] }} × {{ substr($details['product_title'], 0, 30) }}...</td>
+                                        <td class="text-end">${{ $details['product_price'] }}</td>
                                     </tr>
+                                    @endforeach
+                                    @endif
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td class="text-end">$389.4</td>
+                                        <td class="text-end">${{$subtotal}}</td>
                                     </tr>
                                     <tr>
                                         <td>Tax</td>
@@ -112,7 +169,7 @@
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td class="text-end pb-4">$389.4</td>
+                                        <td class="text-end pb-4">${{$subtotal}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,10 +216,12 @@
 
                         <img src="https://jbsdevices.com/assets/front/images/stripe-payment.png" loading="lazy"
                             class="img-fluid mt-3" alt="">
-                        <a href="#" class="square-block-btn mt-3">Place Order</a>
+                        <input type="submit" class="square-block-btn mt-3" value="Place Order">
                     </div>
                 </div>
                 <!-- side card /  -->
+
+                </form>
 
             </div>
         </div>
@@ -170,4 +229,4 @@
     </div>
 </div>
 
-<?php include("footer.php"); ?>
+@include('frontend.footer')

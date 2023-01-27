@@ -25,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
        Paginator::useBootstrap();
+
+       view()->composer(
+        '*', 'App\ViewComposers\CartComposer'
+    );
+    
     }
 }

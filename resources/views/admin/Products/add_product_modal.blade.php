@@ -29,10 +29,7 @@
                                     placeholder="Product Slug">
                             </div>
                         </div>
-                    </div>
 
-
-                    <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="product_price"> Product Price</label>
@@ -40,11 +37,60 @@
                                     placeholder="Product Price">
                             </div>
                         </div>
+
+
+                    </div>
+
+
+                    <div class="row">
+
                         <div class="col">
                             <div class="form-group mt-2">
                                 <label for="product_sku"> Product SKU</label>
                                 <input type="text" class="form-control" name="product_sku" id="product_sku"
                                     placeholder="Product SKU">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group ">
+                                <label for="category_id"> Product Category</label>
+                                <select class="form-select" name="category_id" id="category_id">
+                                    <option hidden>Select</option>
+                                    @foreach($products_category as $key=>$productscategory)
+                                    <option value="{{ $productscategory->id }}">{{ $productscategory->category_name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group mt-2">
+                                <label for="brand_id"> Manufacturer</label>
+                                <select class="form-select" name="brand_id" id="brand_id">
+                                    <option hidden>Select</option>
+                                    @foreach($products_brand as $key=>$products_brands)
+                                    <option value="{{ $products_brands->id }}">{{ $products_brands->brand_name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="form-group mt-2">
+                                <label for="availability"> Availability </label>
+                                <select class="form-select" name="availability" id="availability">
+                                    <option hidden>Select</option>
+                                    <option value="1">In Stock</option>
+                                    <option value="0">Out of Stock</option>
+                                </select>
                             </div>
                         </div>
 
@@ -55,12 +101,21 @@
                                     placeholder="Product Condition">
                             </div>
                         </div>
+
+                        <div class="col">
+                            <div class="form-group mt-2">
+                                <label for="product_quantity"> Quantity</label>
+                                <input type="number" class="form-control" name="product_quantity" id="product_quantity"
+                                    placeholder="Product Quantity">
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="image"> Product Image</label>
-                        <input type="file" class="form-control" name="image" id="image"
-                            placeholder="Product Image">
+                        <input type="file" class="form-control" name="image" id="image" placeholder="Product Image">
                     </div>
 
                     <div class="form-group mt-2">
@@ -73,8 +128,8 @@
                         <div class="col">
                             <div class="form-group mt-2">
                                 <label for="product_meta_title"> Product Meta Title</label>
-                                <input type="text" class="form-control" name="product_meta_title" id="product_meta_title"
-                                    placeholder="Product Meta Title">
+                                <input type="text" class="form-control" name="product_meta_title"
+                                    id="product_meta_title" placeholder="Product Meta Title">
                             </div>
                         </div>
                         <div class="col">
@@ -96,11 +151,16 @@
 
 <script>
 $("#product_title").keyup(function() {
-  var Text = $(this).val();
-  Text = Text.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
+    var Text = $(this).val();
+    Text = Text.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
 
-  $("#product_slug").val(Text);        
+    $("#product_slug").val(Text);
 });
+</script>
 
-
+<script>
+CKEDITOR.replace('product_description');
+//ck editor set height & width
+CKEDITOR.config.height = '100';
+CKEDITOR.config.width = '100%';
 </script>

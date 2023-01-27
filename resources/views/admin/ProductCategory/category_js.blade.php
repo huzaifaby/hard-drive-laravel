@@ -8,11 +8,13 @@ $(document).ready(function() {
         e.preventDefault();
         let category_name = $('#category_name').val();
         let category_slug = $('#category_slug').val();
+        let sub_category_name = $('#sub_category_name').val();
         let image = $('#image')[0].files[0];
 
         var formData = new FormData();
         formData.append('category_name', category_name);
         formData.append('category_slug', category_slug);
+        formData.append('sub_category_name', sub_category_name);
         formData.append('image', image);
 
         $.ajax({
@@ -48,13 +50,15 @@ $(document).ready(function() {
 
     //show category value in update form
     $(document).on('click', '.update_category_form', function() {
-        let id = $(this).data('id');
-        let name = $(this).data('name');
-        let detail = $(this).data('detail');
+        let category_id = $(this).data('id');
+        let category_name = $(this).data('name');
+        let category_slug = $(this).data('slug');
+        let subcategory = $(this).data('subcategory');
 
-        $('#up_id').val(id);
-        $('#up_name').val(name);
-        $('#up_detail').val(detail);
+        $('#up_category_id').val(category_id);
+        $('#up_category_name').val(category_name);
+        $('#up_category_slug').val(category_slug);
+        $('#up_sub_category_name').val(subcategory);
 
     });
 
@@ -64,15 +68,16 @@ $(document).ready(function() {
         let up_category_id = $('#up_category_id').val();
         let up_category_name = $('#up_category_name').val();
         let up_category_slug = $('#up_category_slug').val();
+        let up_sub_category_name = $('#up_sub_category_name').val();
         let up_category_image = $('#up_category_image')[0].files[0];
 
         var formData = new FormData();
         formData.append('up_category_id', up_category_id);
         formData.append('up_category_name', up_category_name);
         formData.append('up_category_slug', up_category_slug);
+        formData.append('up_sub_category_name', up_sub_category_name);
         formData.append('up_category_image', up_category_image);
 
-        console.log(formData);
 
         $.ajax({
             url: "{{ route('update.category') }}",
@@ -106,13 +111,55 @@ $(document).ready(function() {
     })
 
 
+    
+    //Featured category  data
+    $(document).on('click', '.featured_categories', function(e) {
+        e.preventDefault();
+        let category_id = $(this).data('id');
+        let featured = $(this).data('featured');
+
+
+        $.ajax({
+            url: "{{ route('featured.category') }}",
+            method: 'post',
+            data: {
+                category_id: category_id,
+                featured: featured
+            },
+            success: function(res) {
+                if (res.status == 'success') {
+                    Swal.fire(
+                        'Updated Successfully!',
+                        '',
+                        'success'
+                    )
+                    $('.table').load(location.href + ' .table');
+
+                }
+            }
+        });
+
+    })
+
+
+
+
 
     //delete category  data
     $(document).on('click', '.delete_category', function(e) {
-        e.preventDefault();
-        let category_id = $(this).data('id');
+    e.preventDefault();
+    let category_id = $(this).data('id');
 
-        if (confirm('Are you sure to delete category ??')) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
             $.ajax({
                 url: "{{ route('delete.category') }}",
                 method: 'post',
@@ -127,12 +174,13 @@ $(document).ready(function() {
                             'success'
                         )
                         $('.table').load(location.href + ' .table');
-
                     }
                 }
             });
         }
-    })
+    });
+});
+
 
     //pagination
     $(document).on('click', '.pagination a', function(e) {
