@@ -1,4 +1,4 @@
-<?php include("header.php"); ?>
+@include('frontend.header')
 
 <div class="cart-wrapper">
     <div class="container">
@@ -50,4 +50,4 @@
     </div>
 </div>
 
-<?php include("footer.php"); ?>
+@include('frontend.footer')

@@ -192,7 +192,7 @@
                         <div class="col">
                             <ul class="list-group list-group-horizontal-lg">
                                 <li class="list-group-item number border border-0 p-0">
-                                    <a href="#" class="text-dark">
+                                    <a href="{{ route('account.show') }}" class="text-dark">
                                         <i class="bx bx-user fs-5"></i> <span class="text-dark">Account</span>
                                     </a>
                                 </li>
@@ -234,7 +234,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3"><a href="#"
+                                                <td colspan="3"><a href="{{ route('checkout.show') }}"
                                                         class="square-block-btn bg-secondary">Checkout</a></td>
 
                                             </tr>

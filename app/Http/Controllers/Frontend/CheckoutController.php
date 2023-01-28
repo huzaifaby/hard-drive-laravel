@@ -30,9 +30,9 @@ class CheckoutController extends Controller
 
 
      // Check if user is logged in
-    if (Auth::check()) {
+     if (Auth::guard('customer')->check()) {
     // Get the user_id from the logged in user
-    $user_id = Auth::user()->id;
+    $user_id = Auth::guard('customer')->user()->id;
 
 
       $order = Orders::create([

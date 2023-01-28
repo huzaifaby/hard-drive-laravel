@@ -40,7 +40,20 @@ class IndexController extends Controller
     }  
 
    
+    public function showAccount()
+    {
+        return view('frontend.account');
+    }
 
+
+    public function showGuest()
+    {
+        return view('frontend.guest');
+    }
+
+
+
+ 
 
     
 

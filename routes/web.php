@@ -14,6 +14,8 @@ use App\Http\Controllers\Frontend\ProductDetailController;
 use App\Http\Controllers\Frontend\CategoriesController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Auth\CustomerAuthController;
+use App\Http\Controllers\Frontend\UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('order.add'); 
         //end
 
+        Route::get('user/login', [IndexController::class, 'showAccount'])->name('account.show');
+        Route::get('guest', [IndexController::class, 'showGuest'])->name('guest.show');
 
 
         //frontend work
@@ -64,6 +68,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //frontend work end
 
     Route::group(['middleware' => ['guest']], function() {
+
+       // for admin dashboard
         /**
          * Register Routes
          */
@@ -76,6 +82,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('login', [AuthController::class, 'index'])->name('login');
         Route::post('custom-login', [AuthController::class, 'customLogin'])->name('login.custom'); 
+        //end
+
+
+
+        //for frontend
+        // Customer Login Routes
+        Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('customer.login');
+
+        // Customer Register Routes
+        // Route::get('/customer/register', [CustomerAuthController::class, 'showRegistrationForm'])->name('customer.register');
+        Route::post('/customer/register', [CustomerAuthController::class, 'register'])->name('customer.register');
+        // end
 
     });
 
@@ -133,6 +151,15 @@ Route::get('/search-brand',[BrandController::class,'searchBrand'])->name('search
 
 
 //Admin Dashboard work end
+
+    });
+
+
+    Route::group(['middleware' => ['auth.customer']], function() {
+    Route::get('user/dashboard', [UserDashboardController::class, 'index'])->name('customer.dashboard');
+    Route::get('user/orders', [UserDashboardController::class, 'customerOrders'])->name('customer.orders');
+    Route::get('user/profile', [UserDashboardController::class, 'customerProfile'])->name('customer.profile');
+    Route::get('user/lgout', [CustomerAuthController::class, 'logout'])->name('logout');
 
     });
 });

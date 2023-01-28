@@ -18,9 +18,9 @@ class CartController extends Controller
         $product = Product::find($id);
 
         // Check if user is logged in
-        if (Auth::check()) {
+        if (Auth::guard('customer')->check()) {
             // Get the user_id from the logged in user
-            $user_id = Auth::user()->id;
+            $user_id = Auth::guard('customer')->user()->id;
         } else {
             // Create a guest user_id session
             $user_id = session()->get('guest_user_id');
