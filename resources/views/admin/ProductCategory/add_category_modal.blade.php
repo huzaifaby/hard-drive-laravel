@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mt-2">
+                            <div class="form-group ">
                                 <label for="category_slug"> Category Slug</label>
                                 <input type="text" class="form-control" name="category_slug" id="category_slug"
                                     placeholder="Category Slug">
@@ -31,16 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="sub_category_name"> Sub Category Name</label>
-                                <input type="text" class="form-control" name="sub_category_name" id="sub_category_name"
-                                    placeholder="Sub Category Name">
-                            </div>
-                        </div>
-
-                    </div>
+             
 
                     <div class="form-group mt-2">
                         <label for="image"> Category Image</label>

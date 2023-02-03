@@ -4,9 +4,13 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
 
 //frontend controller
 use App\Http\Controllers\Frontend\IndexController;
@@ -16,6 +20,8 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Auth\CustomerAuthController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+
+use App\Http\Controllers\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +42,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         //cart page code
         Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+        Route::get('/load-cart-data',[CartController::class, 'loadcart']);
         Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
         Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
         Route::patch('/cart/{id}', 'App\Http\Controllers\Frontend\CartController@updateCart');
@@ -45,9 +52,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout.show');
         Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('order.add'); 
         //end
-
-        Route::get('user/login', [IndexController::class, 'showAccount'])->name('account.show');
-        Route::get('guest', [IndexController::class, 'showGuest'])->name('guest.show');
 
 
         //frontend work
@@ -88,10 +92,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         //for frontend
         // Customer Login Routes
-        Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('customer.login');
+        // Route::get('guest', [IndexController::class, 'showGuest'])->name('guest.show');
+
+        Route::get('user/login', [CustomerAuthController::class, 'showAccount'])->name('account.show');
+        Route::post('customer/login', [CustomerAuthController::class, 'login'])->name('customer.login');
 
         // Customer Register Routes
-        // Route::get('/customer/register', [CustomerAuthController::class, 'showRegistrationForm'])->name('customer.register');
         Route::post('/customer/register', [CustomerAuthController::class, 'register'])->name('customer.register');
         // end
 
@@ -119,6 +125,9 @@ Route::get('/pagination/paginate-data',[ProductController::class,'pagination']);
 Route::get('/search-product',[ProductController::class,'searchProduct'])->name('search.product');
 Route::post('/featured-product',[ProductController::class,'featuredProduct'])->name('featured.product');
 Route::post('/sale-product',[ProductController::class,'saleProduct'])->name('sale.product');
+Route::get('productexportData',[ExportController::class,'productexportData'])->name('product.export');
+Route::get('dashboard/productCSV',[ImportController::class,'productcsv'])->name('product.csv');
+Route::post('/import-productcsv',[ImportController::class,'importproductCsvToDb'])->name('import.productcsv');
 //end
 
 //Category crud 
@@ -129,6 +138,15 @@ Route::post('/delete-category',[CategoryController::class,'deleteCategory'])->na
 Route::get('/pagination/paginate-data',[CategoryController::class,'pagination']);
 Route::get('/search-category',[CategoryController::class,'searchCategory'])->name('search.category');
 Route::post('/featured-category',[CategoryController::class,'featuredCategory'])->name('featured.category');
+//end
+
+//Sub Category crud 
+Route::get('dashboard/product-subcategory', [SubCategoryController::class, 'SubCategory'])->name('subcategory');
+Route::post('/add-subcategory',[SubCategoryController::class,'addSubCategory'])->name('add.subcategory');
+Route::post('/update-subcategory',[SubCategoryController::class,'updateSubCategory'])->name('update.subcategory');
+Route::post('/delete-subcategory',[SubCategoryController::class,'deleteSubCategory'])->name('delete.subcategory');
+Route::get('/pagination/paginate-subdata',[SubCategoryController::class,'pagination']);
+Route::get('/search-subcategory',[SubCategoryController::class,'searchSubCategory'])->name('search.subcategory');
 //end
 
 //Product Banner crud 
@@ -150,6 +168,20 @@ Route::get('/search-brand',[BrandController::class,'searchBrand'])->name('search
 //end
 
 
+//Orders crud 
+Route::get('dashboard/orders', [OrdersController::class, 'orders'])->name('orders');
+Route::get('dashboard/edit-orders/{id}', [OrdersController::class,'OrdersEdit'])->name('orders.edit');
+Route::post('/update-orders',[OrdersController::class,'updateOrders'])->name('update.orders');
+Route::post('/delete-orders',[OrdersController::class,'deleteOrders'])->name('delete.orders');
+Route::get('/pagination/paginate-data',[OrdersController::class,'pagination']);
+Route::get('/search-orders',[OrdersController::class,'searchOrders'])->name('search.orders');
+Route::post('/order-status',[OrdersController::class,'orderStatus'])->name('orders.status');
+Route::get('orderexportData',[ExportController::class,'productexportData'])->name('orders.export');
+Route::get('dashboard/orderCSV',[ImportController::class,'ordercsv'])->name('orders.csv');
+Route::post('/import-ordercsv',[ImportController::class,'importorderCsvToDb'])->name('import.ordercsv');
+//end
+
+
 //Admin Dashboard work end
 
     });
@@ -159,6 +191,9 @@ Route::get('/search-brand',[BrandController::class,'searchBrand'])->name('search
     Route::get('user/dashboard', [UserDashboardController::class, 'index'])->name('customer.dashboard');
     Route::get('user/orders', [UserDashboardController::class, 'customerOrders'])->name('customer.orders');
     Route::get('user/profile', [UserDashboardController::class, 'customerProfile'])->name('customer.profile');
+    Route::post('update-profile', [UserDashboardController::class, 'updateProfile'])->name('update.profile');
+    Route::get('user/reset', [UserDashboardController::class, 'customerReset'])->name('customer.reset');
+    Route::post('reset-password', [UserDashboardController::class, 'resetPassword'])->name('reset.password');
     Route::get('user/lgout', [CustomerAuthController::class, 'logout'])->name('logout');
 
     });

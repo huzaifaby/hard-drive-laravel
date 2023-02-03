@@ -10,25 +10,29 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerAuthController extends Controller
 {
-    public function showLoginForm()
+  
+
+    public function showAccount()
     {
-        return view('customer.login');
+        return view('frontend.account');
     }
+
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+    
         if (Auth::guard('customer')->attempt($credentials)) {
-            session()->put('user_id', Auth::guard('customer')->user()->id);
+            $user = Auth::guard('customer')->user();
+            session()->put('user_id', $user->id);
+            session()->put('full_name', $user->full_name);
+            session()->put('email', $user->email);
+            session()->put('phone_no', $user->phone_no);
             return redirect()->intended('user/dashboard');
         }
         return redirect()->back()->withInput($request->only('email'))->with('error', 'Invalid Email or Password');
     }
     
-    public function showRegistrationForm()
-    {
-        return view('customer.register');
-    }
 
     public function register(Request $request)
     {

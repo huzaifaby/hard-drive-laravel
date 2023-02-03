@@ -4,7 +4,11 @@
 
 <h1 class="mt-4">Product Tables</h1>
 <div class="mb-4 bg-light text-end p-2">
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</button>
+<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</button>
+<a href="{{ route('product.csv') }}" class="btn btn-success ">Import</a>
+<a href="{{ route('product.export') }}" class="btn btn-success">Export</a>
+
+
 </div>
 <div class="card mb-4">
     <div class="card-header">

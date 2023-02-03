@@ -16,21 +16,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="accordion" id="accordionExample">
-                    <div class="accordion-item border border-bottom border-0">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button text-dark shadow-none bg-light" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                aria-controls="collapseOne">
-                                Categories
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <a href="#" class="text-dark">Desktop & Server Motherboards</a>
-                            </div>
-                        </div>
-                    </div>
+              
                     <div class="card-title mt-3">Filters</div>
 
                     <button class="accordion-button text-dark shadow-none bg-light" type="button">
@@ -60,12 +46,16 @@
                         range of prices for our products, so you can easily find the right device for your needs.</p>
                         
                 <div class="row">
-
+                    <?php
+                    
+                    $test = $app->make('url')->to('/');
+                    ?>
+                    
                 @foreach($products_by_category as $key=>$productsbycategory)
                     <div class="col-md-3 mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <a href="product-detail/{{ $productsbycategory->product_slug }}">
+                            <a href="{{ url('/product-detail/' . $productsbycategory->product_slug) }}">
                                 <img src="{{ asset('image/products/'.$productsbycategory->product_image) }}"
                                     class="img-fluid" loading="lazy" alt="...">
                                 <h5 class="card-title-price text-center">${{ $productsbycategory->product_price }}/-</h5>

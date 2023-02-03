@@ -274,8 +274,8 @@
                     @foreach($all_categories as $key=>$allcategories)
                         <div class="col-md-3 mb-3">
                             <div class="card">
-                                <div class="card-body">
-                                    <a href="category/{{ $allcategories->category_slug }}">
+                                <div class="card-body"> 
+                                    <a href="{{ url('/category/' . $allcategories->category_slug) }}">
                                         <img src="{{ asset('image/category/'.$allcategories->category_image) }}"
                                             class="img-fluid" loading="lazy" alt="...">
                                     </a>

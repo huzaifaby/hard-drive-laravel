@@ -165,3 +165,8 @@ function updateQuantity(id, quantity) {
 
 
 @include('frontend.footer')
+
+
+
+
+

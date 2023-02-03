@@ -21,7 +21,6 @@
                             data-id="{{ $categories->id }}"
                             data-name="{{ $categories->category_name }}" 
                             data-slug="{{ $categories->category_slug }}"
-                            data-subcategory="{{ $categories->sub_category }}"
                             class="btn btn-success update_category_form">
                             <i class="las la-edit"></i></a>
 

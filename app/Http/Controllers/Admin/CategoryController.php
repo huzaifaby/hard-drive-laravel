@@ -45,7 +45,6 @@ class CategoryController extends Controller
         ProductCategory::create([
             'category_name' => $request->category_name,
             'category_slug' => $request->category_slug,
-            'sub_category' => $request->sub_category_name,
             'category_is_featured' => 0,
             'category_image' => $imageName,
         ]);
@@ -93,7 +92,6 @@ class CategoryController extends Controller
     $category->update([
         'category_name' => $request->up_category_name,
         'category_slug' => $request->up_category_slug,
-        'sub_category' => $request->up_sub_category_name,
         'category_image' => $new_image,
     ]);
 

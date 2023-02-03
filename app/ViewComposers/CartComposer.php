@@ -8,7 +8,7 @@ class CartComposer
 {
     public function compose(View $view)
     {
-
+       
         $cart = session()->get('cart');
         $subtotal = 0;
         $total_product_count = 0;
@@ -18,8 +18,10 @@ class CartComposer
             $total_product_count ++;
 
         }
-    }
-        $view->with(['cart' => $cart, 'subtotal' => $subtotal, 'total_product_count' => $total_product_count]);
+    }    
+
+        return response()->json(['cart'=>$view->with(['cart' => $cart, 'subtotal' => $subtotal, 'total_product_count' => $total_product_count])]);
+
     }
 }
 

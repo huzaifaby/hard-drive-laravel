@@ -15,6 +15,8 @@ class ProductCategory extends Model
      * @return response()
      */
     protected $fillable = [
-        'category_name', 'category_slug','category_image','sub_category','category_is_featured'
+        'category_name', 'category_slug','category_image','category_is_featured'
     ];
+
+    
 }

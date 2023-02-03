@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\ViewComposers\CategoryComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
 
        view()->composer(
         '*', 'App\ViewComposers\CartComposer'
+    );
+
+    view()->composer(
+        ['frontend.*'],
+        CategoryComposer::class
     );
     
     }

@@ -16,6 +16,6 @@ class BillingDetails extends Model
      */
     protected $fillable = [
         'order_id', 'full_name','phone_no','email','address','country','state','city','post_code','company_name',
-        'order_notes'
+        'payment_method','transaction_id'
     ];
 }

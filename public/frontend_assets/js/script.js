@@ -55,8 +55,10 @@ $(document).ready(function () {
     let form = document.getElementById("shiptoDiffAddress");
     if (checkbox.checked) {
       form.style.display = "block";
+      checkbox.value = 1;
     } else {
       form.style.display = "none";
+      checkbox.value= 0
     }
   });
 

@@ -8,13 +8,11 @@ $(document).ready(function() {
         e.preventDefault();
         let category_name = $('#category_name').val();
         let category_slug = $('#category_slug').val();
-        let sub_category_name = $('#sub_category_name').val();
         let image = $('#image')[0].files[0];
 
         var formData = new FormData();
         formData.append('category_name', category_name);
         formData.append('category_slug', category_slug);
-        formData.append('sub_category_name', sub_category_name);
         formData.append('image', image);
 
         $.ajax({
@@ -58,7 +56,6 @@ $(document).ready(function() {
         $('#up_category_id').val(category_id);
         $('#up_category_name').val(category_name);
         $('#up_category_slug').val(category_slug);
-        $('#up_sub_category_name').val(subcategory);
 
     });
 
@@ -68,14 +65,12 @@ $(document).ready(function() {
         let up_category_id = $('#up_category_id').val();
         let up_category_name = $('#up_category_name').val();
         let up_category_slug = $('#up_category_slug').val();
-        let up_sub_category_name = $('#up_sub_category_name').val();
         let up_category_image = $('#up_category_image')[0].files[0];
 
         var formData = new FormData();
         formData.append('up_category_id', up_category_id);
         formData.append('up_category_name', up_category_name);
         formData.append('up_category_slug', up_category_slug);
-        formData.append('up_sub_category_name', up_sub_category_name);
         formData.append('up_category_image', up_category_image);
 
 

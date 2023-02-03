@@ -10,7 +10,7 @@
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="../admin_assets/css/styles.css" rel="stylesheet" />
+    <link href="/admin_assets/css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
@@ -83,6 +83,13 @@
                             </nav>
                         </div>
 
+                        <div class="collapse" id="collapseCategory" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('subcategory') }}">Sub Category View</a>
+                            </nav>
+                        </div>
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseBanner" aria-expanded="false" aria-controls="collapseBanner">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -127,6 +134,20 @@
                         </div>
 
 
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOrder" aria-expanded="false" aria-controls="collapseOrder">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Orders
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseOrder" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('orders') }}">Orders View</a>
+                            </nav>
+                        </div>
+
+
 
                     </div>
                 </div>
@@ -159,13 +180,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="../admin_assets/js/scripts.js"></script>
+    <script src="/admin_assets/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="../admin_assets/assets/demo/chart-area-demo.js"></script>
-    <script src="../admin_assets/assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="../admin_assets/js/datatables-simple-demo.js"></script>
-    <script src="../admin_assets/js/todo.js"></script>
+    <script src="/admin_assets/js/datatables-simple-demo.js"></script>
+    <script src="/admin_assets/js/todo.js"></script>
 
     <script>
     $.ajaxSetup({

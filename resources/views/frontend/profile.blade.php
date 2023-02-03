@@ -1,121 +1,78 @@
-@include('frontend.header')
+@include('frontend.sidebar-user-dashboard')
 
 
-<div class="cart-wrapper ">
-    <div class="container">
+<h4 class="pb-2 text-start fw-normal">Edit Profile</h4>
 
-        <!-- breadcrumb start  -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">My Account</li>
-            </ol>
-        </nav>
-        <!-- breadcrumb end  -->
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+<form action="{{ route('update.profile') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="mb-3">
+        @if($profile->customer_image == null)
+        <img src="https://jbsdevices.com/assets/images/1615158947profileimagelogo.png" width="115" loading="lazy"
+            class="mb-3" alt="">
+        @else
 
-        <div class="row mt-5">
-            <div class="col-md-4 mb-5">
-                <div class="container">
-                    <div class="border-end bg-white" id="sidebar-wrapper">
-                        <div class="sidebar-heading border-bottom bg-light"></div>
-                        <div class="list-group list-group-flush">
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                                href="{{ route('customer.dashboard') }}">Dashboard</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                                href="{{ route('customer.orders') }}">Orders</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                                href="{{ route('customer.profile') }}">My
-                                Profile</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Reset
-                                Password</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                                href="{{ route('logout') }}">Logout</a>
+        <img src="{{ asset('image/customer/'.$profile->customer_image) }}" width="115" loading="lazy" class="mb-3"
+            alt="">
+        @endif
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <h2>Edit Profile</h2>
-                <div class="container">
-                    <form>
-                        <div class="row ">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="full_name">Name</label>
-                                    <input type="text" class="form-control" name="full_name" id="full_name">
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" name="email" id="email">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="phone_no">Phone</label>
-                                    <input type="text" class="form-control" name="phone_no" id="phone_no">
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="fax">Fax</label>
-                                    <input type="text" class="form-control" name="fax" id="fax">
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row mt-3">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="city">City</label>
-                                    <select class="form-control" name="city" id="city">
-                                        <option value="">Select</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <select class="form-control" name="country" id="country">
-                                        <option value="">Select</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="zip_code">Zip</label>
-                                    <input type="text" class="form-control" name="zip_code" id="zip_code">
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" name="address" id="address">
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-
+        <div class="col-6"> <input type="file" name="customer_image" id="customer_image"
+                class="form-control border-bottom border-0 rounded-0"></div>
     </div>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="hidden" class="form-control" value="{{ $profile->id }}" name="id">
+            <input type="text" placeholder="Full Name" value="{{ $profile->full_name }}" name="full_name" id="full_name"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+        <div class="col">
+            <input type="email" value="{{ $profile->email }}" name="email" id="email" placeholder="Email"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" placeholder="Phone No." value="{{ $profile->phone_no }}" name="phone_no" id="phone_no"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+        <div class="col">
+            <input type="text" placeholder="Fax" value="{{ $profile->fax_no }}" name="fax_no" id="fax"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" placeholder="City" name="city" id="city" value="{{ $profile->city }}"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+        <div class="col">
+            <select name="country" id="country" class="form-select shadow-none border-bottom border-0 rounded-0">
+                <option value="{{ $profile->country }}">{{ $profile->country }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" placeholder="Zip Code" value="{{ $profile->zip_code }}" name="zip_code" id="zip_code"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+        <div class="col">
+            <input type="text" placeholder="Address" value="{{ $profile->address }}" name="address" id="address"
+                class="form-control shadow-none border-bottom border-0 rounded-0">
+        </div>
+    </div>
+    <div class="col-2"><button class="square-block-btn" type="submit">Save</button></div>
+</form>
+<!-- box end -->
+
+</div>
+</div>
+
+</div>
 </div>
 
 @include('frontend.footer')

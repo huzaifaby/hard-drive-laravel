@@ -23,6 +23,12 @@ class Customers extends Authenticatable
         'phone_no',
         'address',
         'password',
+        'city',
+        'country',
+        'zip_code',
+        'fax_no',
+        "customer_image",
+
     ];
 
 

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +25,8 @@
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"> -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
 
 </head>
 
@@ -83,7 +84,7 @@
     <!-- category start  -->
     <div class="category bg-white py-3 d-none d-lg-block">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-md-2 order-3 mb-3 order-lg-1">
                     <div class="dropdown-left d-lg-block d-none">
                         <button class="square-block-btn" type="button" id="dropdownMenuButton"
@@ -93,7 +94,8 @@
 
                         <ul class="dropdown-menu rounded-0 " aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item border-bottom bg-white" href="#">
+                                <a class="dropdown-item border-bottom bg-white"
+                                    href="{{ url('/category/power-supply-others') }}">
                                     Power Supply & others &raquo;
                                 </a>
                                 <!-- Dropdown menu -->
@@ -102,56 +104,35 @@
                                         <div class="row my-2">
                                             <div class="col-md-6 col-lg-3 mb-3">
                                                 <ul>
+                                                    @foreach($sub_category as $key=>$subcategory)
                                                     <li class="mb-2">
                                                         <a href="#">Memory</a>
                                                     </li>
                                                     <li class="mb-2">
-                                                        <a href="#" class="text-dark">Cras
-                                                            justo odio</a>
+                                                        <a href="{{ url('/category/' . $subcategory->sub_category_slug) }}"
+                                                            class="text-dark">{{ $subcategory->sub_category_name }}</a>
                                                     </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Est
-                                                            iure</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Praesentium</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Laboriosam</a>
-                                                    </li>
+                                                    @endforeach
                                                 </ul>
                                             </div>
-                                            <div class="col-md-6 col-lg-3 mb-3">
-                                                <ul>
-                                                    <li class="mb-2">
-                                                        <a href="#">Memory</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Cras
-                                                            justo odio</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Est
-                                                            iure</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Praesentium</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="#" class="text-dark">Laboriosam</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li><a class="dropdown-item border-bottom bg-white" href="#">Action</a></li>
+                            <li><a class="dropdown-item border-bottom bg-white"
+                                    href="{{ url('/category/networking-devices') }}">Networking Devices</a></li>
                             <li>
-                                <a class="dropdown-item border-bottom bg-white" href="#">Another action</a>
+                                <a class="dropdown-item border-bottom bg-white"
+                                    href="{{ url('/category/memory') }}">Memory</a>
                             </li>
                             <li>
-                                <a class="dropdown-item bg-white mb-0" href="#">See All Categories</a>
+                                <a class="dropdown-item border-bottom bg-white"
+                                    href="{{ url('/category/storage-devices') }}">Storage Devices</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item bg-white mb-0" href="{{ route('category.index') }}">See All
+                                    Categories</a>
                             </li>
                         </ul>
                     </div>
@@ -181,8 +162,10 @@
                                             <i class='bx bx-headphone fs-5'></i>
                                         </div>
                                         <div class="col">
-                                            <a href="tel:{{ $settings[0]->phone_no_1}}" class="text-dark">{{ $settings[0]->phone_no_1}}</a><br>
-                                            <a href="tel:{{ $settings[0]->phone_no_2}}" class="text-dark">{{ $settings[0]->phone_no_2}}</a>
+                                            <a href="tel:{{ $settings[0]->phone_no_1}}"
+                                                class="text-dark">{{ $settings[0]->phone_no_1}}</a><br>
+                                            <a href="tel:{{ $settings[0]->phone_no_2}}"
+                                                class="text-dark">{{ $settings[0]->phone_no_2}}</a>
                                         </div>
                                     </div>
                                 </li>
@@ -192,53 +175,35 @@
                         <div class="col">
                             <ul class="list-group list-group-horizontal-lg">
                                 <li class="list-group-item number border border-0 p-0">
+                                    <?php  if (Auth::guard('customer')->check()) { ?>
+                                    <a href="{{ route('customer.dashboard') }}" class="text-dark">
+                                        <i class="bx bx-user fs-5"></i> <span class="text-dark">Account</span>
+                                    </a>
+                                    <?php } else { ?>
                                     <a href="{{ route('account.show') }}" class="text-dark">
                                         <i class="bx bx-user fs-5"></i> <span class="text-dark">Account</span>
                                     </a>
+                                    <?php }  ?>
+
                                 </li>
                             </ul>
                         </div>
 
                         <div class="col-auto">
-                            <div class="dropdown-center">
+                            <div class="dropdown-center cart-btn">
                                 <button class="bg-white" type="button" id="cartDropdown" data-mdb-toggle="dropdown"
                                     aria-expanded="false">
-                                    <i class='bx bx-shopping-bag'></i><span
-                                        class="badge text-bg-light rounded-circle fw-light cart-btn">{{$total_product_count}}</span> Your Cart
+                                    <i class='bx bx-shopping-bag'></i>
+                                    <span class="badge text-bg-light rounded-circle fw-light cart-count">0</span>
+                                    Your Cart
                                 </button>
-                                <div class="dropdown-menu p-4" aria-labelledby="cartDropdown">
-                                @if(empty($cart))  
-                                <p>No products in the cart.</p>
-                                @endif
+                                <div class="dropdown-menu p-4" style="width: 350px" aria-labelledby="cartDropdown">
+                                    @if(empty($cart))
+                                    <p class="mb-0">No products in the cart.</p>
+                                    @else
                                     <!-- table start  -->
-                                    @if(!empty($cart))
                                     <table class="table table-borderless cart-table">
-                                        <tbody>
-                                       
-                                        @foreach($cart as $id => $details)
-                                            <tr>
-                                                <td>{{ substr($details['product_title'], 0, 30) }}</td>
-                                                <td><img src="{{ asset('image/products/'.$details['product_image']) }}"
-                                                        loading="lazy" width="75" alt=""></td>
-                                                <td><a href="#"  class="remove-from-cart" data-id="{{ $id }}"><i class="bx bx-trash text-danger fs-5"></i></a>
-                                                </td>
-                                                <td>{{ $details['quantity'] }} x ${{ $details['product_price'] }} </td>
-                                            </tr>
-                                            @endforeach
-                                       
-                                            <tr class="border-bottom border-top">
-                                                <td colspan="3" class="text-center">Subtotal: ${{$subtotal}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><a href="{{ route('cart.show') }}" class="square-block-btn">View Cart</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><a href="{{ route('checkout.show') }}"
-                                                        class="square-block-btn bg-secondary">Checkout</a></td>
-
-                                            </tr>
-                                            
+                                        <tbody id="cartTable">
                                         </tbody>
                                     </table>
                                     @endif
@@ -258,70 +223,116 @@
 
     <!-- navbar start  -->
     <nav class="navbar navbar-expand-lg bg-white shadow-none d-sm-block d-lg-none">
-            <div class="container">
-                <div class="row align-items-center w-100">
-                    <div class="col">
-                        <a class="navbar-brand" href="#">
-                            <img src="https://jbsdevices.com/assets/images/1612886525logo.png" class="img-fluid"
-                                loading="lazy" width="100" alt="">
-                        </a>
-                    </div>
-                    <div class="col-auto">
-                        <div>
-                            <ul class="nav me-auto mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#"><i class="bx bx-headphone fs-5"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#"><i class="bx bx-user fs-5"></i></a>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="container">
+            <div class="row align-items-center w-100">
+                <div class="col">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://jbsdevices.com/assets/images/1612886525logo.png" class="img-fluid"
+                            loading="lazy" width="100" alt="">
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <div>
+                        <ul class="nav me-auto mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#"><i class="bx bx-headphone fs-5"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#"><i class="bx bx-user fs-5"></i></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </nav>
-        <!-- navbar end  -->
+        </div>
+    </nav>
+    <!-- navbar end  -->
 
     <!-- mobile header start  -->
     <header class="d-sm-block d-lg-none mainMobileHeader">
 
-        
+
+
 
         <!-- menubar, searchbar and cart start -->
-    <div class="categories d-sm-block d-lg-none">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <button class="bg-white" id="sideNavMenuBar">
-                        <i class="bx bx-menu fs-5"></i>
-                    </button>
-                </div>
-                <div class="col">
-                    <!-- form start  -->
-                    <form class="searchBar">
-                        <input type="search"
-                            placeholder="Please Search by Part Number, by Brand, by Model name or any keyword"
-                            name="search" class="border border-2 w-100">
-                    </form>
-                    <!-- form end  -->
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="position-relative bg-white">
-                        <span class="badge text-bg-danger text-white rounded-circle">1</span>
-                        <i class="bx bx-shopping-bag fs-5"></i>
-                    </button>
+        <div class="categories d-sm-block d-lg-none">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <button class="bg-white" id="sideNavMenuBar">
+                            <i class="bx bx-menu fs-5"></i>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <!-- form start  -->
+                        <form class="searchBar">
+                            <input type="search"
+                                placeholder="Please Search by Part Number, by Brand, by Model name or any keyword"
+                                name="search" class="border border-2 w-100">
+                        </form>
+                        <!-- form end  -->
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="position-relative bg-white" id="cartDropdownMobile"
+                            data-mdb-toggle="dropdown" aria-expanded="false">
+                            <span class="badge text-bg-danger text-white rounded-circle cart-count"></span>
+                            <i class="bx bx-shopping-bag fs-5"></i>
+                        </button>
+                        <div class="dropdown-menu p-4" style="width: 350px" aria-labelledby="cartDropdownMobile">
+                            @if(empty($cart))
+                            <p class="mb-0">No products in the cart.</p>
+                            @endif
+                            <!-- table start  -->
+                            @if(!empty($cart))
+                            <table class="table table-borderless">
+                                <tbody>
+                                    @foreach($cart as $id => $details)
+                                    <tr>
+                                        <td><a href="{{ route('cart.show') }}"
+                                                class="text-dark">{{ substr($details['product_title'], 0, 30) }}<br>
+                                                <p class="mb-0">{{ $details['quantity'] }} x
+                                                    ${{ $details['product_price'] }}</p>
+                                            </a> </td>
+                                        <td><a href="{{ route('cart.show') }}">
+                                                <img src="{{ asset('image/products/'.$details['product_image']) }}"
+                                                    loading="lazy" width="75" alt="">
+                                            </a></td>
+                                        <td><a data-id="{{ $id }}" class="remove-from-cart" href="#"><i
+                                                    class="bx bx-trash text-danger fs-5"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                    <tr class="border-bottom border-top">
+                                        <td colspan="3" class="text-center">Subtotal: ${{$subtotal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><a href="{{ route('cart.show') }}" class="square-block-btn">View
+                                                Cart</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><a href="{{ route('checkout.show') }}"
+                                                class="square-block-btn bg-secondary">Checkout</a></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @endif
+                            <!-- table end  -->
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- menubar, searchbar and cart end -->
+        <!-- menubar, searchbar and cart end -->
 
 
     </header>
     <!-- mobile header end  -->
 
-    
+
 
     <!-- sidebar start  -->
     <nav class="sidenav d-sm-block d-lg-none" id="sideNavBar">
@@ -468,24 +479,5 @@
     <div class="layout-container">
 
 
-    <script>
-$(document).on('click', '.remove-from-cart', function(e) {
-    e.preventDefault();
-    var id = $(this).data('id');
 
-    $.ajax({
-        url: '/cart/remove',
-        method: 'POST',
-        data: {
-            id: id,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(data) {
-          
 
-            location.reload();
-
-        }
-    });
-});
-</script>

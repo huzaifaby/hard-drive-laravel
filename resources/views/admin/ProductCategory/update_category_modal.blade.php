@@ -32,17 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="up_sub_category_name"> Sub Category Name</label>
-                                <input type="text" class="form-control" name="up_sub_category_name"
-                                    id="up_sub_category_name" placeholder="Sub Category Name">
-                            </div>
-                        </div>
-                  
-                    </div>
-
+                
 
                     <div class="row align-items-center">
                         <div class="col">

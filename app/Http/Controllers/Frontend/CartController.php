@@ -45,13 +45,13 @@ class CartController extends Controller
             ];
 
             session()->put('cart', $cart);
-            return response()->json(['success' => 'Product added to cart']);
+            return response()->json(['success' => 'Product added to cart','cart'=>$cart]);
         }
 
         if (isset($cart[$request->id])) {
             $cart[$request->id]['quantity']++;
             session()->put('cart', $cart);
-            return response()->json(['success' => 'Product added to cart']);
+            return response()->json(['success' => 'Product added to cart','cart'=>$cart]);
         }
 
         $cart[$request->id] = [
@@ -64,12 +64,29 @@ class CartController extends Controller
         ];
 
         session()->put('cart', $cart);
-        return response()->json(['success' => 'Product added to cart']);
+        return response()->json(['success' => 'Product added to cart','cart'=>$cart]);
     }
     
-
-
     public function showCart()
+    {
+        return view('frontend.cart');
+    }
+
+    // public function showCart()
+    // {
+    //     $cart = session()->get('cart');
+    //     $subtotal = 0;
+    //     $total_product_count = 0;
+    //     if(!empty($cart)){
+    //     foreach ($cart as $item) {
+    //         $subtotal += $item['product_price'] * $item['quantity'];
+    //         $total_product_count ++;
+    //     }
+    // }
+    //     return view('frontend.cart',compact('cart','subtotal','total_product_count'));
+    // }
+
+    public function loadcart()
     {
         $cart = session()->get('cart');
         $subtotal = 0;
@@ -80,7 +97,8 @@ class CartController extends Controller
             $total_product_count ++;
         }
     }
-        return view('frontend.cart',compact('cart','subtotal','total_product_count'));
+        return response()->json(['cart'=>$cart,'subtotal'=>$subtotal,'total_product_count'=>$total_product_count]);
+
     }
 
 
@@ -114,6 +132,11 @@ public function removeFromCart(Request $request)
     }
 
     //end checkout
+
+
+
+
+
 
     
 
