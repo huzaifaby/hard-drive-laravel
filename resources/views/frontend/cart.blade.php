@@ -17,7 +17,8 @@
             <div class="col-md-8">
                 <!-- table start  -->
                 <div class="table-responsive">
-                    <table class="table huzaifa table-borderless">
+
+                    <table class="table  table-borderless">
                         <thead class="border border-bottom border-0">
                             <tr>
                                 <td colspan="2">Product</td>
@@ -27,39 +28,14 @@
                                 <td>Action</td>
                             </tr>
                         </thead>
-                        <tbody>
-                        @if(!empty($cart))
-                            @foreach($cart as $id => $details)
-                            <tr>
-                                <th><img src="{{ asset('image/products/'.$details['product_image']) }}" loading="lazy"
-                                        width="180" alt=""></th>
-                                <td class="align-middle">{{ $details['product_title'] }}
-                                </td>
-                                <td class="align-middle">${{ $details['product_price'] }}</td>
-                                <td class="align-middle">
-                                    <!-- Inc / Dec start  -->
-                                    <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item "><button class="bg-white plus-button"
-                                                data-id="{{ $id }}" id="plus-button"> <i class="bx bx-plus"></i>
-                                            </button></li>
-                                        <li class="list-group-item">
-                                            <p class="card-text-para mb-0">{{ $details['quantity'] }}</p>
-                                        </li>
-                                        <li class="list-group-item"><button class="bg-white minus-button"
-                                                data-id="{{ $id }}" id="minus-button"> <i class="bx bx-minus"></i>
-                                            </button></li>
-                                    </ul>
-                                    <!-- Inc / Dec end  -->
-                                </td>
-                                <td class="align-middle">${{ $details['quantity'] * $details['product_price'] }}/-</td>
-                                <td class="align-middle"><a href="#" class="remove-from-cart" data-id="{{ $id }}"><i
-                                            class="bx bx-trash text-danger fs-4"></i></a></td>
-                            </tr>
-                            @endforeach
-                            @endif
+
+                        <tbody id="cartpage">
+
                         </tbody>
+
                     </table>
                 </div>
+                <p class="mb-0 no_product">No products in the cart.</p>
                 <!-- table end  -->
             </div>
             <div class="col-md-4">
@@ -69,11 +45,12 @@
                     <div class="card-body">
                         <h3 class="p-2 border-bottom">Cart totals</h3>
                         <div class="table-responsive">
-                            <table class="table huzaifa1">
+
+                            <table class="table">
                                 <tbody>
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td class="text-end">${{$subtotal}}</td>
+                                        <td class="text-end sub-total">${{$subtotal}}</td>
                                     </tr>
                                     <tr>
                                         <td>Tax</td>
@@ -81,12 +58,16 @@
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td class="text-end pb-4">${{$subtotal}}</td>
+                                        <td class="text-end pb-4 sub-total">${{$subtotal}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        @if($subtotal == 0)
+                        <a href="{{ route('cart.show') }}" class="square-block-btn">Proceed to Checkout</a>
+                        @else
                         <a href="{{ route('checkout.show') }}" class="square-block-btn">Proceed to Checkout</a>
+                        @endif
                         <a href="#" class="addtoCompare py-3 border-bottom">Back to Shopping</a>
                         <img src="https://jbsdevices.com/assets/front/images/stripe-payment.png" loading="lazy"
                             class="img-fluid pt-3" alt="">
@@ -103,70 +84,12 @@
 
 
 
-<script>
-$(document).on('click', '.remove-from-cart', function(e) {
-    e.preventDefault();
-    var id = $(this).data('id');
 
-    $.ajax({
-        url: '/cart/remove',
-        method: 'POST',
-        data: {
-            id: id,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(data) {
-          
-
-            location.reload();
-
-        }
-    });
-});
-</script>
 
 
 <script>
-document.querySelectorAll(".plus-button").forEach(function(button) {
-    button.addEventListener("click", function() {
-        var id = button.getAttribute("data-id");
-        updateQuantity(id, 1);
-    });
-});
 
-document.querySelectorAll(".minus-button").forEach(function(button) {
-    button.addEventListener("click", function() {
-        var id = button.getAttribute("data-id");
-        updateQuantity(id, -1);
-    });
-});
-
-function updateQuantity(id, quantity) {
-    $.ajax({
-        type: "PATCH",
-        url: `/cart/${id}`,
-        data: {
-            _token: '{{ csrf_token() }}',
-            quantity: quantity
-        },
-        success: function(response) {
-            // update the quantity and total price on the page
-            // $('.huzaifa').load(location.href + ' .huzaifa');
-            
-            location.reload();
-
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-}
 </script>
 
 
 @include('frontend.footer')
-
-
-
-
-

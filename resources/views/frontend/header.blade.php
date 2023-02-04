@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hard Drive Website</title>
     <meta name="description" content="hard drive website">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="robots" content="noindex, nofollow">
     <!-- CSS link  -->
     <link rel="stylesheet" href="../frontend_assets/css/style.css">
@@ -26,7 +28,29 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" />
+
+    <style>
+    #search_list {
+        display: none;
+        position: absolute;
+        background-color: white;
+        width: 544px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 12px 16px;
+        z-index: 999;
+        margin-top: 45px;
+    }
+
+    #search_list div {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    #search_list div:hover {
+        background-color: #ddd;
+    }
+    </style>
 
 </head>
 
@@ -141,12 +165,14 @@
                 <div class="col-md-5 mb-3 order-1 order-lg-2">
 
                     <!-- form start  -->
-                    <form class="searchBar">
+                    <div class="searchBar">
                         <input type="search"
                             placeholder="Please Search by Part Number, by Brand, by Model name or any keyword"
-                            name="search">
-                        <button type="submit"><i class="bx bx-search"></i></button>
-                    </form>
+                            id="searchName" name="search">
+
+                        <button type="submit" id="searchProduct"><i class="bx bx-search"></i></button>
+                        <div id="search_list"></div>
+                    </div>
                     <!-- form end  -->
 
                 </div>
@@ -198,15 +224,15 @@
                                     Your Cart
                                 </button>
                                 <div class="dropdown-menu p-4" style="width: 350px" aria-labelledby="cartDropdown">
-                                    @if(empty($cart))
-                                    <p class="mb-0">No products in the cart.</p>
-                                    @else
+
+                                    <p class="mb-0 no_product">No products in the cart.</p>
+
                                     <!-- table start  -->
                                     <table class="table table-borderless cart-table">
                                         <tbody id="cartTable">
                                         </tbody>
                                     </table>
-                                    @endif
+
                                     <!-- table end  -->
 
                                 </div>
@@ -297,7 +323,7 @@
                                                 <img src="{{ asset('image/products/'.$details['product_image']) }}"
                                                     loading="lazy" width="75" alt="">
                                             </a></td>
-                                        <td><a data-id="{{ $id }}" class="remove-from-cart" href="#"><i
+                                        <td><a data-id="{{ $id }}" class="remove-from-cartt" href="#"><i
                                                     class="bx bx-trash text-danger fs-5"></i></a>
                                         </td>
                                     </tr>
@@ -481,3 +507,215 @@
 
 
 
+        <script>
+        $(document).ready(function() {
+
+
+            loadcart();
+
+
+            //add to cart
+            $('.add-to-cart').click(function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '/cart/add',
+                    method: 'POST',
+                    data: {
+                        id: id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        Swal.fire({
+                            position: 'top-end',
+                            // icon: 'success',
+                            title: '✔️ Product added to cart',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        loadcart();
+                    }
+                });
+            });
+
+
+            // load cart
+            function loadcart() {
+                $.ajax({
+                    url: "/load-cart-data",
+                    method: "GET",
+                    success: function(response) {
+                        $('.cart-count').html(response.total_product_count);
+                        $('.sub-total').html(response.subtotal);
+                        let cart = response.cart;
+                        let cartTable = $('#cartTable');
+                        let cartpage = $('#cartpage');
+                        cartTable.html('');
+                        cartpage.html('');
+
+                        if (Object.keys(cart).length === 0) {
+                            $(".no_product").show();
+                            $(".cart-table").hide();
+                            return;
+                        } else {
+                            $(".no_product").hide();
+                            $(".cart-table").show();
+                            for (let id in cart) {
+                                let details = cart[id];
+                                let productTitle = details['product_title'];
+                                let quantity = details['quantity'];
+                                let productPrice = details['product_price'];
+                                let productImage = details['product_image'];
+
+                                let row = `<tr>
+                        <td><a href="{{ route('cart.show') }}" class="text-dark">${productTitle.substr(0, 30)}<br>
+                            <p class="mb-0">${quantity} x $${productPrice}</p>
+                        </a></td>
+                        <td><a href="{{ route('cart.show') }}">
+                            <img src="{{ asset('image/products/') }}/${productImage}" loading="lazy" width="75" alt=""></a></td>
+                        <td><a data-id="${id}" class="remove-from-cart" href="#">
+                            <i class="bx bx-trash text-danger fs-5"></i></a></td>
+                    </tr>`;
+
+                                cartTable.append(row);
+
+
+                                let row1 = `
+                                    <tr>
+                                    <th><img src="{{ asset('image/products/') }}/${productImage}" loading="lazy" width="180" alt=""></th>
+                                    <td class="align-middle">${productTitle}</td>
+                                    <td class="align-middle">$${productPrice}</td>
+                                    <td class="align-middle">
+                                        <!-- Inc / Dec start  -->
+                                        <ul class="list-group list-group-horizontal">
+                                        <li class="list-group-item "><button class="bg-white plus-button" data-id="${id}" id="plus-button"> <i class="bx bx-plus"></i></button></li>
+                                        <li class="list-group-item">
+                                            <p class="card-text-para mb-0">${quantity}</p>
+                                        </li>
+                                        <li class="list-group-item"><button class="bg-white minus-button" data-id="${id}" id="minus-button"> <i class="bx bx-minus"></i></button></li>
+                                        </ul>
+                                      
+                                    </td>
+                                    <td class="align-middle">$${quantity * productPrice}/-</td>
+                                    <td class="align-middle"><a href="#" class="remove-from-cart" data-id="${id}"><i class="bx bx-trash text-danger fs-4"></i></a></td>
+                                    </tr>
+                                `;
+                                cartpage.append(row1);
+                            }
+
+                            let subTotalRow = `<tr class="border-bottom border-top">
+                    <td colspan="3" class="text-center sub-total">Subtotal: $${response.subtotal}</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><a href="{{ route('cart.show') }}" class="square-block-btn">View Cart</a></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><a href="{{ route('checkout.show') }}" class="square-block-btn bg-secondary">Checkout</a></td>
+                </tr>`;
+
+                            cartTable.append(subTotalRow);
+                        }
+                    }
+                });
+            }
+
+
+
+
+            //remove cart
+            $(document).on('click', '.remove-from-cart', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '/cart/remove',
+                    method: 'POST',
+                    data: {
+                        id: id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+
+
+                        loadcart();
+
+                    }
+                });
+            });
+
+            $(document).on('click', '#plus-button', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: '/update-cart/' + id,
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "quantity": 1
+                    },
+                    success: function(response) {
+                        loadcart();
+                    }
+                });
+            });
+
+            $(document).on('click', '#minus-button', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: '/update-cart/' + id,
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "quantity": -1
+                    },
+                    success: function(response) {
+                        loadcart();
+                    }
+                });
+            });
+
+
+
+        });
+        </script>
+
+
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('#searchName').on('keyup', function() {
+                var query = $(this).val();
+
+                if (query.length > 0) {
+                    $.ajax({
+                        url: "{{ url('autocomplete-search') }}",
+                        type: "GET",
+                        data: {
+                            'query': query
+                        },
+                        success: function(data) {
+                            $('#search_list').css('display', 'block');
+                            $('#search_list').html('');
+                            $.each(data, function(key, value) {
+                                $('#search_list').append('<div><a href="/product-detail/' +
+                                    value.product_slug +
+                                    '"><img width="180" src="{{ asset("image/products" ) }}/' +
+                                    value.product_image + '"></a>' +
+                                    '<br><a href="/product-detail/' + value
+                                    .product_slug + '">' + value.product_title +
+                                    '</a>' + '<br><span>Price: ' + value
+                                    .product_price + '</span></div>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#search_list').html('');
+                }
+            });
+
+            $("#searchProduct").click(function() {
+                window.location.href = "/search?search=" + $("#searchName").val();
+            });
+        });
+        </script>

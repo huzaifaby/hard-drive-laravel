@@ -37,6 +37,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
    
         //index
         Route::get('/',[IndexController::class,'index'])->name('index');
+
+        Route::get('/autocomplete-search',[IndexController::class,'autocompleteSearch']);
+
+        Route::get('/search', [IndexController::class,'search']);
+
         //end
 
 
@@ -45,7 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/load-cart-data',[CartController::class, 'loadcart']);
         Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
         Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
-        Route::patch('/cart/{id}', 'App\Http\Controllers\Frontend\CartController@updateCart');
+        Route::post('/update-cart/{id}', [CartController::class, 'updateCart'])->name('updateCart');
         //end
 
         //checkout page code
@@ -67,6 +72,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
        //category detail
         Route::get('category/{category_slug}', [CategoriesController::class,'CategoryDetail'])->name('category.detail');
         //end
+
+
 
 
         //frontend work end

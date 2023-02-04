@@ -49,6 +49,24 @@ class IndexController extends Controller
 
 
 
+    public function autocompleteSearch(Request $request)
+    {
+        $query = $request->input('query');
+        $data = Product::where('product_title', 'LIKE', '%'. $query. '%')->get();
+        return response()->json($data);
+    } 
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $data = Product::where('product_title', 'LIKE', '%'. $search. '%')->get();
+
+        return view('frontend.search')->with(compact('data'));
+
+    }
+
+
+
 
 
  

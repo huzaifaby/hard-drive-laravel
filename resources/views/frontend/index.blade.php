@@ -162,9 +162,7 @@
                                                     <p class="card-text-para">{{ $latestproducts->product_title }}</p>
                                                     <a href="javascript:void(0)"
                                                         class="mb-2 pills-block-btn add-to-cart"
-                                                        data-id="{{ $latestproducts->id }}"
-                                                        data-name="{{ $latestproducts->product_title }}"
-                                                        data-price="{{ $latestproducts->product_price }}">
+                                                        data-id="{{ $latestproducts->id }}" >
                                                         <i class="bx bx-cart"></i> Add to Cart
                                                     </a>
                                                     <a href="#" class="addtoCompare">+ Add to
@@ -201,7 +199,7 @@
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $saleproducts->product_price }}/-</h5>
                                                     <p class="card-text-para">{{ $saleproducts->product_title }}</p>
-                                                    <a href="#" class="mb-2 pills-block-btn">
+                                                    <a href="javascript:void(0)"  data-id="{{ $latestproducts->id }}" class="mb-2 pills-block-btn add-to-cart">
                                                         <i class="bx bx-cart"></i> Add to Cart
                                                     </a>
                                                     <a href="#" class="addtoCompare">+ Add to
@@ -240,7 +238,7 @@
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $featuredproducts->product_price }}/-</h5>
                                                     <p class="card-text-para">{{ $featuredproducts->product_title }}</p>
-                                                    <a href="#" class="mb-2 pills-block-btn">
+                                                    <a href="javascript:void(0)" data-id="{{ $featuredproducts->id }}" class="mb-2 pills-block-btn add-to-cart">
                                                         <i class="bx bx-cart"></i> Add to Cart</a>
                                                     <a href="#" class="addtoCompare">+ Add to
                                                         Compare</a>
@@ -402,7 +400,7 @@
                                     <p class="card-text mb-3">{{ $desktopmotherboard->product_title }}
                                     </p>
                                 </a>
-                                <a href="#" class="mb-2 pills-block-btn"> <i class="bx bx-cart"></i>
+                                <a href="add-to-cart" data-id="{{ $desktopmotherboard->id }}" class="mb-2 pills-block-btn add-to-cart"> <i class="bx bx-cart"></i>
                                     Add to Cart</a>
                                 <a href="#" class="addtoCompare ">+ Add to
                                     Compare</a>
@@ -462,7 +460,7 @@
                                             </h5>
                                             <p class="card-text-para">${{ $Network->product_title }}/-</p>
                                         </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
+                                        <a href="add-to-cart" data-id="{{ $Network->id }}" class="mb-2 pills-block-btn add-to-cart">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
@@ -496,7 +494,7 @@
                                                 ${{ $powersupplyunit->product_price }}/-</h5>
                                             <p class="card-text-para">${{ $powersupplyunit->product_title }}/-</p>
                                         </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
+                                        <a href="javascript:void(0)" data-id="{{ $powersupplyunit->id }}" class="mb-2 pills-block-btn add-to-cart">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
@@ -529,7 +527,7 @@
                                             </h5>
                                             <p class="card-text-para">${{ $memories->product_title }}/-</p>
                                         </a>
-                                        <a href="#" class="mb-2 pills-block-btn">
+                                        <a href="javascript:void(0)" data-id="{{ $memories->id }}" class="mb-2 pills-block-btn add-to-cart">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
@@ -579,117 +577,5 @@
 </div>
 <!-- brand section end  -->
 
-<script>
-$(document).ready(function() {
-
-  
-loadcart();
-
-
-    //add to cart
-    $('.add-to-cart').click(function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        var name = $(this).data('name');
-        var price = $(this).data('price');
-
-        $.ajax({
-            url: '/cart/add',
-            method: 'POST',
-            data: {
-                id: id,
-                name: name,
-                price: price,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(data) {
-                Swal.fire({
-                    position: 'top-end',
-                    // icon: 'success',
-                    title: '✔️ Product added to cart',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                loadcart();
-            }
-        });
-    });
-
-
-    // load cart
-    function loadcart() {
-    $.ajax({
-        url: "/load-cart-data",
-        method: "GET",
-        success: function(response) {
-            $('.cart-count').html(response.total_product_count);
-            $('.sub-total').html(response.subtotal);        
-            let cart = response.cart;
-            let cartTable = $('#cartTable');
-            cartTable.html('');
-
-            for (let id in cart) {
-                let details = cart[id];
-                let productTitle = details['product_title'];
-                let quantity = details['quantity'];
-                let productPrice = details['product_price'];
-                let productImage = details['product_image'];
-                
-
-                let row = `<tr>
-                    <td><a href="{{ route('cart.show') }}" class="text-dark">${productTitle.substr(0, 30)}<br>
-                        <p class="mb-0">${quantity} x $${productPrice}</p>
-                    </a></td>
-                    <td><a href="{{ route('cart.show') }}">
-                        <img src="{{ asset('image/products/') }}/${productImage}" loading="lazy" width="75" alt=""></a></td>
-                    <td><a data-id="${id}" class="remove-from-cart" href="#">
-                        <i class="bx bx-trash text-danger fs-5"></i></a></td>
-                </tr>`;
-
-                cartTable.append(row);
-            }
-           
-            let subTotalRow = `<tr class="border-bottom border-top">
-                <td colspan="3" class="text-center sub-total">Subtotal: $${response.subtotal}</td>
-            </tr>
-            <tr>
-                <td colspan="3"><a href="{{ route('cart.show') }}" class="square-block-btn">View Cart</a></td>
-            </tr>
-            <tr>
-                <td colspan="3"><a href="{{ route('checkout.show') }}" class="square-block-btn bg-secondary">Checkout</a></td>
-            </tr>`;
-
-            cartTable.append(subTotalRow);
-        }
-    });
-}
-
-
-
-
-    //remove cart
-    $('.remove-from-cart').click(function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-
-        $.ajax({
-            url: '/cart/remove',
-            method: 'POST',
-            data: {
-                id: id,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(data) {
-
-
-                $('.cart-btn').load(location.href + ' .cart-btn');
-                // location.reload();
-            }
-        });
-    });
-
-
-});
-</script>
 
 @include('frontend.footer')

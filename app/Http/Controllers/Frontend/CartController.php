@@ -118,8 +118,14 @@ public function removeFromCart(Request $request)
 {
     $cart = $request->session()->get('cart');
     $cart[$id]['quantity'] += $request->quantity;
-    $cart[$id]['total_price'] = $cart[$id]['quantity'] * $cart[$id]['product_price'];
+    if ($cart[$id]['quantity'] <= 0) {
+        unset($cart[$id]);
+    } else {
+        $cart[$id]['total_price'] = $cart[$id]['quantity'] * $cart[$id]['product_price'];
+    }
     $request->session()->put('cart', $cart);
+    return response()->json(['message' => 'Product removed from cart successfully.']);
+
 }
 
 //add to cart end
