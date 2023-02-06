@@ -45,23 +45,25 @@
                     <!-- Swiper -->
                     <div class="swiper latestProductSwiper">
                         <div class="swiper-wrapper pb-5">
+                            @foreach($latest_products as $key=>$latestproducts)
                             <div class="swiper-slide">
-
                                 <!-- swiper box start -->
+
                                 <div class="card border-end-0 border-start-0 rounded-0 mt-3 shadow-none">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
+                                                <a href="product-detail/{{ $latestproducts->product_slug }}">
+                                                    <img src="{{ asset('image/products/'.$latestproducts->product_image) }}"
                                                         class="img-fluid" width="84" loading="lazy" alt="...">
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a href="">
-                                                    <p class="card-title-price">$17/-</p>
+                                                    <p class="card-title-price">${{ $latestproducts->product_price }}/-
+                                                    </p>
                                                     <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
+                                                        {{ substr($latestproducts->product_title, 0, 50) . '...' }}
                                                     </p>
                                                 </a>
                                             </div>
@@ -69,188 +71,9 @@
                                     </div>
                                 </div>
 
-                                <div class="card border-end-0 border-start-0 border-top-0 rounded-0 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card border-end-0 border-start-0 border-top-0 rounded-0 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- swiper box end -->
-
                             </div>
-
-                            <div class="swiper-slide">
-
-                                <!-- swiper box start -->
-                                <div class="card border-end-0 border-start-0 rounded-0 mt-3 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card border-end-0 border-start-0 border-top-0 rounded-0 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card border-end-0 border-start-0 border-top-0 rounded-0 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- swiper box end -->
-
-                            </div>
-
-                            <div class="swiper-slide">
-
-                                <!-- swiper box start -->
-                                <div class="card border-end-0 border-start-0 rounded-0 mt-3 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card border-end-0 border-start-0 border-top-0 rounded-0 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card border-end-0 border-start-0 border-top-0 rounded-0 shadow-none">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="">
-                                                    <img src="https://jbsdevices.com/assets/images/products/MT8HTF6464HY-800.jpg"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="">
-                                                    <p class="card-title-price">$17/-</p>
-                                                    <p class="card-text">
-                                                        MT8HTF6464HY-800 Micron 512MB DDR2-800MHz PC2-6400 non
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- swiper box end -->
-
-                            </div>
+                            @endforeach
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -271,17 +94,18 @@
 
                     <div class="row">
 
-                    @foreach($all_categories as $key=>$allcategories)
+                        @foreach($all_categories as $key=>$allcategories)
                         <div class="col-md-3 mb-3">
                             <div class="card">
-                                <div class="card-body"> 
+                                <div class="card-body">
                                     <a href="{{ url('/category/' . $allcategories->category_slug) }}">
                                         <img src="{{ asset('image/category/'.$allcategories->category_image) }}"
                                             class="img-fluid" loading="lazy" alt="...">
                                     </a>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <a href="category/{{ $allcategories->category_slug }}" class="card-text text-center">{{ $allcategories->category_name }}</a>
+                                    <a href="category/{{ $allcategories->category_slug }}"
+                                        class="card-text text-center">{{ $allcategories->category_name }}</a>
                                 </div>
                             </div>
                         </div>

@@ -118,11 +118,14 @@ public function updateOrders(Request $request){
 
 
     //delete orders
-    public function deleteProduct(Request $request){
+    public function deleteOrders(Request $request){
 
     $id = $request->product_id;
     $orders = Orders::find($id);
     $orders->delete();
+    
+    BillingDetails::where('order_id', $request->product_id)->delete();
+    ShippingDetails::where('order_id', $request->product_id)->delete();
 
     // Orders::find($request->product_id)->delete();
 

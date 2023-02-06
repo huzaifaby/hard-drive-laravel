@@ -23,10 +23,10 @@
             <!-- center  -->
             <div class="col-md-6">
                 <h3>
-                {{ $product->product_title }}
+                    {{ $product->product_title }}
                 </h3>
                 <p class="card-title-price fs-3 mt-2">
-                {{ $product->product_price }}
+                    {{ $product->product_price }}
                 </p>
                 <hr>
                 <table class="table table-striped">
@@ -59,21 +59,26 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <!-- Inc / Dec start  -->
-                        <ul class="list-group list-group-horizontal-lg text-center">
-                            <li class="list-group-item"><button class="bg-white"> <i class='bx bx-plus'></i> </button>
+                        <ul class="list-group list-group-horizontal-lg text-center number">
+                            <li class="list-group-item">
+                                <span class="bg-white minus"> - </span>
                             </li>
                             <li class="list-group-item">
-                                <p class="card-text-para mb-0">1</p>
+                                <input type="text" class="card-text-para mb-0" id="quantities" name="quantities"
+                                    value="1" />
                             </li>
-                            <li class="list-group-item"><button class="bg-white"> <i class="bx bx-minus"></i> </button>
+                            <li class="list-group-item">
+                                <span class="bg-white plus"> + </span>
                             </li>
                         </ul>
+
                         <!-- Inc / Dec end  -->
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <!-- addto cart btns  -->
-                        <a href="#" class="square-block-btn"><i class="bx bx-cart"></i> Add to Cart</a>
+                        <a href="javascript:void(0)" class="square-block-btn add-to-cart"
+                            data-id="{{ $product->id }}"><i class="bx bx-cart"></i> Add to Cart</a>
                         <!-- addto cart btns / -->
                     </div>
 
@@ -618,79 +623,46 @@
         <h3 class="mt-5">Related Products</h3>
         <span class="heading-border"></span>
 
-        <!-- boxes start  -->
-        <div class="row mt-4">
 
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="">
-                            <img src="https://jbsdevices.com/assets/images/products/5188-5464-5188-5464_xdngfkxwn9lccmkv.jpg"
-                                class="img-fluid" loading="lazy" alt="...">
-                            <h5 class="card-title-price text-center">$83.50/-</h5>
-                            <p class="card-text-para">X7DBE-X-O Supermicro Dual LGA771 Xeon/ Intel 5000P/ PCI</p>
-                        </a>
-                        <a href="#" class="mb-2 pills-block-btn"> <i class="bx bx-cart"></i>
-                            Add to Cart</a>
-                        <a href="#" class="addtoCompare">+ Add to
-                            Compare</a>
+
+
+        <!-- box start  -->
+        <!-- Swiper -->
+
+        <div class="swiper productSlide mt-5">
+            <div class="swiper-wrapper pb-5">
+
+
+                @foreach($related_products as $key=>$relatedproducts)
+                <div class="swiper-slide">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="product-detail/{{ $relatedproducts->product_slug }}">
+                                <img src="{{ asset('image/products/'.$relatedproducts->product_image) }}"
+                                    class="img-fluid" loading="lazy" alt="...">
+                                <h5 class="card-title-price text-center">
+                                    ${{ $relatedproducts->product_price }}/-</h5>
+                                <p class="card-text-para">{{ $relatedproducts->product_title }}</p>
+                                <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                    data-id="{{ $relatedproducts->id }}">
+                                    <i class="bx bx-cart"></i> Add to Cart
+                                </a>
+                                <a href="#" class="addtoCompare">+ Add to
+                                    Compare</a>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+                @endforeach
 
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="">
-                            <img src="https://jbsdevices.com/assets/images/products/5188-5464-5188-5464_xdngfkxwn9lccmkv.jpg"
-                                class="img-fluid" loading="lazy" alt="...">
-                            <h5 class="card-title-price text-center">$83.50/-</h5>
-                            <p class="card-text-para">X7DBE-X-O Supermicro Dual LGA771 Xeon/ Intel 5000P/ PCI</p>
-                        </a>
-                        <a href="#" class="mb-2 pills-block-btn"> <i class="bx bx-cart"></i>
-                            Add to Cart</a>
-                        <a href="#" class="addtoCompare">+ Add to
-                            Compare</a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="">
-                            <img src="https://jbsdevices.com/assets/images/products/5188-5464-5188-5464_xdngfkxwn9lccmkv.jpg"
-                                class="img-fluid" loading="lazy" alt="...">
-                            <h5 class="card-title-price text-center">$83.50/-</h5>
-                            <p class="card-text-para">X7DBE-X-O Supermicro Dual LGA771 Xeon/ Intel 5000P/ PCI</p>
-                        </a>
-                        <a href="#" class="mb-2 pills-block-btn"> <i class="bx bx-cart"></i>
-                            Add to Cart</a>
-                        <a href="#" class="addtoCompare">+ Add to
-                            Compare</a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="">
-                            <img src="https://jbsdevices.com/assets/images/products/5188-5464-5188-5464_xdngfkxwn9lccmkv.jpg"
-                                class="img-fluid" loading="lazy" alt="...">
-                            <h5 class="card-title-price text-center">$83.50/-</h5>
-                            <p class="card-text-para">X7DBE-X-O Supermicro Dual LGA771 Xeon/ Intel 5000P/ PCI</p>
-                        </a>
-                        <a href="#" class="mb-2 pills-block-btn"> <i class="bx bx-cart"></i>
-                            Add to Cart</a>
-                        <a href="#" class="addtoCompare">+ Add to
-                            Compare</a>
-                    </div>
-                </div>
-            </div>
 
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
-        <!-- boxes end  -->
+        <!-- box end -->
+
 
     </div>
 </div>
@@ -709,5 +681,25 @@
     </div>
 </div>
 <!-- image show on click end -->
+
+<script>
+$(document).ready(function() {
+    $('.minus').click(function() {
+        var $input = $(this).parent().siblings().find('input');
+        var count = parseInt($input.val()) - 1;
+        count = count < 1 ? 1 : count;
+        $input.val(count);
+        $input.change();
+        return false;
+    });
+    $('.plus').click(function() {
+        var $input = $(this).parent().siblings().find('input');
+        $input.val(parseInt($input.val()) + 1);
+        $input.change();
+        return false;
+    });
+});
+</script>
+
 
 @include('frontend.footer')

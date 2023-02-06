@@ -44,7 +44,7 @@
                                 <a href="edit-orders/{{ $order->orders_id }}" class="btn btn-success">
                                     <i class="fas fa-edit"></i></a>
 
-                                <a href="" data-id="{{ $order->product_id }}" class="btn btn-danger delete_orders">
+                                <a href="" data-id="{{ $order->orders_id }}" class="btn btn-danger delete_orders">
                                     <i class="las la-trash-alt"></i></a>
                             </td>
                     </tr>

@@ -59,7 +59,7 @@
                                 <img src="{{ asset('image/products/'.$productsbycategory->product_image) }}"
                                     class="img-fluid" loading="lazy" alt="...">
                                 <h5 class="card-title-price text-center">${{ $productsbycategory->product_price }}/-</h5>
-                                <p class="card-text-para">{{ $productsbycategory->product_title }}</p>
+                                <p class="card-text-para">{{ substr($productsbycategory->product_title, 0, 50) . '...' }}</p>
                                 </a>
                                 <a href="#" class="mb-2 pills-block-btn">
                                     <i class="bx bx-cart"></i> Add to Cart</a>

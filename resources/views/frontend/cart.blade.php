@@ -50,7 +50,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td class="text-end sub-total">${{$subtotal}}</td>
+                                        <td class="text-end sub-total"></td>
                                     </tr>
                                     <tr>
                                         <td>Tax</td>
@@ -58,7 +58,7 @@
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td class="text-end pb-4 sub-total">${{$subtotal}}</td>
+                                        <td class="text-end pb-4 sub-total"></td>
                                     </tr>
                                 </tbody>
                             </table>

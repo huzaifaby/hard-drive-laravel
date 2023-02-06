@@ -37,7 +37,7 @@ class CartController extends Controller
                 $request->id => [
                     "user_id" => $user_id,
                     "product_title" => $product->product_title,
-                    "quantity" => 1,
+                    "quantity" => $request->quantities,
                     "product_price" => $product->product_price,
                     "product_image" => $product->product_image,
                     "id" => $product->id,
@@ -49,7 +49,9 @@ class CartController extends Controller
         }
 
         if (isset($cart[$request->id])) {
-            $cart[$request->id]['quantity']++;
+            // $cart[$request->id]['quantity']++;
+            $cart[$request->id]['quantity'] = $cart[$request->id]['quantity'] + $request->quantities;
+
             session()->put('cart', $cart);
             return response()->json(['success' => 'Product added to cart','cart'=>$cart]);
         }
@@ -57,7 +59,7 @@ class CartController extends Controller
         $cart[$request->id] = [
             "user_id" => $user_id,
             "product_title" => $product->product_title,
-            "quantity" => 1,
+            "quantity" => $request->quantities,
             "product_price" => $product->product_price,
             "product_image" => $product->product_image,
             "id" => $product->id,

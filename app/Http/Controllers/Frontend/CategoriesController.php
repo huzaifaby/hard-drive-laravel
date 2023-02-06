@@ -16,7 +16,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $all_categories = ProductCategory::all();
-        return view('frontend.category')->with(compact('all_categories'));
+        $latest_products = Product::orderBy('id', 'desc')->get();
+        return view('frontend.category')->with(compact('all_categories'))->with(compact('latest_products'));
     }  
 
 

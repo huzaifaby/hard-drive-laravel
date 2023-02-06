@@ -159,10 +159,10 @@
                                                         class="img-fluid" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $latestproducts->product_price }}/-</h5>
-                                                    <p class="card-text-para">{{ $latestproducts->product_title }}</p>
-                                                    <a href="javascript:void(0)"
+                                                        <p class="card-text-para">{{ substr($latestproducts->product_title, 0, 50) . '...' }}</p>                              
+                                                       <a href="javascript:void(0)"
                                                         class="mb-2 pills-block-btn add-to-cart"
-                                                        data-id="{{ $latestproducts->id }}" >
+                                                        data-id="{{ $latestproducts->id }}">
                                                         <i class="bx bx-cart"></i> Add to Cart
                                                     </a>
                                                     <a href="#" class="addtoCompare">+ Add to
@@ -198,8 +198,9 @@
                                                         class="img-fluid" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $saleproducts->product_price }}/-</h5>
-                                                    <p class="card-text-para">{{ $saleproducts->product_title }}</p>
-                                                    <a href="javascript:void(0)"  data-id="{{ $latestproducts->id }}" class="mb-2 pills-block-btn add-to-cart">
+                                                    <p class="card-text-para">{{ substr($saleproducts->product_title, 0, 50) . '...' }}</p>
+                                                    <a href="javascript:void(0)" data-id="{{ $latestproducts->id }}"
+                                                        class="mb-2 pills-block-btn add-to-cart">
                                                         <i class="bx bx-cart"></i> Add to Cart
                                                     </a>
                                                     <a href="#" class="addtoCompare">+ Add to
@@ -237,8 +238,9 @@
                                                         class="img-fluid" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $featuredproducts->product_price }}/-</h5>
-                                                    <p class="card-text-para">{{ $featuredproducts->product_title }}</p>
-                                                    <a href="javascript:void(0)" data-id="{{ $featuredproducts->id }}" class="mb-2 pills-block-btn add-to-cart">
+                                                    <p class="card-text-para">{{ substr($featuredproducts->product_title, 0, 50) . '...' }}</p>
+                                                    <a href="javascript:void(0)" data-id="{{ $featuredproducts->id }}"
+                                                        class="mb-2 pills-block-btn add-to-cart">
                                                         <i class="bx bx-cart"></i> Add to Cart</a>
                                                     <a href="#" class="addtoCompare">+ Add to
                                                         Compare</a>
@@ -397,10 +399,11 @@
                             <div class="col-md-6">
                                 <a href="product-detail/{{ $desktopmotherboard->product_slug }}">
                                     <h5 class="card-title-price">{{ $desktopmotherboard->product_price }}</h5>
-                                    <p class="card-text mb-3">{{ $desktopmotherboard->product_title }}
+                                    <p class="card-text mb-3">{{ substr($desktopmotherboard->product_title, 0, 50) . '...' }}
                                     </p>
                                 </a>
-                                <a href="add-to-cart" data-id="{{ $desktopmotherboard->id }}" class="mb-2 pills-block-btn add-to-cart"> <i class="bx bx-cart"></i>
+                                <a href="add-to-cart" data-id="{{ $desktopmotherboard->id }}"
+                                    class="mb-2 pills-block-btn add-to-cart"> <i class="bx bx-cart"></i>
                                     Add to Cart</a>
                                 <a href="#" class="addtoCompare ">+ Add to
                                     Compare</a>
@@ -458,9 +461,10 @@
                                                 class="img-fluid" loading="lazy" alt="...">
                                             <h5 class="card-title-price text-center">${{ $Network->product_price }}/-
                                             </h5>
-                                            <p class="card-text-para">${{ $Network->product_title }}/-</p>
+                                            <p class="card-text-para">{{ substr($Network->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="add-to-cart" data-id="{{ $Network->id }}" class="mb-2 pills-block-btn add-to-cart">
+                                        <a href="add-to-cart" data-id="{{ $Network->id }}"
+                                            class="mb-2 pills-block-btn add-to-cart">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
@@ -492,9 +496,10 @@
                                                 class="img-fluid" loading="lazy" alt="...">
                                             <h5 class="card-title-price text-center">
                                                 ${{ $powersupplyunit->product_price }}/-</h5>
-                                            <p class="card-text-para">${{ $powersupplyunit->product_title }}/-</p>
+                                            <p class="card-text-para">{{ substr($powersupplyunit->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="javascript:void(0)" data-id="{{ $powersupplyunit->id }}" class="mb-2 pills-block-btn add-to-cart">
+                                        <a href="javascript:void(0)" data-id="{{ $powersupplyunit->id }}"
+                                            class="mb-2 pills-block-btn add-to-cart">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
@@ -525,9 +530,10 @@
                                                 class="img-fluid" loading="lazy" alt="...">
                                             <h5 class="card-title-price text-center">${{ $memories->product_price }}/-
                                             </h5>
-                                            <p class="card-text-para">${{ $memories->product_title }}/-</p>
+                                            <p class="card-text-para">{{ substr($memories->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="javascript:void(0)" data-id="{{ $memories->id }}" class="mb-2 pills-block-btn add-to-cart">
+                                        <a href="javascript:void(0)" data-id="{{ $memories->id }}"
+                                            class="mb-2 pills-block-btn add-to-cart">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>

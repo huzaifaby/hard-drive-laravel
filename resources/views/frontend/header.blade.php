@@ -29,7 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
     <style>
     #search_list {
         display: none;
@@ -49,6 +49,12 @@
 
     #search_list div:hover {
         background-color: #ddd;
+    }
+
+    /* isko correct krna hai */
+    input#quantities {
+        height: 16px;
+        width: 68px;
     }
     </style>
 
@@ -518,12 +524,13 @@
             $('.add-to-cart').click(function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-
+                var quantities = $('#quantities').val() || 1;
                 $.ajax({
                     url: '/cart/add',
                     method: 'POST',
                     data: {
                         id: id,
+                        quantities: quantities,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(data) {
@@ -547,7 +554,7 @@
                     method: "GET",
                     success: function(response) {
                         $('.cart-count').html(response.total_product_count);
-                        $('.sub-total').html(response.subtotal);
+                        $('.sub-total').html('$' + response.subtotal);
                         let cart = response.cart;
                         let cartTable = $('#cartTable');
                         let cartpage = $('#cartpage');
@@ -589,11 +596,11 @@
                                     <td class="align-middle">
                                         <!-- Inc / Dec start  -->
                                         <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item "><button class="bg-white plus-button" data-id="${id}" id="plus-button"> <i class="bx bx-plus"></i></button></li>
+                                        <li class="list-group-item"><button class="bg-white minus-button" data-id="${id}" id="minus-button"> <i class="bx bx-minus"></i></button></li>
                                         <li class="list-group-item">
                                             <p class="card-text-para mb-0">${quantity}</p>
                                         </li>
-                                        <li class="list-group-item"><button class="bg-white minus-button" data-id="${id}" id="minus-button"> <i class="bx bx-minus"></i></button></li>
+                                        <li class="list-group-item "><button class="bg-white plus-button" data-id="${id}" id="plus-button"> <i class="bx bx-plus"></i></button></li>
                                         </ul>
                                       
                                     </td>
@@ -698,19 +705,19 @@
                             $('#search_list').css('display', 'block');
                             $('#search_list').html('');
                             $.each(data, function(key, value) {
-                                $('#search_list').append('<div><a href="/product-detail/' +
+                                $('#search_list').append(
+                                    '<div class="row align-items-center border-bottom"><div class="col-auto"><a href="/product-detail/' +
                                     value.product_slug +
-                                    '"><img width="180" src="{{ asset("image/products" ) }}/' +
-                                    value.product_image + '"></a>' +
-                                    '<br><a href="/product-detail/' + value
-                                    .product_slug + '">' + value.product_title +
-                                    '</a>' + '<br><span>Price: ' + value
-                                    .product_price + '</span></div>');
+                                    '"><img width="50" src="{{ asset("image/products" ) }}/' +
+                                    value.product_image + '"></div>' +
+                                    '<div class="col">' + value.product_title +
+                                    '<span class="d-block">Price: ' + value
+                                    .product_price + '</span></a></div></div>');
                             });
                         }
                     });
                 } else {
-                    $('#search_list').html('');
+                    $('#search_list').css('display', 'none');
                 }
             });
 

@@ -152,7 +152,7 @@ $(document).ready(function() {
 
 
     //delete orders  data
-    $(document).on('click', '.delete_product', function(e) {
+    $(document).on('click', '.delete_orders', function(e) {
         e.preventDefault();
         let product_id = $(this).data('id');
         Swal.fire({

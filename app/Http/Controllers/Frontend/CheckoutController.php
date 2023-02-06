@@ -12,7 +12,7 @@ use App\Models\BillingDetails;
 use App\Models\Orders;
 use App\Models\OrderProducts;
 use App\Models\ShippingDetails;
-
+use App\Models\{Country, State, City};
 
 class CheckoutController extends Controller
 {   
@@ -21,14 +21,25 @@ class CheckoutController extends Controller
 
     public function showCheckout()
     {
-        return view('frontend.checkout');
+        $data['countries'] = Country::get(["country_name", "id"]);
+        return view('frontend.checkout',$data);
+    }
+
+    public function fetchState(Request $request)
+    {
+        $data['states'] = State::where("country_id",$request->country_id)->get(["state_name", "id"]);
+        return response()->json($data);
+    }
+    public function fetchCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id",$request->state_id)->get(["city_name", "id"]);
+        return response()->json($data);
     }
 
     public function placeOrder(Request $request)
     {  
 
-    
-
+     
         $user_id = null;
         $subtotal = $request->total_price;
         $key = $request->stripeToken;

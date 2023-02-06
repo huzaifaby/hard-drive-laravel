@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 
@@ -56,6 +57,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //checkout page code
         Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout.show');
         Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('order.add'); 
+        Route::post('api/fetch-states', [CheckoutController::class, 'fetchState']);
+        Route::post('api/fetch-cities', [CheckoutController::class, 'fetchCity']);
         //end
 
 
@@ -186,6 +189,15 @@ Route::post('/order-status',[OrdersController::class,'orderStatus'])->name('orde
 Route::get('orderexportData',[ExportController::class,'productexportData'])->name('orders.export');
 Route::get('dashboard/orderCSV',[ImportController::class,'ordercsv'])->name('orders.csv');
 Route::post('/import-ordercsv',[ImportController::class,'importorderCsvToDb'])->name('import.ordercsv');
+//end
+
+//customers crud 
+Route::get('dashboard/customers', [CustomersController::class, 'customers'])->name('customers');
+Route::get('dashboard/edit-customers/{id}', [CustomersController::class,'CustomersEdit'])->name('customers.edit');
+Route::post('/update-customers',[CustomersController::class,'updateCustomers'])->name('update.customers');
+Route::post('/delete-customers',[CustomersController::class,'deleteCustomers'])->name('delete.customers');
+Route::get('/pagination/paginate-data',[CustomersController::class,'pagination']);
+Route::get('/search-customers',[CustomersController::class,'searchCustomers'])->name('search.customers');
 //end
 
 

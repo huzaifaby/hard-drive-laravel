@@ -38,54 +38,54 @@
                             ?>
                             <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow-none" value="{{ $full_name }}"
-                                placeholder="Full Name" name="full_name" id="name">
+                                placeholder="Full Name" name="full_name" id="name" required>
                         </div>
                         <div class="col">
                             <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control shadow-none" value="{{ $phone_no }}"
-                                placeholder="Phone" name="phone_no" id="phone">
+                                placeholder="Phone" name="phone_no" id="phone" required>
                         </div>
                     </div>
                     <div class="col mb-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control shadow-none" placeholder="Email" value="{{ $email }}"
-                            name="email" id="email">
+                            name="email" id="email" required>
                     </div>
                     <div class="col mb-3">
                         <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                         <input type="text" class="form-control shadow-none" name="address" placeholder="Address"
-                            id="address">
+                            id="address" required>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="country" class="form-label">Country Code <span
                                     class="text-danger">*</span></label>
-                            <select id="country" name="country" class="form-control shadow-none">
-                                <option value="" hidden>Select</option>
-                                <option value="USA">USA</option>
-                                <option value="Pakistan">Pakistan</option>
+                            <select id="country-dd" name="country" class="form-select shadow-none">
+                                <option value="">Select Country</option>
+                                @foreach ($countries as $data)
+                                <option value="{{$data->id}}">
+                                    {{$data->country_name}}
+                                </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col">
                             <label for="state" class="form-label">State Code <span class="text-danger">*</span></label>
-                            <select id="state" name="state" class="form-control shadow-none">
-                                <option value="" hidden>Select</option>
-                                <option value="Sindh">Sindh</option>
-                                <option value="Punjab">Punjab</option>
+                            <select id="state-dd" name="state" class="form-select shadow-none">
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="city" class="form-label">Town / City <span class="text-danger">*</span></label>
-                            <input type="text" name="city" class="form-control shadow-none" placeholder="Town / City"
-                                id="city">
+                            <select id="city-dd" name="state" class="form-select shadow-none">
+                            </select>
                         </div>
                         <div class="col">
                             <label for="zip" class="form-label">Postcode / ZIP <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow-none" name="post_code"
-                                placeholder="Postcode / ZIP" id="zip">
+                                placeholder="Postcode / ZIP" id="zip" required>
                         </div>
                     </div>
                     <div class="col mb-3">
@@ -96,7 +96,8 @@
                     </div>
 
                     <div class="mb-3 form-check border-bottom pb-3">
-                        <input type="checkbox" class="form-check-input shadow-none" value="0" name="checkDiffAddress" id="checkDiffAddress">
+                        <input type="checkbox" class="form-check-input shadow-none" value="0" name="checkDiffAddress"
+                            id="checkDiffAddress">
                         <label class="form-check-label" for="check">Ship to a different address?</label>
                     </div>
 
@@ -110,19 +111,19 @@
                             </div>
                             <div class="col">
                                 <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control shadow-none" placeholder="Phone" name="shipping_phone_no"
-                                    id="phone">
+                                <input type="tel" class="form-control shadow-none" placeholder="Phone"
+                                    name="shipping_phone_no" id="phone">
                             </div>
                         </div>
                         <div class="col mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control shadow-none" placeholder="Email" name="shipping_email"
-                                id="email">
+                            <input type="email" class="form-control shadow-none" placeholder="Email"
+                                name="shipping_email" id="email">
                         </div>
                         <div class="col mb-3">
                             <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control shadow-none" name="shipping_address" placeholder="Address"
-                                id="address">
+                            <input type="text" class="form-control shadow-none" name="shipping_address"
+                                placeholder="Address" id="address">
                         </div>
                         <div class="row mb-3">
                             <div class="col">
@@ -237,8 +238,8 @@
                         </div>
 
                         <div class="form-check py-3 text-primary">
-                            <input class="form-check-input" type="radio" value="PayPal"  name="paymentOption" id="paypal" checked
-                                onclick="displayPaypal()">
+                            <input class="form-check-input" type="radio" value="PayPal" name="paymentOption" id="paypal"
+                                checked onclick="displayPaypal()">
                             <label class="form-check-label" for="paypal">
                                 PayPal Express
                                 <br>
@@ -247,8 +248,8 @@
                         </div>
 
                         <div class="form-check text-primary">
-                            <input class="form-check-input" type="radio" name="paymentOption" 
-                                id="creditcard" onclick="displayCreditcard()">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="creditcard"
+                                onclick="displayCreditcard()">
                             <label class="form-check-label" for="creditcard">
                                 Credit card
                                 <br>
@@ -281,7 +282,8 @@
 
                                     <div class="mb-3">
                                         <div class=' form-group  required'>
-                                            <input autocomplete='off' name="card_number" placeholder="1234 1234 1234 1234"
+                                            <input autocomplete='off' name="card_number"
+                                                placeholder="1234 1234 1234 1234"
                                                 class='form-control card-number shadow-none' size='20' type='text'
                                                 onkeypress='return isNumberKey(event)' maxlength='16'>
                                         </div>
@@ -439,5 +441,55 @@ function isNumberKey(evt) {
     return true;
 }
 </script>
+
+
+
+
+<script>
+$(document).ready(function() {
+    $('#country-dd').on('change', function() {
+        var idCountry = this.value;
+        $("#state-dd").html('');
+        $.ajax({
+            url: "{{url('api/fetch-states')}}",
+            type: "POST",
+            data: {
+                country_id: idCountry,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function(result) {
+                $('#state-dd').html('<option value="">Select State</option>');
+                $.each(result.states, function(key, value) {
+                    $("#state-dd").append('<option value="' + value
+                        .id + '">' + value.state_name + '</option>');
+                });
+                $('#city-dd').html('<option value="">Select City</option>');
+            }
+        });
+    });
+    $('#state-dd').on('change', function() {
+        var idState = this.value;
+        $("#city-dd").html('');
+        $.ajax({
+            url: "{{url('api/fetch-cities')}}",
+            type: "POST",
+            data: {
+                state_id: idState,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function(res) {
+                $('#city-dd').html('<option value="">Select City</option>');
+                $.each(res.cities, function(key, value) {
+                    $("#city-dd").append('<option value="' + value
+                        .id + '">' + value.city_name + '</option>');
+                });
+            }
+        });
+    });
+});
+</script>
+
 
 @include('frontend.footer')
