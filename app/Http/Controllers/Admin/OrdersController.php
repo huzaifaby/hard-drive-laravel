@@ -12,20 +12,64 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ShippingDetails;
-
+use App\Models\{Country, State, City};
           
 class OrdersController extends Controller
 {
     //orders view
-   public function orders()
-   {    
-        $orders = Orders::select('orders.id as orders_id', 'orders.*', 'billing_details.*')->
-        join('billing_details', 'billing_details.order_id', '=', 'orders.id')
-        ->paginate(5);     
+    public function orders(Request $request)
+    {    
+        $status = $request->query('status');
 
+        $orders = Orders::select('orders.id as orders_id', 'orders.*', 'billing_details.*')
+            ->join('billing_details', 'billing_details.order_id', '=', 'orders.id');
+        
+        if ($status) {
+            $orders->where('orders.order_status', $status);
+        }
+
+        $orders = $orders->paginate(5);     
 
         return view('admin.Orders.orders')->with(compact('orders'));
+    }
+
+   public function loadordersCount()
+   {
+
+     $all_orders = Orders::count();
+     $processing = Orders::where('order_status','Processing')->count();
+     $on_hold = Orders::where('order_status','On Hold')->count();
+     $completed = Orders::where('order_status','Completed')->count();
+     $cancelled = Orders::where('order_status','Cancelled')->count();
+     $refunded = Orders::where('order_status','Refunded')->count();
+     $failed = Orders::where('order_status','Failed')->count();
+
+     return response()->json(['all_orders'=>$all_orders,'processing'=>$processing,'on_hold'=>$on_hold,'completed'=>$completed
+    ,'cancelled'=>$cancelled,'refunded'=>$refunded,'failed'=>$failed]);
+
    }
+
+
+   public function orderFilter(Request $request)
+   {
+       $search = $request->input('search');
+       $data = Orders::where('product_title', 'LIKE', '%'. $search. '%')->get();
+
+       return view('admin.Orders.orders')->with(compact('data'));
+
+   }
+
+   public function showOrderProducts($id)
+{
+   $order_products = OrderProducts::join('orders', 'orders.id', '=', 'order_products.order_id')->
+      join('products', 'products.id', '=', 'order_products.product_id')->
+      where('order_products.order_id', $id)->get();     
+
+    return response()->json($order_products);
+}
+
+
+
 
    public function OrdersEdit($id)
    {
@@ -35,18 +79,27 @@ class OrdersController extends Controller
 
       
       $BillingDetails = BillingDetails::join('orders', 'orders.id', '=', 'billing_details.order_id')->
+      join('countries', 'countries.id', '=', 'billing_details.country')->
+      join('states', 'states.id', '=', 'billing_details.state')->
+      join('cities', 'cities.id', '=', 'billing_details.city')->
       where('orders.id', $id)->first();
 
       $ShippingDetails = ShippingDetails::join('orders', 'orders.id', '=', 'shipping_details.order_id')->
+      join('countries', 'countries.id', '=', 'shipping_details.country')->
+      join('states', 'states.id', '=', 'shipping_details.state')->
+      join('cities', 'cities.id', '=', 'shipping_details.city')->
       where('orders.id', $id)->first();
 
 
       $order_products = OrderProducts::join('orders', 'orders.id', '=', 'order_products.order_id')->
       join('products', 'products.id', '=', 'order_products.product_id')->
-      where('order_products.order_id', $id)->get();
+      where('order_products.order_id', $id)->get();     
+
+    
+      $countries = Country::get(["country_name", "id"]);
 
        return view('admin.Orders.update_orders')->with(compact('orders'))->with(compact('order_products'))
-       ->with(compact('BillingDetails'))->with(compact('ShippingDetails'));
+       ->with(compact('BillingDetails'))->with(compact('ShippingDetails'))->with(compact('countries'));
    }  
    
 
@@ -55,6 +108,7 @@ class OrdersController extends Controller
    //update orders
 public function updateOrders(Request $request){
 
+  
     $orders = Orders::find($request->up_id);
 
 
@@ -103,11 +157,11 @@ public function updateOrders(Request $request){
  public function orderStatus(Request $request){
 
     //get the id
-    $id = $request->product_id;
+    $id = $request->id;
     $orders = Orders::find($id);
 
     $orders->update([
-        'is_featured'=>$request->featured,
+        'order_status'=>$request->status,
     ]);
 
     return response()->json([
@@ -140,10 +194,9 @@ public function updateOrders(Request $request){
     //pagination page
    public function pagination(Request $request){
 
-    $orders = Orders::select('Orders.id as orders_id', 'orders.*', 'order_products.*', 'billing_details.*')->
-        join('order_products', 'order_products.order_id', '=', 'orders.id')->
-        join('billing_details', 'billing_details.order_id', '=', 'orders.id')
-        ->paginate(5);     
+    $orders = Orders::select('orders.id as orders_id', 'orders.*', 'billing_details.*')->
+    join('billing_details', 'billing_details.order_id', '=', 'orders.id')
+    ->paginate(5);        
     return view('admin.Orders.pagination_orders',compact('orders'))->render();
 
    }
@@ -151,11 +204,12 @@ public function updateOrders(Request $request){
     //search orders
    public function searchOrders(Request $request){
 
-    $orders = Orders::join('order_products', 'order_products.order_id', '=', 'orders.id')->
-    join('billing_details', 'billing_details.order_id', '=', 'orders.id')->where('orders.product_name', 'like', '%'.$request->search_string.'%')
+    $orders = Orders::select('orders.id as orders_id', 'orders.*', 'billing_details.*')->
+    join('billing_details', 'billing_details.order_id', '=', 'orders.id')->where('orders.id', 'like', '%'.$request->search_string.'%')
+    ->orWhere('billing_details.full_name', 'like', '%'.$request->search_string.'%')
     ->paginate(5);
 
-    if($products->count() >= 1){
+    if($orders->count() >= 1){
         return view('admin.Orders.pagination_orders',compact('orders'))->render();
     }else{
         return response()->json([

@@ -44,8 +44,8 @@
 
                             </div>
                             <div class="col text-end billing-pencil-icon">
-                                <button class="btn shadow-none border-0 billing-btn " type="button" data-toggle="collapse"
-                                    data-target="#collapseBilling" aria-expanded="false"
+                                <button class="btn shadow-none border-0 billing-btn " type="button"
+                                    data-toggle="collapse" data-target="#collapseBilling" aria-expanded="false"
                                     aria-controls="collapseBilling">
                                     <i class="fas fa-pencil"></i>
                                 </button>
@@ -75,8 +75,8 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" value="{{$BillingDetails->email }}" name="email"
-                                        id="email">
+                                    <input type="email" class="form-control" value="{{$BillingDetails->email }}"
+                                        name="email" id="email">
                                 </div>
                             </div>
 
@@ -90,36 +90,51 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="address">Address</label>
-                                    <input type="text" class="form-control" name="address" value="{{$BillingDetails->address }}" id="address">
+                                    <input type="text" class="form-control" name="address"
+                                        value="{{$BillingDetails->address }}" id="address">
                                 </div>
                             </div>
 
 
                             <div class="form-group">
                                 <label for="company_name">Company Name</label>
-                                <input type="text" class="form-control" name="company_name" value="{{$BillingDetails->company_name }}"
-                                    id="company_name">
+                                <input type="text" class="form-control" name="company_name"
+                                    value="{{$BillingDetails->company_name }}" id="company_name">
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="Country">Country</label>
-                                    <input type="text" class="form-control" value="{{$BillingDetails->country }}" name="country"
-                                        id="country">
+                                    <select name="country" class="form-select shadow-none country-dd">
+                                        <option hidden value="{{$BillingDetails->country }}">
+                                            {{$BillingDetails->country_name }}
+                                        </option>
+                                        @foreach ($countries as $data)
+                                        <option value="{{$data->id}}">
+                                            {{$data->country_name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="state">State</label>
-                                    <input type="text" class="form-control" value="{{$BillingDetails->state }}" name="state"
-                                        id="state">
+                                    <select name="state" class="form-select shadow-none state-dd">
+                                        <option hidden value="{{$BillingDetails->state }}">
+                                            {{$BillingDetails->state_name }}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="city">City</label>
-                                    <input type="text" class="form-control" value="{{$BillingDetails->city }}" name="city"
-                                        id="city">
+                                    <select name="city" class="form-select shadow-none city-dd">
+                                        <option hidden value="{{$BillingDetails->city }}">
+                                            {{$BillingDetails->city_name }}
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -133,7 +148,8 @@
                             <div class="form-group">
                                 <label for="payment_method">Payment Method</label>
                                 <select class="form-select" name="payment_method" id="payment_method">
-                                    <option hidden value="{{$BillingDetails->payment_method }}">{{$BillingDetails->payment_method }}
+                                    <option hidden value="{{$BillingDetails->payment_method }}">
+                                        {{$BillingDetails->payment_method }}
                                     </option>
                                     <option value="Credit Card">Credit Card</option>
                                     <option value="Credit Card">PayPal</option>
@@ -143,8 +159,8 @@
 
                             <div class="form-group">
                                 <label for="transaction_id">Transaction ID</label>
-                                <input type="text" class="form-control" name="transaction_id" value="{{$BillingDetails->transaction_id }}"
-                                    id="transaction_id">
+                                <input type="text" class="form-control" name="transaction_id"
+                                    value="{{$BillingDetails->transaction_id }}" id="transaction_id">
                             </div>
                         </div>
                     </div>
@@ -158,8 +174,8 @@
 
                             </div>
                             <div class="col text-end shipping-pencil-icon">
-                                <button class="btn shadow-none border-0 shipping-btn" type="button" data-toggle="collapse"
-                                    data-target="#collapseShipping" aria-expanded="false"
+                                <button class="btn shadow-none border-0 shipping-btn" type="button"
+                                    data-toggle="collapse" data-target="#collapseShipping" aria-expanded="false"
                                     aria-controls="collapseShipping">
                                     <i class="fas fa-pencil"></i>
                                 </button>
@@ -189,8 +205,8 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" value="{{$ShippingDetails->email }}" name="shipping_email"
-                                        id="email">
+                                    <input type="email" class="form-control" value="{{$ShippingDetails->email }}"
+                                        name="shipping_email" id="email">
                                 </div>
                             </div>
 
@@ -204,36 +220,51 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="address">Address</label>
-                                    <input type="text" class="form-control"  name="shipping_address" value="{{$ShippingDetails->address }}" id="address">
+                                    <input type="text" class="form-control" name="shipping_address"
+                                        value="{{$ShippingDetails->address }}" id="address">
                                 </div>
                             </div>
 
 
                             <div class="form-group">
                                 <label for="company_name">Company Name</label>
-                                <input type="text" class="form-control" name="shipping_company_name" value="{{$ShippingDetails->company_name }}"
-                                    id="company_name">
+                                <input type="text" class="form-control" name="shipping_company_name"
+                                    value="{{$ShippingDetails->company_name }}" id="company_name">
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="Country">Country</label>
-                                    <input type="text" class="form-control" value="{{$ShippingDetails->country }}" name="shipping_country"
-                                        id="country">
+                                    <select name="shipping_country" class="form-select shadow-none country-shipping">
+                                        <option hidden value="{{$ShippingDetails->country }}">
+                                            {{$ShippingDetails->country_name }}
+                                        </option>
+                                        @foreach ($countries as $data)
+                                        <option value="{{$data->id}}">
+                                            {{$data->country_name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="state">State</label>
-                                    <input type="text" class="form-control" value="{{$ShippingDetails->state }}" name="shipping_state"
-                                        id="state">
+                                    <select name="shipping_state" class="form-select shadow-none state-shipping">
+                                        <option hidden value="{{$ShippingDetails->state }}">
+                                            {{$ShippingDetails->state_name }}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="city">City</label>
-                                    <input type="text" class="form-control" value="{{$ShippingDetails->city }}" name="shipping_city"
-                                        id="city">
+                                    <select name="shipping_city" class="form-select shadow-none city-shipping">
+                                        <option hidden value="{{$ShippingDetails->city }}">
+                                            {{$ShippingDetails->city_name }}
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -245,7 +276,8 @@
 
                             <div class="form-group">
                                 <label for="order_notes">Customer provided note:</label>
-                                <input type="text" name="order_notes" class="form-control" value="{{$ShippingDetails->order_notes }}""
+                                <input type="text" name="order_notes" class="form-control"
+                                    value="{{$ShippingDetails->order_notes }}"
                                     id="order_notes">
                             </div>
 
@@ -277,7 +309,6 @@
                                         <td>${{ $orderproducts->product_price }}</td>
                                         <td>{{ $orderproducts->qty }}</td>
                                         <td>${{ $orderproducts->price }}</td>
-
                                     </tr>
                                     @endforeach
 
@@ -290,14 +321,37 @@
                 </div>
 
                 <div class="row justify-content-end bg-white p-4 mb-3 ">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12 text-start">
+                                <p>Coupon(s)</p>
+                            </div>
+                            <div class="col-md-auto text-start card p-2">
+                                <p class="mb-0"> <strong>{{$orders->couponcode }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-8 text-end">
                                 <p>Items Subtotal:</p>
                             </div>
                             <div class="col-md-4 text-end">
-                                <p> <strong>${{$orders->total_amount }}</strong></p>
+                                @if($orders->discount_amount != null)
+                                <p> <strong>${{$orders->total_amount + $orders->discount_amount }}</strong></p>
+                                @else
+                                <p> <strong>${{$orders->total_amount}}</strong></p>
+
+                                @endif
                             </div>
+                            @if($orders->couponcode != null)
+                            <div class="col-md-8 text-end">
+                                <p>Coupon(s):</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <p> <strong>-${{$orders->discount_amount }}</strong></p>
+                            </div>
+                            @endif
 
                             <div class="col-md-8 text-end">
                                 <p>Shipping:</p>
@@ -323,7 +377,7 @@
                             </div>
 
                             <div class="col-md-8 text-end">
-                                <p>January 31, 2023 via Credit Card </p>
+                                <p>{{ $orders->created_at->format('M d, Y') }} via {{$BillingDetails->payment_method }} </p>
                             </div>
 
 
@@ -378,7 +432,7 @@
 
 
 <script>
-    //billing
+//billing
 const button = document.querySelector(".billing-btn");
 const billingDiv = document.querySelector(".billing");
 const pencilIconDiv = document.querySelector(".billing-pencil-icon");
@@ -389,7 +443,7 @@ button.addEventListener("click", function() {
         pencilIconDiv.style.display = "block";
     } else {
         billingDiv.style.display = "none";
-        pencilIconDiv.style.display = "none";
+        // pencilIconDiv.style.display = "none";
     }
 });
 //end
@@ -405,7 +459,7 @@ Shippingbutton.addEventListener("click", function() {
         shippingpencilIconDiv.style.display = "block";
     } else {
         shippingDiv.style.display = "none";
-        shippingpencilIconDiv.style.display = "none";
+        // shippingpencilIconDiv.style.display = "none";
     }
 });
 //end

@@ -51,16 +51,18 @@ $(document).ready(function () {
 
   // checkout js start 
   let checkbox = document.getElementById("checkDiffAddress");
-  checkbox.addEventListener("change", function () {
-    let form = document.getElementById("shiptoDiffAddress");
-    if (checkbox.checked) {
-      form.style.display = "block";
-      checkbox.value = 1;
-    } else {
-      form.style.display = "none";
-      checkbox.value= 0
-    }
-  });
+  if(checkbox){
+    checkbox.addEventListener("change", function () {
+      let form = document.getElementById("shiptoDiffAddress");
+      if (checkbox.checked) {
+        form.style.display = "block";
+        checkbox.value = 1;
+      } else {
+        form.style.display = "none";
+        checkbox.value= 0
+      }
+    });
+  }
 
 
   //  /

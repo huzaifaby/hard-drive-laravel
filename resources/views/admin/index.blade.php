@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script> 
+    <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 
 
 </head>
@@ -67,7 +67,7 @@
                             Dashboard
                         </a>
 
-                  
+
 
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
@@ -134,11 +134,18 @@
                         </div>
 
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOrder" aria-expanded="false" aria-controls="collapseOrder">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Orders
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrder"
+                            aria-expanded="false" aria-controls="collapseOrder">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-columns"></i>
+                            </div>
+                            Orders &nbsp;
+                            <div class="sb-nav-link-badge">
+                                <span class="badge badge-danger new-orders"></span>
+                            </div>
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
                         </a>
                         <div class="collapse" id="collapseOrder" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
@@ -146,6 +153,7 @@
                                 <a class="nav-link" href="{{ route('orders') }}">Orders View</a>
                             </nav>
                         </div>
+
 
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseCustomers">
@@ -157,6 +165,20 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('customers') }}">Customers View</a>
+                            </nav>
+                        </div>
+
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseCoupon" aria-expanded="false" aria-controls="collapseCoupon">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Coupons
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCoupon" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('coupon') }}">Coupons View</a>
                             </nav>
                         </div>
 
@@ -199,6 +221,8 @@
     <script src="/admin_assets/js/datatables-simple-demo.js"></script>
     <script src="/admin_assets/js/todo.js"></script>
 
+
+
     <script>
     $.ajaxSetup({
         headers: {
@@ -206,6 +230,123 @@
         }
     });
     </script>
+
+
+
+    <script>
+    $(document).ready(function() {
+
+        loadordersCount();
+
+        $('.country-dd').on('change', function() {
+            var idCountry = this.value;
+            $(".state-dd").html('');
+            $.ajax({
+                url: "{{url('api/fetch-states')}}",
+                type: "POST",
+                data: {
+                    country_id: idCountry,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function(result) {
+                    $('.state-dd').html('<option value="">Select State</option>');
+                    $.each(result.states, function(key, value) {
+                        $(".state-dd").append('<option value="' + value
+                            .id + '">' + value.state_name + '</option>');
+                    });
+                    $('.city-dd').html('<option value="">Select City</option>');
+                }
+            });
+        });
+        $('.state-dd').on('change', function() {
+            var idState = this.value;
+            $(".city-dd").html('');
+            $.ajax({
+                url: "{{url('api/fetch-cities')}}",
+                type: "POST",
+                data: {
+                    state_id: idState,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function(res) {
+                    $('.city-dd').html('<option value="">Select City</option>');
+                    $.each(res.cities, function(key, value) {
+                        $(".city-dd").append('<option value="' + value
+                            .id + '">' + value.city_name + '</option>');
+                    });
+                }
+            });
+        });
+
+
+
+        $('.country-shipping').on('change', function() {
+            var idCountry = this.value;
+            $(".state-shipping").html('');
+            $.ajax({
+                url: "{{url('api/fetch-states')}}",
+                type: "POST",
+                data: {
+                    country_id: idCountry,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function(result) {
+                    $('.state-shipping').html('<option value="">Select State</option>');
+                    $.each(result.states, function(key, value) {
+                        $(".state-shipping").append('<option value="' + value
+                            .id + '">' + value.state_name + '</option>');
+                    });
+                    $('.city-shipping').html('<option value="">Select City</option>');
+                }
+            });
+        });
+        $('.state-shipping').on('change', function() {
+            var idState = this.value;
+            $(".city-shipping").html('');
+            $.ajax({
+                url: "{{url('api/fetch-cities')}}",
+                type: "POST",
+                data: {
+                    state_id: idState,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function(res) {
+                    $('.city-shipping').html('<option value="">Select City</option>');
+                    $.each(res.cities, function(key, value) {
+                        $(".city-shipping").append('<option value="' + value
+                            .id + '">' + value.city_name + '</option>');
+                    });
+                }
+            });
+        });
+
+
+        function loadordersCount() {
+            $.ajax({
+                url: "/load-orders-data",
+                method: "GET",
+                success: function(response) {
+                    $('.new-orders').html(response.processing);
+                    $('.all-orders').html('(' + response.all_orders + ')');
+                    $('.processing-orders').html('(' + response.processing + ')');
+                    $('.onhold-orders').html('(' + response.on_hold + ')');
+                    $('.completed-orders').html('(' + response.completed + ')');
+                    $('.cancelled-orders').html('(' + response.cancelled + ')');
+                    $('.refunded-orders').html('(' + response.refunded + ')');
+                    $('.failed-orders').html('(' + response.failed + ')');
+                    console.log(response.orders_count);
+                }
+            });
+        }
+    });
+    </script>
+
+
+
 
 </body>
 

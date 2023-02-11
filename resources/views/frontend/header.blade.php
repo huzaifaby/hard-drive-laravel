@@ -21,6 +21,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
+
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
     <!-- MDB -->
@@ -86,23 +88,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Home</a>
+                            <a class="nav-link text-dark" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Processors & CPUs</a>
+                            <a class="nav-link text-dark" href="{{ url('/category/power-supply-others') }}">Power Supply
+                                & others </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Memory</a>
+                            <a class="nav-link text-dark" href="{{ url('/category/memory') }}">Memory</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Networking Devices</a>
+                            <a class="nav-link text-dark" href="{{ url('/category/networking-devices') }}">Networking
+                                Devices</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Storage Devices</a>
+                            <a class="nav-link text-dark" href="{{ url('/category/storage-devices') }}">Storage
+                                Devices</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Managed Services</a>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -311,46 +314,17 @@
                             <i class="bx bx-shopping-bag fs-5"></i>
                         </button>
                         <div class="dropdown-menu p-4" style="width: 350px" aria-labelledby="cartDropdownMobile">
-                            @if(empty($cart))
-                            <p class="mb-0">No products in the cart.</p>
-                            @endif
+
+                            <p class="mb-0 no_product">No products in the cart.</p>
+
                             <!-- table start  -->
-                            @if(!empty($cart))
+
                             <table class="table table-borderless">
-                                <tbody>
-                                    @foreach($cart as $id => $details)
-                                    <tr>
-                                        <td><a href="{{ route('cart.show') }}"
-                                                class="text-dark">{{ substr($details['product_title'], 0, 30) }}<br>
-                                                <p class="mb-0">{{ $details['quantity'] }} x
-                                                    ${{ $details['product_price'] }}</p>
-                                            </a> </td>
-                                        <td><a href="{{ route('cart.show') }}">
-                                                <img src="{{ asset('image/products/'.$details['product_image']) }}"
-                                                    loading="lazy" width="75" alt="">
-                                            </a></td>
-                                        <td><a data-id="{{ $id }}" class="remove-from-cartt" href="#"><i
-                                                    class="bx bx-trash text-danger fs-5"></i></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                <tbody id="cartTableMobile">
 
-                                    <tr class="border-bottom border-top">
-                                        <td colspan="3" class="text-center">Subtotal: ${{$subtotal}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3"><a href="{{ route('cart.show') }}" class="square-block-btn">View
-                                                Cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3"><a href="{{ route('checkout.show') }}"
-                                                class="square-block-btn bg-secondary">Checkout</a></td>
-
-                                    </tr>
                                 </tbody>
                             </table>
-                            @endif
+
                             <!-- table end  -->
 
                         </div>
@@ -554,12 +528,28 @@
                     method: "GET",
                     success: function(response) {
                         $('.cart-count').html(response.total_product_count);
-                        $('.sub-total').html('$' + response.subtotal);
+                        $('.sub-total').html('$' + response.subtotal.toFixed(2));
                         let cart = response.cart;
                         let cartTable = $('#cartTable');
+                        let cartTableMobile = $('#cartTableMobile');
                         let cartpage = $('#cartpage');
                         cartTable.html('');
+                        cartTableMobile.html('');
                         cartpage.html('');
+                        let coupon = response && response.coupon;
+
+                        if (coupon) {
+                            console.log(coupon);
+                            $('.coupon_code').html();
+
+                            if (Object.keys(coupon).length === 0) {
+                                $("#couponcode").hide();
+                            } else {
+                                $("#couponcode").show();
+                                $('.coupon_code').html(coupon.coupon_code);
+                            }
+                        }
+
 
                         if (Object.keys(cart).length === 0) {
                             $(".no_product").show();
@@ -586,6 +576,7 @@
                     </tr>`;
 
                                 cartTable.append(row);
+                                cartTableMobile.append(row);
 
 
                                 let row1 = `
@@ -622,6 +613,7 @@
                 </tr>`;
 
                             cartTable.append(subTotalRow);
+                            cartTableMobile.append(subTotalRow);
                         }
                     }
                 });
@@ -679,6 +671,57 @@
                     },
                     success: function(response) {
                         loadcart();
+                    }
+                });
+            });
+
+
+            $('.apply_coupon').click(function(e) {
+                e.preventDefault();
+                let coupon_code = $('#coupon_code').val();
+                let total_price = $('#total_price').val();
+                $.ajax({
+                    url: '/cart/coupon',
+                    method: 'POST',
+                    data: {
+                        total_price: total_price,
+                        coupon_code: coupon_code,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('.total_price').html(response.discount);
+                        $('.total_price').val(response.discount);
+
+
+                        Swal.fire({
+                            position: 'top-end',
+                            title: '✔️ Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status === 400) {
+                            if (jqXHR.responseJSON.error === 'Coupon already applied') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Coupon already applied!',
+                                });
+                            } else if (jqXHR.responseJSON.error === 'Coupon has expired') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Coupon has expired!',
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Invalid Coupon Code!',
+                                });
+                            }
+                        }
                     }
                 });
             });

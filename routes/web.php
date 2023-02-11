@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 
@@ -52,6 +53,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
         Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
         Route::post('/update-cart/{id}', [CartController::class, 'updateCart'])->name('updateCart');
+
+        Route::post('/cart/coupon', [CheckoutController::class, 'validateCoupon'])->name('apply.coupon');
+
         //end
 
         //checkout page code
@@ -66,6 +70,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         //product detail
         Route::get('product-detail/{product_slug}', [ProductDetailController::class,'ProductDetail'])->name('product.detail');
+        //end
+
+        //start rating
+        Route::post('/star-ratings', [ProductDetailController::class,'starRating']);
         //end
 
         //Category
@@ -124,6 +132,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 Route::get('dashboard/setting', [SettingController::class,'index'])->name('dashboard.setting');
 Route::post('/update-setting',[SettingController::class,'updateSetting'])->name('update.setting');
 Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
+
 //end
 
 //Product crud 
@@ -178,7 +187,7 @@ Route::get('/search-brand',[BrandController::class,'searchBrand'])->name('search
 //end
 
 
-//Orders crud 
+//Orders crud
 Route::get('dashboard/orders', [OrdersController::class, 'orders'])->name('orders');
 Route::get('dashboard/edit-orders/{id}', [OrdersController::class,'OrdersEdit'])->name('orders.edit');
 Route::post('/update-orders',[OrdersController::class,'updateOrders'])->name('update.orders');
@@ -189,6 +198,10 @@ Route::post('/order-status',[OrdersController::class,'orderStatus'])->name('orde
 Route::get('orderexportData',[ExportController::class,'productexportData'])->name('orders.export');
 Route::get('dashboard/orderCSV',[ImportController::class,'ordercsv'])->name('orders.csv');
 Route::post('/import-ordercsv',[ImportController::class,'importorderCsvToDb'])->name('import.ordercsv');
+Route::get('/load-orders-data',[OrdersController::class, 'loadordersCount']);
+Route::get('/status', [OrdersController::class,'orderFilter']);
+Route::get('/order-products/{id}',[OrdersController::class,'showOrderProducts'])->name('order-products.show');
+
 //end
 
 //customers crud 
@@ -198,6 +211,17 @@ Route::post('/update-customers',[CustomersController::class,'updateCustomers'])-
 Route::post('/delete-customers',[CustomersController::class,'deleteCustomers'])->name('delete.customers');
 Route::get('/pagination/paginate-data',[CustomersController::class,'pagination']);
 Route::get('/search-customers',[CustomersController::class,'searchCustomers'])->name('search.customers');
+//end
+
+//Coupon crud 
+Route::get('dashboard/coupon', [CouponController::class, 'coupon'])->name('coupon');
+Route::get('dashboard/add-coupon', [CouponController::class,'CustomersAdd'])->name('coupon.add');
+Route::post('/save-coupon',[CouponController::class,'saveCoupon'])->name('save.coupon');
+Route::get('dashboard/edit-coupon/{id}', [CouponController::class,'CouponEdit'])->name('coupon.edit');
+Route::post('/update-coupon',[CouponController::class,'updateCoupon'])->name('update.coupon');
+Route::post('/delete-coupon',[CouponController::class,'deleteCoupon'])->name('delete.coupon');
+Route::get('/pagination/paginate-data',[CouponController::class,'pagination']);
+Route::get('/search-coupon',[CouponController::class,'searchCoupon'])->name('search.coupon');
 //end
 
 

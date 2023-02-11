@@ -13,6 +13,35 @@
         </nav>
         <!-- breadcrumb end  -->
 
+        <div class="row mb-3">
+            <div class="col">
+                <input id="coupon_code" class="form-control" placeholder="Coupon Code" type="text">
+            </div>
+            <div class="col">
+                <button id="applyCouponBtn" class="apply_coupon">Apply Coupon</button>
+            </div>
+        </div>
+
+        <!-- 
+        <script>
+        document.getElementById("applyCouponBtn").addEventListener("click", function() {
+            let couponCode = document.getElementById("couponCodeInput").value;
+            let subtotal = document.getElementById("total_price").value;
+            
+
+            if (couponCode === "DISCOUNT20") {
+                subtotal *= 0.8;
+                console.log("Discount applied! New subtotal: ", subtotal);
+            } else {
+                console.log("Invalid coupon code.");
+            }
+        });
+        </script> -->
+
+
+
+
+
         <div class="row">
             <div class="col-md-8">
                 <h1>Billing Details</h1>
@@ -24,7 +53,7 @@
                     data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
                     @csrf
 
-                    <input type="text" value="{{$subtotal}}" name="total_price">
+                    <input type="text" class="total_price" value="{{$subtotal}}" id="total_price" name="total_price">
 
                     <div class="row mb-3">
                         <div class="col">
@@ -60,7 +89,7 @@
                         <div class="col">
                             <label for="country" class="form-label">Country Code <span
                                     class="text-danger">*</span></label>
-                            <select id="country-dd" name="country" class="form-select shadow-none">
+                            <select name="country" class="form-select shadow-none country-dd">
                                 <option value="">Select Country</option>
                                 @foreach ($countries as $data)
                                 <option value="{{$data->id}}">
@@ -71,14 +100,14 @@
                         </div>
                         <div class="col">
                             <label for="state" class="form-label">State Code <span class="text-danger">*</span></label>
-                            <select id="state-dd" name="state" class="form-select shadow-none">
+                            <select name="state" class="form-select shadow-none state-dd">
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="city" class="form-label">Town / City <span class="text-danger">*</span></label>
-                            <select id="city-dd" name="state" class="form-select shadow-none">
+                            <select name="city" class="form-select shadow-none city-dd">
                             </select>
                         </div>
                         <div class="col">
@@ -127,30 +156,30 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="country" class="form-label">Country Code <span
+                                <label for="shipping_country" class="form-label">Country Code <span
                                         class="text-danger">*</span></label>
-                                <select id="country" name="shipping_country" class="form-control shadow-none">
-                                    <option value="" hidden>Select</option>
-                                    <option value="USA">USA</option>
-                                    <option value="Pakistan">Pakistan</option>
+                                <select name="shipping_country" class="form-select shadow-none country-dd">
+                                    <option value="">Select Country</option>
+                                    @foreach ($countries as $data)
+                                    <option value="{{$data->id}}">
+                                        {{$data->country_name}}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col">
-                                <label for="state" class="form-label">State Code <span
+                                <label for="shipping_state" class="form-label">State Code <span
                                         class="text-danger">*</span></label>
-                                <select id="state" name="shipping_state" class="form-control shadow-none">
-                                    <option value="" hidden>Select</option>
-                                    <option value="Sindh">Sindh</option>
-                                    <option value="Punjab">Punjab</option>
+                                <select name="shipping_state" class="form-select shadow-none state-dd">
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="city" class="form-label">Town / City <span
+                                <label for="shipping_city" class="form-label">Town / City <span
                                         class="text-danger">*</span></label>
-                                <input type="text" name="shipping_city" class="form-control shadow-none"
-                                    placeholder="Town / City" id="city">
+                                <select name="shipping_city" class="form-select shadow-none city-dd">
+                                </select>
                             </div>
                             <div class="col">
                                 <label for="zip" class="form-label">Postcode / ZIP <span
@@ -196,13 +225,17 @@
                                     <tr>
                                         <td>{{ $details['quantity'] }} ×
                                             {{ substr($details['product_title'], 0, 30) }}...</td>
-                                        <td class="text-end">${{ $details['product_price'] }}</td>
+                                        <td class="text-end">${{ $details['quantity'] * $details['product_price'] }}  </td>
                                     </tr>
                                     @endforeach
                                     @endif
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td class="text-end">${{$subtotal}}</td>
+                                        <td class="text-end total_price">${{ number_format($subtotal, 2) }}</td>
+                                    </tr>
+                                    <tr id="couponcode">
+                                        <td>Coupon</td>
+                                        <td class="text-end pb-4 coupon_code"></td>
                                     </tr>
                                     <tr>
                                         <td>Tax</td>
@@ -210,7 +243,7 @@
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td class="text-end pb-4">${{$subtotal}}</td>
+                                        <td class="text-end total_price">${{ number_format($subtotal, 2) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -447,9 +480,9 @@ function isNumberKey(evt) {
 
 <script>
 $(document).ready(function() {
-    $('#country-dd').on('change', function() {
+    $('.country-dd').on('change', function() {
         var idCountry = this.value;
-        $("#state-dd").html('');
+        $(".state-dd").html('');
         $.ajax({
             url: "{{url('api/fetch-states')}}",
             type: "POST",
@@ -459,18 +492,18 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(result) {
-                $('#state-dd').html('<option value="">Select State</option>');
+                $('.state-dd').html('<option value="">Select State</option>');
                 $.each(result.states, function(key, value) {
-                    $("#state-dd").append('<option value="' + value
+                    $(".state-dd").append('<option value="' + value
                         .id + '">' + value.state_name + '</option>');
                 });
-                $('#city-dd').html('<option value="">Select City</option>');
+                $('.city-dd').html('<option value="">Select City</option>');
             }
         });
     });
-    $('#state-dd').on('change', function() {
+    $('.state-dd').on('change', function() {
         var idState = this.value;
-        $("#city-dd").html('');
+        $(".city-dd").html('');
         $.ajax({
             url: "{{url('api/fetch-cities')}}",
             type: "POST",
@@ -480,14 +513,25 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(res) {
-                $('#city-dd').html('<option value="">Select City</option>');
+                $('.city-dd').html('<option value="">Select City</option>');
                 $.each(res.cities, function(key, value) {
-                    $("#city-dd").append('<option value="' + value
+                    $(".city-dd").append('<option value="' + value
                         .id + '">' + value.city_name + '</option>');
                 });
             }
         });
     });
+});
+</script>
+
+
+
+
+
+<script>
+$(document).ready(function() {
+
+
 });
 </script>
 

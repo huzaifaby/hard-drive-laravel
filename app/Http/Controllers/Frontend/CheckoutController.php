@@ -13,6 +13,8 @@ use App\Models\Orders;
 use App\Models\OrderProducts;
 use App\Models\ShippingDetails;
 use App\Models\{Country, State, City};
+use App\Models\Coupon;
+use Carbon\Carbon;
 
 class CheckoutController extends Controller
 {   
@@ -117,6 +119,19 @@ class CheckoutController extends Controller
 
 
       
+        $coupon = session()->get('coupon');
+
+
+        if($coupon != null ){
+          $coupon_code = $coupon['coupon_code'];
+          $discount_amount = $coupon['discount_amount'];
+        } else {
+          $coupon_code = '';
+          $discount_amount = '';
+        }
+
+
+ 
 
      // Check if user is logged in
      if (Auth::guard('customer')->check()) {
@@ -127,8 +142,10 @@ class CheckoutController extends Controller
       $order = Orders::create([
             'session_id'=>0,
             'user_id'=>$user_id,
-            'order_status' => 'pending',
+            'order_status' => 'Processing',
             'total_amount'=>$subtotal,
+            'couponcode'=>$coupon_code,
+            'discount_amount' =>$discount_amount,
         ]);
 
     } else {
@@ -138,8 +155,11 @@ class CheckoutController extends Controller
         $order = Orders::create([
             'session_id'=>$user_id,
             'user_id'=>0,
-            'order_status' => 'pending',
+            'order_status' => 'Processing',
             'total_amount'=>$subtotal,
+            'couponcode'=>$coupon_code,
+            'discount_amount' =>$discount_amount,
+
         ]);
         }
 
@@ -170,7 +190,7 @@ class CheckoutController extends Controller
     }
 
         
-        if($request->payment_method == 'PayPal'){
+        if($request->paymentOption == 'PayPal'){
             
             $paymentMethod = 'Paypal';
         }
@@ -235,7 +255,72 @@ class CheckoutController extends Controller
 
     //end checkout
 
+
+  
+
+    public function validateCoupon(Request $request)
+{
+    $cart = session()->get('cart');
+    $valid_coupon = false;
+
+    $coupons = session()->get('coupon');
+
+    if ($coupons && $coupons['coupon_code'] == $request->coupon_code) {
+        return response()->json(['error' => 'Coupon already applied'], 400);
+    }
+
+    if (!empty($cart)) {
+      foreach ($cart as $index => $item) {
+        $product_id = $item['id'];
+        $product_price = $item['product_price'];
+        $coupon = Coupon::where('coupon_code', $request->coupon_code)
+          ->where('product_id', $product_id)
+          ->first();
+        if ($coupon) {
+          $valid_coupon = true;
+          break;
+        }
+      }
+    }
     
+    if (!$valid_coupon) {
+      return response()->json(['error' => 'Invalid Coupon Code'], 400);
+    }
+    
+    $today = Carbon::now();
+    if ($coupon->expiry_date < $today) {
+        return response()->json(['error' => 'Coupon has expired'], 400);
+    }
+
+    $discount = ($coupon->coupon_amount / 100) * $product_price;
+    $final_price = $product_price - $discount;
+
+    if (!$coupons) {
+    $coupons = [
+        
+            "discount_amount" => $discount,
+            "coupon_code"  => $request->coupon_code
+        
+    ];
+
+    }
+    $cart[$index]['product_price'] = $final_price;
+    session()->put('cart', $cart);
+    session()->put('coupon', $coupons);
+
+    return response()->json(['discount' => $final_price, 'coupon' => $coupons]);
 
 }
 
+
+
+
+    
+    
+    
+    
+    
+
+    
+
+}

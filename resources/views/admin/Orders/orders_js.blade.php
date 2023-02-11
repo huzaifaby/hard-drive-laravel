@@ -1,134 +1,65 @@
 <script>
 $(document).ready(function() {
 
-   
+
 
     //show orders value in update form
-    $(document).on('click', '.update_orders_form', function() {
+    $(document).on('click', '.orders_view', function() {
         let id = $(this).data('id');
-        let title = $(this).data('title');
-        let price = $(this).data('price');
-        let sku = $(this).data('sku');
-        let condition = $(this).data('condition');
-        let description = $(this).data('description');
-        let slug = $(this).data('slug');
-        let metatitle = $(this).data('metatitle');
-        let metadescription = $(this).data('metadescription');
-        let category_name = $(this).data('categoryname');
-        let category_id = $(this).data('categoryid');
-        let brand_id = $(this).data('brandid');
-        let brand_name = $(this).data('brandname');
-        let availability = $(this).data('availability');
-        let product_quantity = $(this).data('quantity');
-        let availability_name;
-        if (availability == 0) {
-            availability_name = 'Out of Stock';
-        } else {
-            availability_name = 'In Stock';
-        }
+        let orderStatus = $(this).data('status');
+        let address = $(this).data('address');
+        let email = $(this).data('email');
+        let phone = $(this).data('phone');
+        let payment = $(this).data('payment');
+
+        $('a.update_status').attr('data-id', id);
 
 
-        $('#up_id').val(id);
-        $('#up_product_title').val(title);
-        $('#up_product_price').val(price);
-        $('#up_product_slug').val(slug);
-        $('#up_product_sku').val(sku);
-        $('#up_product_condition').val(condition);
-        CKEDITOR.instances['up_product_description'].setData(description);
-        $('#up_product_meta_title').val(metatitle);
-        $('#up_product_meta_description').val(metadescription);
-        $('#up_category_id').append('<option hidden selected value="' + category_id + '">' +
-            category_name + '</option>');
-        $('#up_brand_id').append('<option hidden selected value="' + brand_id + '">' +
-            brand_name + '</option>');
-        $('#up_availability').append('<option hidden selected value="' + availability + '">' +
-            availability_name + '</option>');
-        $('#up_product_quantity').val(product_quantity);
 
-    });
-
-    //update orders  data
-    $(document).on('click', '.update_product', function(e) {
-        e.preventDefault();
-        let up_id = $('#up_id').val();
-        let up_product_title = $('#up_product_title').val();
-        let up_product_price = $('#up_product_price').val();
-        let up_product_slug = $('#up_product_slug').val();
-        let up_product_sku = $('#up_product_sku').val();
-        let up_product_condition = $('#up_product_condition').val();
-        let up_product_description = CKEDITOR.instances['up_product_description'].getData();
-        let up_product_meta_title = $('#up_product_meta_title').val();
-        let up_product_meta_description = $('#up_product_meta_description').val();
-        let up_category_id = $('#up_category_id').val();
-        let up_brand_id = $('#up_brand_id').val();
-        let up_availability = $('#up_availability').val();
-        let up_product_quantity = $('#up_product_quantity').val();
-        let up_image = $('#up_image')[0].files[0];
-
-        var formData = new FormData();
-        formData.append('up_id', up_id);
-        formData.append('up_product_title', up_product_title);
-        formData.append('up_product_price', up_product_price);
-        formData.append('up_product_slug', up_product_slug);
-        formData.append('up_product_sku', up_product_sku);
-        formData.append('up_product_condition', up_product_condition);
-        formData.append('up_product_description', up_product_description);
-        formData.append('up_product_meta_title', up_product_meta_title);
-        formData.append('up_product_meta_description', up_product_meta_description);
-        formData.append('up_category_id', up_category_id);
-        formData.append('up_brand_id', up_brand_id);
-        formData.append('up_availability', up_availability);
-        formData.append('up_product_quantity', up_product_quantity);
-        formData.append('up_image', up_image);
-
-
+        $('a.edit').attr('href', 'edit-orders/' + id);
+        $('#order-no').html("Order #" + id);
+        $('#order-status').html(orderStatus);
+        $('#order-address').html(address);
+        $('#order-email').html(email);
+        $('#order-phone').html(phone);
+        $('#order-payment').html(payment);
         $.ajax({
-            url: "{{ route('update.orders') }}",
-            method: 'post',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(res) {
-                if (res.status == 'success') {
-
-                    Swal.fire(
-                        'Update Successfully!',
-                        '',
-                        'success'
-                    )
-
-                    $('#updateModal').modal('hide');
-                    $('#updateProductForm')[0].reset();
-                    $('.table').load(location.href + ' .table');
-
-                }
-            },
-            error: function(err) {
-                let error = err.responseJSON;
-                $.each(error.errors, function(index, value) {
-                    $('.errMsgContainer').append('<span class="text-danger">' +
-                        value + '</span>' + '<br>');
+            type: "GET",
+            url: "/order-products/" + id,
+            success: function(data) {
+                console.log(data);
+                $.each(data, function(index, orderProduct) {
+                    let getproductName = orderProduct.product_name;
+                    productName = getproductName.substring(0, 30) + '...';
+                    let cost = orderProduct.price;
+                    let qty = orderProduct.qty;
+                    let row = '<tr><td>' + productName + '</td><td>' +
+                        qty + '</td><td>' + cost + '</td></tr>';
+                    $('#quick_view').append(row);
                 });
             }
+
         });
-    })
+
+
+    });
 
 
 
 
     //Featured orders  data
-    $(document).on('click', '.featured_orders', function(e) {
+    $(document).on('click', '.update_status', function(e) {
         e.preventDefault();
-        let product_id = $(this).data('id');
-        let featured = $(this).data('featured');
+        let id = $(this).data('id');
+        let status = $(this).data('status');
 
 
         $.ajax({
             url: "{{ route('orders.status') }}",
             method: 'post',
             data: {
-                product_id: product_id,
-                featured: featured
+                id: id,
+                status: status
             },
             success: function(res) {
                 if (res.status == 'success') {
@@ -137,55 +68,13 @@ $(document).ready(function() {
                         '',
                         'success'
                     )
-                    $('.table').load(location.href + ' .table');
+                    location.reload();
 
                 }
             }
         });
 
     })
-
-
-
-
-
-
-
-    //delete orders  data
-    $(document).on('click', '.delete_orders', function(e) {
-        e.preventDefault();
-        let product_id = $(this).data('id');
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "{{ route('delete.orders') }}",
-                    method: 'post',
-                    data: {
-                        product_id: product_id
-                    },
-                    success: function(res) {
-                        if (res.status == 'success') {
-                            Swal.fire(
-                                'Deleted Successfully!',
-                                '',
-                                'success'
-                            )
-                            $('.table').load(location.href + ' .table');
-                        }
-                    }
-                });
-            }
-        });
-    });
-
 
     //pagination
     $(document).on('click', '.pagination a', function(e) {
@@ -223,7 +112,13 @@ $(document).ready(function() {
             }
         });
     })
+
+    $(document).on('click', '#close-btn', function(e) {
+
+        $('#updateOrdersForm')[0].reset();
+        $('#updateModal').modal('hide');
+
+        location.reload();
+    })
 });
 </script>
-
-

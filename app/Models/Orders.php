@@ -15,6 +15,6 @@ class Orders extends Model
      * @return response()
      */
     protected $fillable = [
-        'user_id','order_status', 'total_amount','session_id'
+        'user_id','order_status', 'total_amount','session_id','couponcode','discount_amount'
     ];
 }

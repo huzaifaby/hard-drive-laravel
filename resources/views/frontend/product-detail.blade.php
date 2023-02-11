@@ -1,5 +1,19 @@
 @include('frontend.header')
 
+<style>
+.rating {
+    display: flex;
+}
+
+.star {
+    cursor: pointer;
+    color: gray;
+}
+
+.active {
+    color: orange;
+}
+</style>
 <div class="single-product-wrapper">
     <div class="container">
         <!-- breadcrumb start  -->
@@ -527,58 +541,66 @@
                     </div>
                     <div class="col">
                         <h3>Add a review</h3>
+                        <div class="rating">
+                            <span class="star" id="star1">&#9734;</span>
+                            <span class="star" id="star2">&#9734;</span>
+                            <span class="star" id="star3">&#9734;</span>
+                            <span class="star" id="star4">&#9734;</span>
+                            <span class="star" id="star5">&#9734;</span>
+                        </div>
                         <span class="heading-border mb-3"></span>
-                        <p>Your Rating <br>
-                            <i class="bx bxs-star text-warning"></i>
-                            <i class="bx bxs-star text-warning"></i>
-                            <i class="bx bxs-star text-warning"></i>
-                            <i class="bx bxs-star text-warning"></i>
-                            <i class="bx bxs-star text-warning"></i>
-                        </p>
+
                         <!-- form start  -->
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Name <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control shadow-none" id="name">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Email <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control shadow-none" id="name">
-                                    </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                    <input type="hidden" value="" name="rating" class="form-control shadow-none"
+                                        id="rating">
+                                    <input type="hidden" value="{{ $product->id }}" name="product_id"
+                                        class="form-control shadow-none" id="product_id">
+                                    <input type="text" name="user_name" class="form-control shadow-none" id="user_name">
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Message <span
-                                        class="text-danger">*</span></label>
-                                <textarea id="message" cols="30" rows="5" class="form-control shadow-none"></textarea>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Email <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="user_email" class="form-control shadow-none"
+                                        id="user_email">
+                                </div>
                             </div>
-                            <button type="submit" class="square-block-btn">Add Review</button>
-                        </form>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                            <textarea id="review_description" name="review_description" cols="30" rows="5"
+                                class="form-control shadow-none"></textarea>
+                        </div>
+                        <button type="submit" class="square-block-btn add_review">Add Review</button>
+
                         <!-- form end  -->
                     </div>
                 </div>
 
                 <div class="reviews bg-light p-4 mt-4 rounded">
+                    @foreach($reviews as $key => $review)
                     <div class="row border-bottom pb-3 mb-3">
                         <div class="col-md-2 text-center">
-                            <h6>Andrew</h6>
-                            <p>Jan 22, 2023</p>
+                            <h6>{{ $review->user_name }}</h6>
+                            <p>{{ $review->created_at->format('M d, Y') }}</p>
                             <span>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
+                                @for($i = 1; $i <= 5; $i++) 
+                                @if($i <=$review->review_stars)
+                                    <i class="bx bxs-star text-warning"></i>
+                                    @else
+                                    <i class="bx bxs-star" style="color:grey;"></i>
+                                    @endif
+                                    @endfor
                             </span>
                         </div>
                         <div class="col-md-8">
-                            <p>good prices</p>
+                            <p>{{ $review->review_description }}</p>
                         </div>
                         <div class="col-md-2 d-inline-flex">
                             <img loading="lazy" width="24" height="24"
@@ -586,27 +608,9 @@
                             <p>Verified Buyer</p>
                         </div>
                     </div>
-                    <div class="row border-bottom pb-3 mb-3">
-                        <div class="col-md-2 text-center">
-                            <h6>Andrew</h6>
-                            <p>Jan 22, 2023</p>
-                            <span>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                                <i class="bx bxs-star text-warning"></i>
-                            </span>
-                        </div>
-                        <div class="col-md-8">
-                            <p>good prices</p>
-                        </div>
-                        <div class="col-md-2 d-inline-flex">
-                            <img loading="lazy" width="24" height="24"
-                                src="https://jbsdevices.com/assets/images/shield.png" alt="">
-                            <p>Verified Buyer</p>
-                        </div>
-                    </div>
+                    @endforeach
+
+
                 </div>
             </div>
 
@@ -701,5 +705,73 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+const stars = document.querySelectorAll('.star');
 
+for (let i = 0; i < stars.length; i++) {
+    stars[i].addEventListener('mouseover', function() {
+        for (let j = 0; j <= i; j++) {
+            stars[j].style.color = "orange";
+        }
+    });
+
+    stars[i].addEventListener('mouseout', function() {
+        for (let j = 0; j <= i; j++) {
+            stars[j].style.color = "gray";
+        }
+    });
+
+    stars[i].addEventListener('click', function() {
+        for (let j = 0; j <= i; j++) {
+            stars[j].classList.add("active");
+        }
+        for (let j = i + 1; j < stars.length; j++) {
+            stars[j].classList.remove("active");
+        }
+    });
+}
+
+$('.star').click(function() {
+
+    var rating = $(this).index() + 1;
+    var activeStars = $(this).siblings('.active').length + 1;
+
+
+    $(this).prevAll().addClass('active');
+    $(this).addClass('active');
+    $(this).nextAll().removeClass('active');
+
+    $('#rating').val(activeStars);
+
+});
+
+$('.add_review').click(function() {
+
+    let product_id = $('#product_id').val();
+    let user_name = $('#user_name').val();
+    let user_email = $('#user_email').val();
+    let review_description = $('#review_description').val();
+    let rating = $('#rating').val();
+
+    $.ajax({
+        url: '/star-ratings',
+        type: 'POST',
+        data: {
+            _token: "{{ csrf_token() }}",
+            rating: rating,
+            product_id: product_id,
+            user_name: user_name,
+            user_email: user_email,
+            review_description: review_description,
+        },
+        success: function(response) {
+            location.reload();
+
+        },
+        error: function(error) {
+            console.error(error);
+        },
+    });
+});
+</script>
 @include('frontend.footer')

@@ -90,6 +90,7 @@ class CartController extends Controller
 
     public function loadcart()
     {
+        $coupon = session()->get('coupon');
         $cart = session()->get('cart');
         $subtotal = 0;
         $total_product_count = 0;
@@ -99,7 +100,7 @@ class CartController extends Controller
             $total_product_count ++;
         }
     }
-        return response()->json(['cart'=>$cart,'subtotal'=>$subtotal,'total_product_count'=>$total_product_count]);
+        return response()->json(['cart'=>$cart,'subtotal'=>$subtotal,'total_product_count'=>$total_product_count, 'coupon' => $coupon]);
 
     }
 
