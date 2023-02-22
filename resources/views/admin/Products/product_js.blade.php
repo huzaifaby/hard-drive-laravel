@@ -13,6 +13,7 @@ $(document).ready(function() {
         let product_meta_title = $('#product_meta_title').val();
         let product_meta_description = $('#product_meta_description').val();
         let category_id = $('#category_id').val();
+        let sub_category_id = $('#sub_category_id').val();
         let brand_id = $('#brand_id').val();
         let availability = $('#availability').val();
         let product_quantity = $('#product_quantity').val();
@@ -28,6 +29,7 @@ $(document).ready(function() {
         formData.append('product_meta_title', product_meta_title);
         formData.append('product_meta_description', product_meta_description);
         formData.append('category_id', category_id);
+        formData.append('sub_category_id', sub_category_id);
         formData.append('brand_id', brand_id);
         formData.append('availability', availability);
         formData.append('product_quantity', product_quantity);
@@ -77,6 +79,8 @@ $(document).ready(function() {
         let metadescription = $(this).data('metadescription');
         let category_name = $(this).data('categoryname');
         let category_id = $(this).data('categoryid');
+        let sub_category_name = $(this).data('subcategoryname');
+        let sub_category_id = $(this).data('subcategoryid');
         let brand_id = $(this).data('brandid');
         let brand_name = $(this).data('brandname');
         let availability = $(this).data('availability');
@@ -100,6 +104,8 @@ $(document).ready(function() {
         $('#up_product_meta_description').val(metadescription);
         $('#up_category_id').append('<option hidden selected value="' + category_id + '">' +
             category_name + '</option>');
+        $('#up_sub_category_id').append('<option hidden selected value="' + sub_category_id + '">' +
+        sub_category_name + '</option>');
         $('#up_brand_id').append('<option hidden selected value="' + brand_id + '">' +
             brand_name + '</option>');
         $('#up_availability').append('<option hidden selected value="' + availability + '">' +
@@ -121,6 +127,7 @@ $(document).ready(function() {
         let up_product_meta_title = $('#up_product_meta_title').val();
         let up_product_meta_description = $('#up_product_meta_description').val();
         let up_category_id = $('#up_category_id').val();
+        let up_sub_category_id = $('#up_sub_category_id').val();
         let up_brand_id = $('#up_brand_id').val();
         let up_availability = $('#up_availability').val();
         let up_product_quantity = $('#up_product_quantity').val();
@@ -137,6 +144,7 @@ $(document).ready(function() {
         formData.append('up_product_meta_title', up_product_meta_title);
         formData.append('up_product_meta_description', up_product_meta_description);
         formData.append('up_category_id', up_category_id);
+        formData.append('up_sub_category_id', up_sub_category_id);
         formData.append('up_brand_id', up_brand_id);
         formData.append('up_availability', up_availability);
         formData.append('up_product_quantity', up_product_quantity);
@@ -284,7 +292,7 @@ $(document).ready(function() {
 
     function product(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-product?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }
@@ -311,7 +319,33 @@ $(document).ready(function() {
             }
         });
     })
+
+    $('.category_id').change(function() {
+
+        alert('huzaifa');
+        var category_id = $(this).val();
+        $.ajax({
+            url: "{{ route('get.subcategories') }}",
+            method: 'post',
+            data: {
+                category_id: category_id
+            },
+            success: function(response) {
+                $('.sub_category_id').empty(); // Clear the subcategories dropdown
+                $.each(response.data, function(index, data) {
+                    $('.sub_category_id').append('<option value="' + data.id +
+                        '">' + data.sub_category_name + '</option>');
+                });
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+
+
+
+
 });
 </script>
-
-

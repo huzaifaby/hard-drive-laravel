@@ -14,29 +14,13 @@
         <!-- breadcrumb end  -->
 
         <div class="row mb-3">
-            <div class="col">
-                <input id="coupon_code" class="form-control" placeholder="Coupon Code" type="text">
+            <div class="col-lg-4 col-7">
+                <input id="coupon_code" class="form-control py-2 shadow-none" placeholder="Coupon Code" type="text">
             </div>
-            <div class="col">
-                <button id="applyCouponBtn" class="apply_coupon">Apply Coupon</button>
+            <div class="col-lg-4 col-5">
+                <button id="applyCouponBtn" class="square-sm-btn apply_coupon">Apply Coupon</button>
             </div>
         </div>
-
-        <!-- 
-        <script>
-        document.getElementById("applyCouponBtn").addEventListener("click", function() {
-            let couponCode = document.getElementById("couponCodeInput").value;
-            let subtotal = document.getElementById("total_price").value;
-            
-
-            if (couponCode === "DISCOUNT20") {
-                subtotal *= 0.8;
-                console.log("Discount applied! New subtotal: ", subtotal);
-            } else {
-                console.log("Invalid coupon code.");
-            }
-        });
-        </script> -->
 
 
 
@@ -53,7 +37,7 @@
                     data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
                     @csrf
 
-                    <input type="text" class="total_price" value="{{$subtotal}}" id="total_price" name="total_price">
+                    <input type="hidden" class="total_price" value="{{$subtotal}}" id="total_price" name="total_price">
 
                     <div class="row mb-3">
                         <div class="col">

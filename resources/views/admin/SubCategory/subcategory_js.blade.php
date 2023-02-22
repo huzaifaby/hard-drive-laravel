@@ -161,12 +161,12 @@ $(document).ready(function() {
     $(document).on('click', '.pagination a', function(e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1]
-        category(page)
+        subcategory(page)
     })
 
-    function category(page) {
+    function subcategory(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-subcategory?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }

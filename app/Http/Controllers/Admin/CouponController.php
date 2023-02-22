@@ -21,18 +21,20 @@ class CouponController extends Controller
     //CustomersController view
    public function coupon()
    {    
-
         $coupons = Coupon::latest()->paginate(5);
         $products = Product::all();
         return view('admin.Coupon.coupon')->with(compact('coupons'));
    }
+   //end
 
+   //customer add
    public function CustomersAdd()
    {
        $products = Product::all();
 
        return view('admin.Coupon.add_coupon')->with(compact('products'));
    }  
+   //end
 
    //add product
    public function saveCoupon(Request $request){
@@ -51,7 +53,9 @@ class CouponController extends Controller
          return redirect()->route('coupon');
 
            }
+           //end
 
+           //edit
    public function CouponEdit($id)
    {
       $coupon = Coupon::select('coupons.id as coupons_id', 'coupons.*', 'products.*')->
@@ -61,7 +65,7 @@ class CouponController extends Controller
 
        return view('admin.Coupon.update_coupon')->with(compact('coupon'))->with(compact('products'));
    }  
-   
+   //end
 
       
 
@@ -83,47 +87,49 @@ public function updateCoupon(Request $request){
 
     return redirect()->route('coupon');
 }
+//end
 
 
     //delete Customers
-    public function deleteCustomers(Request $request){
+    public function deleteCoupon(Request $request){
 
-    $id = $request->product_id;
-    $customers = Customers::find($id);
-    $customers->delete();
+    $id = $request->coupon_id;
+    $coupon = Coupon::find($id);
+    $coupon->delete();
 
     return response()->json([
         'status' => 'success',
     ]);
 
-}
+    }
+    //end
 
 
     //pagination page
    public function pagination(Request $request){
+    $coupons = Coupon::latest()->paginate(5);
 
-    $customers = Customers::latest()->paginate(5);
-  
-    return view('admin.Customers.pagination_customers',compact('customers'))->render();
+    return view('admin.Coupon.pagination_coupon',compact('coupons'))->render();
 
    }
+   //end
 
     //search customers
-   public function searchCustomers(Request $request){
+   public function searchCoupon(Request $request){
 
-    $customers = Customers::latest()->paginate(5);
+    $coupons = Coupon::latest()->where('coupon_code', 'like', '%'.$request->search_string.'%')->
+    paginate(5);
 
-
-    if($customers->count() >= 1){
-        return view('admin.Customers.pagination_customers',compact('customers'))->render();
+    if($coupons->count() >= 1){
+        return view('admin.Coupon.pagination_coupon',compact('coupons'))->render();
     }else{
         return response()->json([
             'status' => 'nothing_found',
 
         ]);
     }
-
    }
+   //end
 
 
 }

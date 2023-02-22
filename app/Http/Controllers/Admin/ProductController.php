@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\SubCategory;
 use App\Models\ProductBrand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,19 +13,31 @@ use Illuminate\Support\Facades\Storage;
           
 class ProductController extends Controller
 {
+
+    
     //product view
    public function products()
    {    
-        $products = Product::select('products.id as product_id', 'products.*', 'product_categories.*', 'product_brands.*')->
-        join('product_categories', 'product_categories.id', '=', 'products.category_id')->
-        join('product_brands', 'product_brands.id', '=', 'products.brand_id')
-        ->paginate(5);     
+    $products = Product::select('products.id as product_id', 'products.*', 'product_categories.*','sub_categories.*', 'product_brands.*')
+        ->leftJoin('product_categories', 'product_categories.id', '=', 'products.category_id')
+        ->leftJoin('sub_categories', 'sub_categories.id', '=', 'products.sub_category_id')
+        ->leftJoin('product_brands', 'product_brands.id', '=', 'products.brand_id')
+        ->paginate(5);    
         $products_category = ProductCategory::all();
+        $products_sub_category = SubCategory::all();
         $products_brand = ProductBrand::all();
 
         return view('admin.Products.products')->with(compact('products'))->
-        with(compact('products_category'))->with(compact('products_brand'));
+        with(compact('products_category'))->with(compact('products_brand'))->with(compact('products_sub_category'));
    }
+    //end
+
+   public function getsub_categories(Request $request) {
+
+    $data = SubCategory::where('category_id', $request->category_id)->get();
+    return response()->json(['data'=>$data]);
+    }  
+     //end 
    
 
        //add product
@@ -32,10 +45,8 @@ class ProductController extends Controller
 
     $request->validate(
         [
-            
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ],
-        
         );
 
         $imageName = '';
@@ -54,6 +65,7 @@ class ProductController extends Controller
             'product_meta_title' => $request->product_meta_title,
             'product_meta_description' => $request->product_meta_description,
             'category_id' => $request->category_id,
+            'sub_category_id' => $request->sub_category_id,
             'product_image' => $imageName,
             'is_sale' => 0,
             'is_featured' => 0,
@@ -62,17 +74,17 @@ class ProductController extends Controller
             'quantity' => $request->product_quantity,
 
         ]);
-    
 
         return response()->json([
             'status' => 'success',
         ]);
    }
+    //end
 
 
 
    //update product
-public function updateProduct(Request $request){
+    public function updateProduct(Request $request){
 
     //get the product and image file
     $product = Product::find($request->up_id);
@@ -102,6 +114,7 @@ public function updateProduct(Request $request){
         'product_meta_title' => $request->up_product_meta_title,
         'product_meta_description' => $request->up_product_meta_description,
         'category_id' => $request->up_category_id,
+        'sub_category_id' => $request->up_sub_category_id,
         'product_image' => $new_image,
         'brand_id' => $request->up_brand_id,
         'availability' => $request->up_availability,
@@ -111,7 +124,8 @@ public function updateProduct(Request $request){
     return response()->json([
         'status' => 'success',
     ]);
-}
+    }
+     //end
 
 
 
@@ -129,7 +143,8 @@ public function updateProduct(Request $request){
     return response()->json([
         'status' => 'success',
     ]);
-}
+    }
+     //end
 
  //update sale product status
  public function saleProduct(Request $request){
@@ -145,7 +160,8 @@ public function updateProduct(Request $request){
     return response()->json([
         'status' => 'success',
     ]);
-}
+    }
+     //end
 
 
     //delete product
@@ -159,22 +175,21 @@ public function updateProduct(Request $request){
     }
     $product->delete();
 
-    // Product::find($request->product_id)->delete();
-
-
     return response()->json([
         'status' => 'success',
     ]);
-
-}
+    }
+     //end
 
 
     //pagination page
    public function pagination(Request $request){
 
-    $products = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->
-    join('product_brands', 'product_brands.id', '=', 'products.brand_id')
-    ->paginate(5);  
+    $products = Product::select('products.id as product_id', 'products.*', 'product_categories.*','sub_categories.*', 'product_brands.*')
+        ->leftJoin('product_categories', 'product_categories.id', '=', 'products.category_id')
+        ->leftJoin('sub_categories', 'sub_categories.id', '=', 'products.sub_category_id')
+        ->leftJoin('product_brands', 'product_brands.id', '=', 'products.brand_id')
+        ->paginate(5);  
     return view('admin.Products.pagination_products',compact('products'))->render();
 
    }
@@ -182,8 +197,9 @@ public function updateProduct(Request $request){
     //search product
    public function searchProduct(Request $request){
 
-    $products = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->
-    join('product_brands', 'product_brands.id', '=', 'products.brand_id')->where('products.product_title', 'like', '%'.$request->search_string.'%')
+    $products = Product::leftJoin('product_categories', 'product_categories.id', '=', 'products.category_id')
+    ->leftJoin('sub_categories', 'sub_categories.id', '=', 'products.sub_category_id')
+    ->leftJoin('product_brands', 'product_brands.id', '=', 'products.brand_id')->where('products.product_title', 'like', '%'.$request->search_string.'%')
     ->orWhere('products.product_price', 'like', '%'.$request->search_string.'%')
     ->paginate(5);
 
@@ -195,8 +211,8 @@ public function updateProduct(Request $request){
 
         ]);
     }
-
    }
+    //end
 
 
 }

@@ -85,7 +85,7 @@ $(document).ready(function() {
 
     function orders(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-orders?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }

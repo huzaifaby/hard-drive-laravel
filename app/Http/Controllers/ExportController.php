@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Orders;
 use App\Models\ProductCategory;
 use App\Models\ProductBrand;
 use Illuminate\Http\Request;
@@ -43,6 +44,35 @@ class ExportController extends Controller
         exit;
     }
     
+
+    public function ordersExportData()
+    {
+        // file name
+        $filename = 'orders_' . date('Ymd') . '.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv; ");
+    
+        // get data
+        $orders = Orders::all();
+    
+        // file creation
+        $file = fopen('php://output', 'w');
+        if (!$file) {
+            abort(500, 'Could not open the file for writing.');
+        }
+    
+        $header = [
+            "ID", "session_id", "user_id", "order_status", "total_amount",
+            "couponcode", "discount_amount", "created_at", "updated_at"
+        ];
+        fputcsv($file, $header);
+        foreach ($orders as $order) {
+            fputcsv($file, $order->toArray());
+        }
+        fclose($file);
+        exit;
+    }
    
 
    

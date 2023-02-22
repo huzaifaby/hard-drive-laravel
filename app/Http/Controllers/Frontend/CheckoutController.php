@@ -23,8 +23,12 @@ class CheckoutController extends Controller
 
     public function showCheckout()
     {
+        if(empty(session()->get('cart'))){
+            return redirect('/cart');
+        }else{
         $data['countries'] = Country::get(["country_name", "id"]);
         return view('frontend.checkout',$data);
+        }
     }
 
     public function fetchState(Request $request)
@@ -245,6 +249,7 @@ class CheckoutController extends Controller
     }
 
         session()->forget('cart');
+        Session::flush();
 
         if($key != null){
         return redirect("/");
@@ -288,7 +293,8 @@ class CheckoutController extends Controller
     }
     
     $today = Carbon::now();
-    if ($coupon->expiry_date < $today) {
+    if ($coupon->coupon_expiry_date < $today) {
+     
         return response()->json(['error' => 'Coupon has expired'], 400);
     }
 

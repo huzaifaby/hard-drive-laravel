@@ -42,7 +42,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::get('/autocomplete-search',[IndexController::class,'autocompleteSearch']);
 
-        Route::get('/search', [IndexController::class,'search']);
+        Route::get('/search', [IndexController::class,'search'])->name('search.show');
 
         //end
 
@@ -76,12 +76,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/star-ratings', [ProductDetailController::class,'starRating']);
         //end
 
+        //categories
+        Route::get('categories', [CategoriesController::class,'Categories'])->name('category.show');
+
+        //end
+
         //Category
         Route::get('category', [CategoriesController::class,'index'])->name('category.index');
         //end
 
        //category detail
-        Route::get('category/{category_slug}', [CategoriesController::class,'CategoryDetail'])->name('category.detail');
+       Route::get('/category/{parent}', [CategoriesController::class,'parentCategory'])->name('category.parent');
+        Route::get('/category/{parent}/{sub}', [CategoriesController::class,'parentSubCategory'])->name('category.parent-sub');
         //end
 
 
@@ -110,7 +116,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         //for frontend
         // Customer Login Routes
-        // Route::get('guest', [IndexController::class, 'showGuest'])->name('guest.show');
+        Route::get('guest', [IndexController::class, 'showGuest'])->name('guest.show');
 
         Route::get('user/login', [CustomerAuthController::class, 'showAccount'])->name('account.show');
         Route::post('customer/login', [CustomerAuthController::class, 'login'])->name('customer.login');
@@ -140,13 +146,14 @@ Route::get('dashboard/product', [ProductController::class, 'products'])->name('p
 Route::post('/add-product',[ProductController::class,'addProduct'])->name('add.product');
 Route::post('/update-product',[ProductController::class,'updateProduct'])->name('update.product');
 Route::post('/delete-product',[ProductController::class,'deleteProduct'])->name('delete.product');
-Route::get('/pagination/paginate-data',[ProductController::class,'pagination']);
+Route::get('/pagination/paginate-product',[ProductController::class,'pagination']);
 Route::get('/search-product',[ProductController::class,'searchProduct'])->name('search.product');
 Route::post('/featured-product',[ProductController::class,'featuredProduct'])->name('featured.product');
 Route::post('/sale-product',[ProductController::class,'saleProduct'])->name('sale.product');
 Route::get('productexportData',[ExportController::class,'productexportData'])->name('product.export');
 Route::get('dashboard/productCSV',[ImportController::class,'productcsv'])->name('product.csv');
 Route::post('/import-productcsv',[ImportController::class,'importproductCsvToDb'])->name('import.productcsv');
+Route::post('/get-subcategories',[ProductController::class,'getsub_categories'])->name('get.subcategories');
 //end
 
 //Category crud 
@@ -154,7 +161,7 @@ Route::get('dashboard/product-category', [CategoryController::class, 'productCat
 Route::post('/add-category',[CategoryController::class,'addCategory'])->name('add.category');
 Route::post('/update-category',[CategoryController::class,'updateCategory'])->name('update.category');
 Route::post('/delete-category',[CategoryController::class,'deleteCategory'])->name('delete.category');
-Route::get('/pagination/paginate-data',[CategoryController::class,'pagination']);
+Route::get('/pagination/paginate-category',[CategoryController::class,'pagination']);
 Route::get('/search-category',[CategoryController::class,'searchCategory'])->name('search.category');
 Route::post('/featured-category',[CategoryController::class,'featuredCategory'])->name('featured.category');
 //end
@@ -164,7 +171,7 @@ Route::get('dashboard/product-subcategory', [SubCategoryController::class, 'SubC
 Route::post('/add-subcategory',[SubCategoryController::class,'addSubCategory'])->name('add.subcategory');
 Route::post('/update-subcategory',[SubCategoryController::class,'updateSubCategory'])->name('update.subcategory');
 Route::post('/delete-subcategory',[SubCategoryController::class,'deleteSubCategory'])->name('delete.subcategory');
-Route::get('/pagination/paginate-subdata',[SubCategoryController::class,'pagination']);
+Route::get('/pagination/paginate-subcategory',[SubCategoryController::class,'pagination']);
 Route::get('/search-subcategory',[SubCategoryController::class,'searchSubCategory'])->name('search.subcategory');
 //end
 
@@ -173,7 +180,7 @@ Route::get('dashboard/product-banner', [BannerController::class, 'productBanner'
 Route::post('/add-banner',[BannerController::class,'addBanner'])->name('add.banner');
 Route::post('/update-banner',[BannerController::class,'updateBanner'])->name('update.banner');
 Route::post('/delete-banner',[BannerController::class,'deleteBanner'])->name('delete.banner');
-Route::get('/pagination/paginate-data',[BannerController::class,'pagination']);
+Route::get('/pagination/paginate-banner',[BannerController::class,'pagination']);
 Route::get('/search-banner',[BannerController::class,'searchBanner'])->name('search.banner');
 //end
 
@@ -182,7 +189,7 @@ Route::get('dashboard/product-brand', [BrandController::class, 'productBrand'])-
 Route::post('/add-brand',[BrandController::class,'addBrand'])->name('add.brand');
 Route::post('/update-brand',[BrandController::class,'updateBrand'])->name('update.brand');
 Route::post('/delete-brand',[BrandController::class,'deleteBrand'])->name('delete.brand');
-Route::get('/pagination/paginate-data',[BrandController::class,'pagination']);
+Route::get('/pagination/paginate-brand',[BrandController::class,'pagination']);
 Route::get('/search-brand',[BrandController::class,'searchBrand'])->name('search.brand');
 //end
 
@@ -192,10 +199,10 @@ Route::get('dashboard/orders', [OrdersController::class, 'orders'])->name('order
 Route::get('dashboard/edit-orders/{id}', [OrdersController::class,'OrdersEdit'])->name('orders.edit');
 Route::post('/update-orders',[OrdersController::class,'updateOrders'])->name('update.orders');
 Route::post('/delete-orders',[OrdersController::class,'deleteOrders'])->name('delete.orders');
-Route::get('/pagination/paginate-data',[OrdersController::class,'pagination']);
+Route::get('/pagination/paginate-orders',[OrdersController::class,'pagination']);
 Route::get('/search-orders',[OrdersController::class,'searchOrders'])->name('search.orders');
 Route::post('/order-status',[OrdersController::class,'orderStatus'])->name('orders.status');
-Route::get('orderexportData',[ExportController::class,'productexportData'])->name('orders.export');
+Route::get('ordersexportData',[ExportController::class,'ordersExportData'])->name('orders.export');
 Route::get('dashboard/orderCSV',[ImportController::class,'ordercsv'])->name('orders.csv');
 Route::post('/import-ordercsv',[ImportController::class,'importorderCsvToDb'])->name('import.ordercsv');
 Route::get('/load-orders-data',[OrdersController::class, 'loadordersCount']);
@@ -209,7 +216,7 @@ Route::get('dashboard/customers', [CustomersController::class, 'customers'])->na
 Route::get('dashboard/edit-customers/{id}', [CustomersController::class,'CustomersEdit'])->name('customers.edit');
 Route::post('/update-customers',[CustomersController::class,'updateCustomers'])->name('update.customers');
 Route::post('/delete-customers',[CustomersController::class,'deleteCustomers'])->name('delete.customers');
-Route::get('/pagination/paginate-data',[CustomersController::class,'pagination']);
+Route::get('/pagination/paginate-customers',[CustomersController::class,'pagination']);
 Route::get('/search-customers',[CustomersController::class,'searchCustomers'])->name('search.customers');
 //end
 
@@ -220,9 +227,11 @@ Route::post('/save-coupon',[CouponController::class,'saveCoupon'])->name('save.c
 Route::get('dashboard/edit-coupon/{id}', [CouponController::class,'CouponEdit'])->name('coupon.edit');
 Route::post('/update-coupon',[CouponController::class,'updateCoupon'])->name('update.coupon');
 Route::post('/delete-coupon',[CouponController::class,'deleteCoupon'])->name('delete.coupon');
-Route::get('/pagination/paginate-data',[CouponController::class,'pagination']);
+Route::get('/pagination/paginate-coupon',[CouponController::class,'pagination']);
 Route::get('/search-coupon',[CouponController::class,'searchCoupon'])->name('search.coupon');
 //end
+
+
 
 
 //Admin Dashboard work end

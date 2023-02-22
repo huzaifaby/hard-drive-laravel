@@ -18,15 +18,15 @@
                     <div class="row">
 
 
-                    <div class="col">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="up_category_id"> Category Name</label>
                                 <select name="up_category_id" class="form-select" id="up_category_id">
-                                <option hidden value=""></option>
-                                @foreach($products_category as $key=>$productscategory)
-                                <option value="{{ $productscategory->id }}">{{ $productscategory->category_name }}
-                                </option>
-                                @endforeach
+                                    <option hidden value=""></option>
+                                    @foreach($products_category as $key=>$productscategory)
+                                    <option value="{{ $productscategory->id }}">{{ $productscategory->category_name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -61,12 +61,7 @@
                                     id="up_sub_category_image">
                             </div>
                         </div>
-                        <div class="col-auto">
 
-                            <img width="100" class="img-thumbnail" src="" id="img-preview">
-
-
-                        </div>
 
                     </div>
 

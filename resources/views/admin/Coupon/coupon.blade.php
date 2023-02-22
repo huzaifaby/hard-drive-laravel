@@ -2,11 +2,10 @@
 @section('content')
 
 
-<h1 class="mt-4">Customers Tables</h1>
+<h1 class="mt-4">Coupon Tables</h1>
 <div class="mb-4 bg-light text-end p-2">
     <a href="{{ route('coupon.add') }}" class="btn btn-success ">Add Coupon </a>
-    <a href="{{ route('orders.csv') }}" class="btn btn-success ">Import</a>
-    <a href="{{ route('orders.export') }}" class="btn btn-success">Export</a>
+
 
 
 </div>
@@ -38,7 +37,7 @@
                             <a href="edit-coupon/{{ $coupon->id }}" class="btn btn-success">
                                 <i class="fas fa-edit"></i></a>
 
-                            <a href="" data-id="{{ $coupon->id }}" class="btn btn-danger delete_customers">
+                            <a href="" data-id="{{ $coupon->id }}" class="btn btn-danger delete_coupon">
                                 <i class="las la-trash-alt"></i></a>
                         </td>
                     </tr>

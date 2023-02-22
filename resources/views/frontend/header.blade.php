@@ -11,7 +11,7 @@
 
     <meta name="robots" content="noindex, nofollow">
     <!-- CSS link  -->
-    <link rel="stylesheet" href="../frontend_assets/css/style.css">
+    <link rel="stylesheet" href="/frontend_assets/css/style.css">
     <!-- bootstrap  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <!-- boxicons  -->
@@ -32,6 +32,11 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
     <style>
     #search_list {
         display: none;
@@ -61,6 +66,8 @@
     </style>
 
 </head>
+
+
 
 <body>
 
@@ -133,25 +140,40 @@
                                 </a>
                                 <!-- Dropdown menu -->
                                 <div class="dropdown-menu dropdown-submenu megamenu mt-0 rounded-0">
-                                    <div>
-                                        <div class="row my-2">
-                                            <div class="col-md-6 col-lg-3 mb-3">
-                                                <ul>
-                                                    @foreach($sub_category as $key=>$subcategory)
-                                                    <li class="mb-2">
-                                                        <a href="#">Memory</a>
-                                                    </li>
-                                                    <li class="mb-2">
-                                                        <a href="{{ url('/category/' . $subcategory->sub_category_slug) }}"
-                                                            class="text-dark">{{ $subcategory->sub_category_name }}</a>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="menu-col">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <ul class="row">
+                                                            <!-- <li class="mb-2">
+                                                                <a href="#">PSU & Power Protections</a>
+                                                            </li> -->
+                                                            <?php $counter = 0; ?>
+                                                            @foreach($sub_category as $key=>$subcategory)
+                                                            <?php if($counter%4 == 0): ?>
+                                                            <div class="row">
+                                                                <?php endif; ?>
+                                                                <div class="col-md-4">
+                                                                    <li class="mb-2">
+                                                                        <a href="{{ url('/category/power-supply-others/' . $subcategory->sub_category_slug) }}"
+                                                                            class="text-dark">{{ $subcategory->sub_category_name }}</a>
+                                                                    </li>
+                                                                </div>
+                                                                <?php 
+                                                                        $counter++;
+                                                                        if($counter%4 == 0): ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End .row -->
+                                            </div><!-- End .menu-col -->
+                                        </div><!-- End .col-md-8 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .megamenu -->
                             </li>
                             <li><a class="dropdown-item border-bottom bg-white"
                                     href="{{ url('/category/networking-devices') }}">Networking Devices</a></li>
@@ -177,7 +199,7 @@
                     <div class="searchBar">
                         <input type="search"
                             placeholder="Please Search by Part Number, by Brand, by Model name or any keyword"
-                            id="searchName" name="search">
+                            class="searchName" name="search">
 
                         <button type="submit" id="searchProduct"><i class="bx bx-search"></i></button>
                         <div id="search_list"></div>
@@ -261,10 +283,10 @@
         <div class="container">
             <div class="row align-items-center w-100">
                 <div class="col">
-                    <a class="navbar-brand" href="#">
-                        <img src="https://jbsdevices.com/assets/images/1612886525logo.png" class="img-fluid"
-                            loading="lazy" width="100" alt="">
-                    </a>
+                <a class="navbar-brand" href="/">
+                    <img src="{{ asset('image/logo/'.$settings[0]->logo) }}" class="img-fluid" loading="lazy"
+                        width="150" alt="">
+                </a>
                 </div>
                 <div class="col-auto">
                     <div>
@@ -273,7 +295,13 @@
                                 <a class="nav-link text-dark" href="#"><i class="bx bx-headphone fs-5"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="#"><i class="bx bx-user fs-5"></i></a>
+                            <?php  if (Auth::guard('customer')->check()) { ?>
+                                <a class="nav-link text-dark" href="{{ route('customer.dashboard') }}"><i class="bx bx-user fs-5"></i></a>
+
+                                <?php } else { ?>
+                                    <a class="nav-link text-dark" href="{{ route('account.show') }}"><i class="bx bx-user fs-5"></i></a>
+
+                                    <?php }  ?>
                             </li>
                         </ul>
                     </div>
@@ -286,9 +314,6 @@
     <!-- mobile header start  -->
     <header class="d-sm-block d-lg-none mainMobileHeader">
 
-
-
-
         <!-- menubar, searchbar and cart start -->
         <div class="categories d-sm-block d-lg-none">
             <div class="container">
@@ -300,7 +325,7 @@
                     </div>
                     <div class="col">
                         <!-- form start  -->
-                        <form class="searchBar">
+                        <form action="{{ route('search.show') }}" class="searchBar">
                             <input type="search"
                                 placeholder="Please Search by Part Number, by Brand, by Model name or any keyword"
                                 name="search" class="border border-2 w-100">
@@ -350,128 +375,36 @@
         <!-- categories nav start  -->
         <ul class="ps-0 mt-2">
             <li>
-                <a href="#" class="dropdown-btn sideNavDropdown">Dropdown
-                    <i class="bx bx-plus"></i>
+                
+                <a href="{{ url('/category/power-supply-others') }}" 
+                class="dropdown-btn sideNavDropdown">Power Supply & others
+                    <i class="bx bx-plus "></i>
                 </a>
+                
                 <ul class="dropdown-container sideNavsubmenu">
-                    <li class="ps-1 pt-2">Networking</li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
+                @foreach($sub_category as $key=>$subcategory)
+                <li><a href="{{ url('/category/power-supply-others/' . $subcategory->sub_category_slug) }}">{{ $subcategory->sub_category_name }}</a></li>
+                @endforeach
+                 
                 </ul>
             </li>
             <li>
-                <a href="#" class="dropdown-btn sideNavDropdown">Dropdown
+                <a href="{{ url('/category/networking-devices') }}" class="dropdown-btn sideNavDropdown">Networking Devices
                     <i class="bx bx-plus"></i>
                 </a>
-                <ul class="dropdown-container sideNavsubmenu">
-                    <li class="ps-1 pt-2">Networking</li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                </ul>
+     
             </li>
             <li>
-                <a href="#" class="dropdown-btn sideNavDropdown">Dropdown
+                <a href="{{ url('/category/memory') }}" class="dropdown-btn sideNavDropdown">Memory
                     <i class="bx bx-plus"></i>
                 </a>
-                <ul class="dropdown-container sideNavsubmenu">
-                    <li class="ps-1 pt-2">Networking</li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                </ul>
+             
             </li>
             <li>
-                <a href="#" class="dropdown-btn sideNavDropdown">Dropdown
+                <a href="{{ url('/category/storage-devices') }}" class="dropdown-btn sideNavDropdown">Storage Devices
                     <i class="bx bx-plus"></i>
                 </a>
-                <ul class="dropdown-container sideNavsubmenu">
-                    <li class="ps-1 pt-2">Networking</li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 1</a></li>
-                </ul>
+                
             </li>
 
 
@@ -484,288 +417,4 @@
     <!-- main layout start  -->
     <div class="layout-container">
 
-
-
-
-        <script>
-        $(document).ready(function() {
-
-
-            loadcart();
-
-
-            //add to cart
-            $('.add-to-cart').click(function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                var quantities = $('#quantities').val() || 1;
-                $.ajax({
-                    url: '/cart/add',
-                    method: 'POST',
-                    data: {
-                        id: id,
-                        quantities: quantities,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-                        Swal.fire({
-                            position: 'top-end',
-                            // icon: 'success',
-                            title: '✔️ Product added to cart',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                        loadcart();
-                    }
-                });
-            });
-
-
-            // load cart
-            function loadcart() {
-                $.ajax({
-                    url: "/load-cart-data",
-                    method: "GET",
-                    success: function(response) {
-                        $('.cart-count').html(response.total_product_count);
-                        $('.sub-total').html('$' + response.subtotal.toFixed(2));
-                        let cart = response.cart;
-                        let cartTable = $('#cartTable');
-                        let cartTableMobile = $('#cartTableMobile');
-                        let cartpage = $('#cartpage');
-                        cartTable.html('');
-                        cartTableMobile.html('');
-                        cartpage.html('');
-                        let coupon = response && response.coupon;
-
-                        if (coupon) {
-                            console.log(coupon);
-                            $('.coupon_code').html();
-
-                            if (Object.keys(coupon).length === 0) {
-                                $("#couponcode").hide();
-                            } else {
-                                $("#couponcode").show();
-                                $('.coupon_code').html(coupon.coupon_code);
-                            }
-                        }
-
-
-                        if (Object.keys(cart).length === 0) {
-                            $(".no_product").show();
-                            $(".cart-table").hide();
-                            return;
-                        } else {
-                            $(".no_product").hide();
-                            $(".cart-table").show();
-                            for (let id in cart) {
-                                let details = cart[id];
-                                let productTitle = details['product_title'];
-                                let quantity = details['quantity'];
-                                let productPrice = details['product_price'];
-                                let productImage = details['product_image'];
-
-                                let row = `<tr>
-                        <td><a href="{{ route('cart.show') }}" class="text-dark">${productTitle.substr(0, 30)}<br>
-                            <p class="mb-0">${quantity} x $${productPrice}</p>
-                        </a></td>
-                        <td><a href="{{ route('cart.show') }}">
-                            <img src="{{ asset('image/products/') }}/${productImage}" loading="lazy" width="75" alt=""></a></td>
-                        <td><a data-id="${id}" class="remove-from-cart" href="#">
-                            <i class="bx bx-trash text-danger fs-5"></i></a></td>
-                    </tr>`;
-
-                                cartTable.append(row);
-                                cartTableMobile.append(row);
-
-
-                                let row1 = `
-                                    <tr>
-                                    <th><img src="{{ asset('image/products/') }}/${productImage}" loading="lazy" width="180" alt=""></th>
-                                    <td class="align-middle">${productTitle}</td>
-                                    <td class="align-middle">$${productPrice}</td>
-                                    <td class="align-middle">
-                                        <!-- Inc / Dec start  -->
-                                        <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item"><button class="bg-white minus-button" data-id="${id}" id="minus-button"> <i class="bx bx-minus"></i></button></li>
-                                        <li class="list-group-item">
-                                            <p class="card-text-para mb-0">${quantity}</p>
-                                        </li>
-                                        <li class="list-group-item "><button class="bg-white plus-button" data-id="${id}" id="plus-button"> <i class="bx bx-plus"></i></button></li>
-                                        </ul>
-                                      
-                                    </td>
-                                    <td class="align-middle">$${quantity * productPrice}/-</td>
-                                    <td class="align-middle"><a href="#" class="remove-from-cart" data-id="${id}"><i class="bx bx-trash text-danger fs-4"></i></a></td>
-                                    </tr>
-                                `;
-                                cartpage.append(row1);
-                            }
-
-                            let subTotalRow = `<tr class="border-bottom border-top">
-                    <td colspan="3" class="text-center sub-total">Subtotal: $${response.subtotal}</td>
-                </tr>
-                <tr>
-                    <td colspan="3"><a href="{{ route('cart.show') }}" class="square-block-btn">View Cart</a></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><a href="{{ route('checkout.show') }}" class="square-block-btn bg-secondary">Checkout</a></td>
-                </tr>`;
-
-                            cartTable.append(subTotalRow);
-                            cartTableMobile.append(subTotalRow);
-                        }
-                    }
-                });
-            }
-
-
-
-
-            //remove cart
-            $(document).on('click', '.remove-from-cart', function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-
-                $.ajax({
-                    url: '/cart/remove',
-                    method: 'POST',
-                    data: {
-                        id: id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-
-
-                        loadcart();
-
-                    }
-                });
-            });
-
-            $(document).on('click', '#plus-button', function(e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                $.ajax({
-                    url: '/update-cart/' + id,
-                    type: 'POST',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "quantity": 1
-                    },
-                    success: function(response) {
-                        loadcart();
-                    }
-                });
-            });
-
-            $(document).on('click', '#minus-button', function(e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                $.ajax({
-                    url: '/update-cart/' + id,
-                    type: 'POST',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "quantity": -1
-                    },
-                    success: function(response) {
-                        loadcart();
-                    }
-                });
-            });
-
-
-            $('.apply_coupon').click(function(e) {
-                e.preventDefault();
-                let coupon_code = $('#coupon_code').val();
-                let total_price = $('#total_price').val();
-                $.ajax({
-                    url: '/cart/coupon',
-                    method: 'POST',
-                    data: {
-                        total_price: total_price,
-                        coupon_code: coupon_code,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('.total_price').html(response.discount);
-                        $('.total_price').val(response.discount);
-
-
-                        Swal.fire({
-                            position: 'top-end',
-                            title: '✔️ Success',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.status === 400) {
-                            if (jqXHR.responseJSON.error === 'Coupon already applied') {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Coupon already applied!',
-                                });
-                            } else if (jqXHR.responseJSON.error === 'Coupon has expired') {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Coupon has expired!',
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Invalid Coupon Code!',
-                                });
-                            }
-                        }
-                    }
-                });
-            });
-
-
-
-        });
-        </script>
-
-
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $('#searchName').on('keyup', function() {
-                var query = $(this).val();
-
-                if (query.length > 0) {
-                    $.ajax({
-                        url: "{{ url('autocomplete-search') }}",
-                        type: "GET",
-                        data: {
-                            'query': query
-                        },
-                        success: function(data) {
-                            $('#search_list').css('display', 'block');
-                            $('#search_list').html('');
-                            $.each(data, function(key, value) {
-                                $('#search_list').append(
-                                    '<div class="row align-items-center border-bottom"><div class="col-auto"><a href="/product-detail/' +
-                                    value.product_slug +
-                                    '"><img width="50" src="{{ asset("image/products" ) }}/' +
-                                    value.product_image + '"></div>' +
-                                    '<div class="col">' + value.product_title +
-                                    '<span class="d-block">Price: ' + value
-                                    .product_price + '</span></a></div></div>');
-                            });
-                        }
-                    });
-                } else {
-                    $('#search_list').css('display', 'none');
-                }
-            });
-
-            $("#searchProduct").click(function() {
-                window.location.href = "/search?search=" + $("#searchName").val();
-            });
-        });
-        </script>
+    @include('frontend.orders_js')

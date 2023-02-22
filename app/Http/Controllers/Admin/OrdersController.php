@@ -32,7 +32,9 @@ class OrdersController extends Controller
 
         return view('admin.Orders.orders')->with(compact('orders'));
     }
+    //end
 
+    //load
    public function loadordersCount()
    {
 
@@ -48,29 +50,31 @@ class OrdersController extends Controller
     ,'cancelled'=>$cancelled,'refunded'=>$refunded,'failed'=>$failed]);
 
    }
+    //end
 
-
+   //filter
    public function orderFilter(Request $request)
    {
        $search = $request->input('search');
        $data = Orders::where('product_title', 'LIKE', '%'. $search. '%')->get();
-
        return view('admin.Orders.orders')->with(compact('data'));
-
    }
+    //end
 
+    //show
    public function showOrderProducts($id)
-{
-   $order_products = OrderProducts::join('orders', 'orders.id', '=', 'order_products.order_id')->
+    {
+     $order_products = OrderProducts::join('orders', 'orders.id', '=', 'order_products.order_id')->
       join('products', 'products.id', '=', 'order_products.product_id')->
       where('order_products.order_id', $id)->get();     
 
     return response()->json($order_products);
-}
+    }
+     //end
 
 
 
-
+    //edit
    public function OrdersEdit($id)
    {
       $orders = Orders::join('billing_details', 'billing_details.order_id', '=', 'orders.id')->
@@ -95,12 +99,12 @@ class OrdersController extends Controller
       join('products', 'products.id', '=', 'order_products.product_id')->
       where('order_products.order_id', $id)->get();     
 
-    
       $countries = Country::get(["country_name", "id"]);
 
        return view('admin.Orders.update_orders')->with(compact('orders'))->with(compact('order_products'))
        ->with(compact('BillingDetails'))->with(compact('ShippingDetails'))->with(compact('countries'));
    }  
+   //end
    
 
       
@@ -110,8 +114,6 @@ public function updateOrders(Request $request){
 
   
     $orders = Orders::find($request->up_id);
-
-
 
     //update orders with new image name
     $orders->update([
@@ -149,7 +151,8 @@ public function updateOrders(Request $request){
     ]);
 
     return redirect()->route('orders');
-}
+    }
+     //end
 
 
 
@@ -167,7 +170,8 @@ public function updateOrders(Request $request){
     return response()->json([
         'status' => 'success',
     ]);
-}
+    }
+     //end
 
 
 
@@ -181,15 +185,11 @@ public function updateOrders(Request $request){
     BillingDetails::where('order_id', $request->product_id)->delete();
     ShippingDetails::where('order_id', $request->product_id)->delete();
 
-    // Orders::find($request->product_id)->delete();
-
-
     return response()->json([
         'status' => 'success',
     ]);
-
-}
-
+    }
+     //end
 
     //pagination page
    public function pagination(Request $request){
@@ -200,6 +200,7 @@ public function updateOrders(Request $request){
     return view('admin.Orders.pagination_orders',compact('orders'))->render();
 
    }
+    //end
 
     //search orders
    public function searchOrders(Request $request){
@@ -217,8 +218,8 @@ public function updateOrders(Request $request){
 
         ]);
     }
-
    }
+    //end
 
 
 }

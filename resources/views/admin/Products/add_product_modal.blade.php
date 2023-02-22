@@ -53,9 +53,9 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-group ">
+                            <div class="form-group mt-2 ">
                                 <label for="category_id"> Product Category</label>
-                                <select class="form-select" name="category_id" id="category_id">
+                                <select class="form-select category_id" name="category_id" id="category_id">
                                     <option hidden>Select</option>
                                     @foreach($products_category as $key=>$productscategory)
                                     <option value="{{ $productscategory->id }}">{{ $productscategory->category_name }}
@@ -64,6 +64,23 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col">
+                            <div class="form-group mt-2 ">
+                                <label for="sub_category_id"> Sub Category Category</label>
+                                <select class="form-select sub_category_id" name="sub_category_id" id="sub_category_id">
+                                    <option hidden>Select</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="row">
 
                         <div class="col">
                             <div class="form-group mt-2">
@@ -77,11 +94,6 @@
                                 </select>
                             </div>
                         </div>
-
-                    </div>
-
-
-                    <div class="row">
 
                         <div class="col">
                             <div class="form-group mt-2">

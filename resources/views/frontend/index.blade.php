@@ -1,5 +1,7 @@
 @include('frontend.header')
 
+
+
 <!-- banner start -->
 <div class="main-banner mh-100">
     <!-- Swiper -->
@@ -8,15 +10,14 @@
 
             @foreach($banners as $key=>$banner)
             <div class="swiper-slide"
-                style="background:url({{ asset('image/banner/'.$banner->banner_image) }}) no-repeat;">
+                style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url({{ asset('image/banner/'.$banner->banner_image) }}) no-repeat;">
                 <div class="container">
-                    <div class="row justify-content-center align-items-center">
+                    <div class="row justify-content-start align-items-center">
                         <div class="col-md-6">
                             <div class="content">
                                 <span>upto 50% off</span>
                                 <h1 class="mt-3">{{ $banner->banner_name }}</h1>
-                                <p class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Blanditiis, voluptate?</p>
+                                <p class="pb-3">{{ $banner->banner_description }}</p>
                                 <a href="product-detail/{{ $banner->banner_slug }}" class="pills-sm-btn">shop now </a>
                             </div>
                         </div>
@@ -153,14 +154,15 @@
                                     @foreach($latest_products as $key=>$latestproducts)
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <div class="card-body">
+                                            <div class="card-body text-center">
                                                 <a href="product-detail/{{ $latestproducts->product_slug }}">
                                                     <img src="{{ asset('image/products/'.$latestproducts->product_image) }}"
-                                                        class="img-fluid" loading="lazy" alt="...">
+                                                        class="img-fluid mb-3" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $latestproducts->product_price }}/-</h5>
-                                                        <p class="card-text-para">{{ substr($latestproducts->product_title, 0, 50) . '...' }}</p>                              
-                                                       <a href="javascript:void(0)"
+                                                    <p class="card-text-para">
+                                                        {{ substr($latestproducts->product_title, 0, 50) . '...' }}</p>
+                                                    <a href="javascript:void(0)"
                                                         class="mb-2 pills-block-btn add-to-cart"
                                                         data-id="{{ $latestproducts->id }}">
                                                         <i class="bx bx-cart"></i> Add to Cart
@@ -192,13 +194,14 @@
                                     @foreach($sale_products as $key=>$saleproducts)
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <div class="card-body">
+                                            <div class="card-body text-center">
                                                 <a href="product-detail/{{ $saleproducts->product_slug }}">
                                                     <img src="{{ asset('image/products/'.$saleproducts->product_image) }}"
-                                                        class="img-fluid" loading="lazy" alt="...">
+                                                        class="img-fluid mb-3" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $saleproducts->product_price }}/-</h5>
-                                                    <p class="card-text-para">{{ substr($saleproducts->product_title, 0, 50) . '...' }}</p>
+                                                    <p class="card-text-para">
+                                                        {{ substr($saleproducts->product_title, 0, 50) . '...' }}</p>
                                                     <a href="javascript:void(0)" data-id="{{ $latestproducts->id }}"
                                                         class="mb-2 pills-block-btn add-to-cart">
                                                         <i class="bx bx-cart"></i> Add to Cart
@@ -232,13 +235,15 @@
                                     @foreach($featured_products as $key=>$featuredproducts)
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <div class="card-body">
+                                            <div class="card-body text-center">
                                                 <a href="product-detail/{{ $featuredproducts->product_slug }}">
                                                     <img src="{{ asset('image/products/'.$featuredproducts->product_image) }}"
-                                                        class="img-fluid" loading="lazy" alt="...">
+                                                        class="img-fluid mb-3" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $featuredproducts->product_price }}/-</h5>
-                                                    <p class="card-text-para">{{ substr($featuredproducts->product_title, 0, 50) . '...' }}</p>
+                                                    <p class="card-text-para">
+                                                        {{ substr($featuredproducts->product_title, 0, 50) . '...' }}
+                                                    </p>
                                                     <a href="javascript:void(0)" data-id="{{ $featuredproducts->id }}"
                                                         class="mb-2 pills-block-btn add-to-cart">
                                                         <i class="bx bx-cart"></i> Add to Cart</a>
@@ -267,7 +272,7 @@
             <div class="col-md-3">
                 <!-- form start  -->
                 <div class="card bg-light">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h5 class="card-title">Send Query</h5>
                         <p class="card-text">Our Dedicated Account Manager will get in touch with you shortly
                         </p>
@@ -351,10 +356,10 @@
                         @foreach($featured_categories as $key=>$featuredcategories)
                         <div class="col-md-3 mb-3">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body text-center">
                                     <a href="category/{{ $featuredcategories->category_slug }}">
                                         <img src="{{ asset('image/category/'.$featuredcategories->category_image) }}"
-                                            class="img-fluid" loading="lazy" alt="...">
+                                            class="img-fluid mb-3" loading="lazy" alt="...">
                                     </a>
                                 </div>
                                 <div class="card-footer text-center">
@@ -390,19 +395,20 @@
                     <div class="card-header border border-0 text-end bg-white">
                         <a href="#" class="addtoWishList"><i class="bx bx-heart"></i></a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <div class="row">
                             <div class="col-md-6">
                                 <img src="{{ asset('image/products/'.$desktopmotherboard->product_image) }}"
-                                    class="img-fluid" loading="lazy" alt="...">
+                                    class="img-fluid mb-3" loading="lazy" alt="...">
                             </div>
                             <div class="col-md-6">
                                 <a href="product-detail/{{ $desktopmotherboard->product_slug }}">
                                     <h5 class="card-title-price">{{ $desktopmotherboard->product_price }}</h5>
-                                    <p class="card-text mb-3">{{ substr($desktopmotherboard->product_title, 0, 50) . '...' }}
+                                    <p class="card-text mb-3">
+                                        {{ substr($desktopmotherboard->product_title, 0, 50) . '...' }}
                                     </p>
                                 </a>
-                                <a href="add-to-cart" data-id="{{ $desktopmotherboard->id }}"
+                                <a href="javascript:void(0)" data-id="{{ $desktopmotherboard->id }}"
                                     class="mb-2 pills-block-btn add-to-cart"> <i class="bx bx-cart"></i>
                                     Add to Cart</a>
                                 <a href="#" class="addtoCompare ">+ Add to
@@ -455,16 +461,17 @@
                             @foreach($Networking as $key=>$Network)
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <a href="product-detail/{{ $Network->product_slug }}">
                                             <img src="{{ asset('image/products/'.$Network->product_image) }}"
-                                                class="img-fluid" loading="lazy" alt="...">
+                                                class="img-fluid mb-3" loading="lazy" alt="...">
                                             <h5 class="card-title-price text-center">${{ $Network->product_price }}/-
                                             </h5>
-                                            <p class="card-text-para">{{ substr($Network->product_title, 0, 50) . '...' }}</p>
+                                            <p class="card-text-para">
+                                                {{ substr($Network->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="add-to-cart" data-id="{{ $Network->id }}"
-                                            class="mb-2 pills-block-btn add-to-cart">
+                                        <a href="javascript:void(0)" data-id="{{ $Network->id }}"
+                                            class="mb-2 pills-block-btn     ">
                                             <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
@@ -490,13 +497,14 @@
                             @foreach($power_supply_unit as $key=>$powersupplyunit)
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <a href="product-detail/{{ $powersupplyunit->product_slug }}">
                                             <img src="{{ asset('image/products/'.$powersupplyunit->product_image) }}"
-                                                class="img-fluid" loading="lazy" alt="...">
+                                                class="img-fluid mb-3" loading="lazy" alt="...">
                                             <h5 class="card-title-price text-center">
                                                 ${{ $powersupplyunit->product_price }}/-</h5>
-                                            <p class="card-text-para">{{ substr($powersupplyunit->product_title, 0, 50) . '...' }}</p>
+                                            <p class="card-text-para">
+                                                {{ substr($powersupplyunit->product_title, 0, 50) . '...' }}</p>
                                         </a>
                                         <a href="javascript:void(0)" data-id="{{ $powersupplyunit->id }}"
                                             class="mb-2 pills-block-btn add-to-cart">
@@ -524,13 +532,14 @@
                             @foreach($memory as $key=>$memories)
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <a href="product-detail/{{ $memories->product_slug }}">
                                             <img src="{{ asset('image/products/'.$memories->product_image) }}"
-                                                class="img-fluid" loading="lazy" alt="...">
+                                                class="img-fluid mb-3" loading="lazy" alt="...">
                                             <h5 class="card-title-price text-center">${{ $memories->product_price }}/-
                                             </h5>
-                                            <p class="card-text-para">{{ substr($memories->product_title, 0, 50) . '...' }}</p>
+                                            <p class="card-text-para">
+                                                {{ substr($memories->product_title, 0, 50) . '...' }}</p>
                                         </a>
                                         <a href="javascript:void(0)" data-id="{{ $memories->id }}"
                                             class="mb-2 pills-block-btn add-to-cart">
@@ -582,6 +591,9 @@
     <!-- </div> -->
 </div>
 <!-- brand section end  -->
+
+
+
 
 
 @include('frontend.footer')

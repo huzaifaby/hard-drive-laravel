@@ -114,38 +114,38 @@ $(document).ready(function() {
 
     //delete brand  data
     $(document).on('click', '.delete_brand', function(e) {
-    e.preventDefault();
-    let brand_id = $(this).data('id');
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "{{ route('delete.brand') }}",
-                method: 'post',
-                data: {
-                    brand_id: brand_id
-                },
-                success: function(res) {
-                    if (res.status == 'success') {
-                        Swal.fire(
-                            'Deleted Successfully!',
-                            '',
-                            'success'
-                        )
-                        $('.table').load(location.href + ' .table');
+        e.preventDefault();
+        let brand_id = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('delete.brand') }}",
+                    method: 'post',
+                    data: {
+                        brand_id: brand_id
+                    },
+                    success: function(res) {
+                        if (res.status == 'success') {
+                            Swal.fire(
+                                'Deleted Successfully!',
+                                '',
+                                'success'
+                            )
+                            $('.table').load(location.href + ' .table');
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
+        });
     });
-});
 
     //pagination
     $(document).on('click', '.pagination a', function(e) {
@@ -156,7 +156,7 @@ $(document).ready(function() {
 
     function brand(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-brand?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }

@@ -17,6 +17,7 @@ class CategoryController extends Controller
         $category = ProductCategory::latest()->paginate(5);
         return view('admin.ProductCategory.productCategory',compact('category'));
    }
+   //end
    
 
        //add category
@@ -51,10 +52,9 @@ class CategoryController extends Controller
        
         return response()->json([
             'status' => 'success',
-        ]);
-
-        
+        ]);        
    }
+   //end
 
 
 
@@ -99,6 +99,7 @@ class CategoryController extends Controller
         'status' => 'success',
     ]);
 }
+//end
 
 
  //update Featured category status
@@ -116,6 +117,7 @@ class CategoryController extends Controller
         'status' => 'success',
     ]);
 }
+//end
 
 
     //delete category
@@ -129,13 +131,12 @@ class CategoryController extends Controller
     }
     $category->delete();
 
-
-
     return response()->json([
         'status' => 'success',
     ]);
 
 }
+//end
 
 
     //pagination page
@@ -143,8 +144,8 @@ class CategoryController extends Controller
 
     $category = ProductCategory::latest()->paginate(5);
     return view('admin.ProductCategory.pagination_category',compact('category'))->render();
-
    }
+   //end
 
     //search category
    public function searchcategory(Request $request){
@@ -163,6 +164,7 @@ class CategoryController extends Controller
     }
 
    }
+   //end
 
 
 }

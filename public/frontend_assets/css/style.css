@@ -177,11 +177,11 @@ p {
     border: 2px solid var(--theme-color);
     outline: 0;
     text-decoration: none;
-    background: var(--white);
-    color: var(--black);
-    padding: 8px 20px;
+    background: var(--theme-color);
+    color: var(--white);
+    padding: 8px 38px;
     text-align: center;
-    border-radius: 50px;
+    border-radius: 5px;
     font-size: 17px;
 }
 
@@ -291,7 +291,7 @@ form.searchBar::after {
     height: 100%;
     width: 250px;
     position: fixed;
-    z-index: 1;
+    z-index: 999;
     top: 0;
     left: -150%;
     background-color: var(--white);
@@ -341,7 +341,8 @@ form.searchBar::after {
 
 /* banner start  */
 .main-banner .bannerSwiper .swiper-wrapper .swiper-slide {
-    min-height: 100vh;
+    min-height: auto;
+    padding: 50px 0px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -471,6 +472,11 @@ form.searchBar::after {
     /* utilities wnd  */
 
     /* banner start  */
+
+    .main-banner .bannerSwiper .swiper-wrapper .swiper-slide {
+        min-height: auto;
+        padding: 35px 0;
+        }
     .main-banner .bannerSwiper .swiper-wrapper .swiper-slide .content {
         padding-left: 25px;
     }
@@ -500,4 +506,8 @@ form.searchBar::after {
     }
 
     /* notice end  */
+
+    .card.border.border-0.border-start.rounded-0 {
+        border: none !important;
+    }
 }

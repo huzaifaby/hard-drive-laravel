@@ -12,7 +12,7 @@
             <div class="col-md-9">
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-lg">
                         <div class="form-group">
                             <label for="phone_no_1">Created Date</label>
                             <input type="date" value="{{ $orders->created_at->format('Y-m-d') }}" name="created_at"
@@ -277,8 +277,7 @@
                             <div class="form-group">
                                 <label for="order_notes">Customer provided note:</label>
                                 <input type="text" name="order_notes" class="form-control"
-                                    value="{{$ShippingDetails->order_notes }}"
-                                    id="order_notes">
+                                    value="{{$ShippingDetails->order_notes }}" id="order_notes">
                             </div>
 
 
@@ -323,12 +322,14 @@
                 <div class="row justify-content-end bg-white p-4 mb-3 ">
                     <div class="col-md-8">
                         <div class="row">
+                        @if($orders->discount_amount != null)
                             <div class="col-md-12 text-start">
                                 <p>Coupon(s)</p>
                             </div>
                             <div class="col-md-auto text-start card p-2">
                                 <p class="mb-0"> <strong>{{$orders->couponcode }}</strong></p>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -377,7 +378,8 @@
                             </div>
 
                             <div class="col-md-8 text-end">
-                                <p>{{ $orders->created_at->format('M d, Y') }} via {{$BillingDetails->payment_method }} </p>
+                                <p>{{ $orders->created_at->format('M d, Y') }} via {{$BillingDetails->payment_method }}
+                                </p>
                             </div>
 
 

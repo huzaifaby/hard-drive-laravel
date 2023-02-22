@@ -2,7 +2,6 @@
            
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-            
 use App\Models\ProductBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,8 +21,6 @@ class BannerController extends Controller
        //add banner
    public function addBanner(Request $request){
 
- 
-
         $imageName = '';
         if($image = $request->file('image')){
             $imageName = time().'-'.uniqid().'.'.$image->getClientOriginalExtension();
@@ -40,16 +37,12 @@ class BannerController extends Controller
         return response()->json([
             'status' => 'success',
         ]);
-
-        
    }
-
+//end
 
 
    //update banner
    public function updateBanner(Request $request){
-
-
 
     //get the banner and image file
     $banner = ProductBanner::find($request->up_banner_id);
@@ -90,8 +83,6 @@ class BannerController extends Controller
         unlink(public_path('image/banner/' . $banner->banner_image));
     }
     $banner->delete();
-
-
 
     return response()->json([
         'status' => 'success',

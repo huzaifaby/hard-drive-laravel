@@ -46,6 +46,8 @@
                                 data-metadescription="{{ $product->product_meta_description }}"
                                 data-categoryname="{{ $product->category_name }}"
                                 data-categoryid="{{ $product->category_id }}"
+                                data-subcategoryname="{{ $product->sub_category_name }}"
+                                data-subcategoryid="{{ $product->sub_category_id }}"
                                 data-brandname="{{ $product->brand_name }}"
                                 data-brandid="{{ $product->brand_id }}"
                                 data-availability="{{ $product->availability }}"

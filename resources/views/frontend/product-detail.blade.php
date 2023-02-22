@@ -10,8 +10,26 @@
     color: gray;
 }
 
-.active {
-    color: orange;
+span.active {
+    color: #ffcc00;
+}
+
+span.bg-white.plus,span.bg-white.minus {
+    cursor: pointer;
+}
+
+input#quantities {
+    height: 16px;
+    width: 68px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    input#quantities {
+   
+    width: 48px;
+
+}
 }
 </style>
 <div class="single-product-wrapper">
@@ -71,9 +89,9 @@
                 </table>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
+                    <div class="col-6 mb-3">
                         <!-- Inc / Dec start  -->
-                        <ul class="list-group list-group-horizontal-lg text-center number">
+                        <ul class="list-group list-group-horizontal text-center number">
                             <li class="list-group-item">
                                 <span class="bg-white minus"> - </span>
                             </li>
@@ -89,18 +107,14 @@
                         <!-- Inc / Dec end  -->
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-6 mb-3">
                         <!-- addto cart btns  -->
                         <a href="javascript:void(0)" class="square-block-btn add-to-cart"
                             data-id="{{ $product->id }}"><i class="bx bx-cart"></i> Add to Cart</a>
                         <!-- addto cart btns / -->
                     </div>
 
-                    <div class="col-md-4 mb-3">
-                        <!-- buy now btns -->
-                        <a href="#" class="square-block-btn bg-warning">Buy Now</a>
-                        <!-- buy now btns / -->
-                    </div>
+        
                 </div>
 
                 <p class="card-text-para my-3">
@@ -109,30 +123,29 @@
                 </p>
 
                 <!-- satisfactory section start  -->
-                <div class="satisfaction-section">
+                <div class="satisfaction-section mb-3">
                     <div class="container">
                         <div class="main-boxes">
                             <div class="row align-items-center">
                                 <!-- box start  -->
-                                <div class="col">
-                                    <div class="row align-items-center justify-content-center text-center">
+                                <div class="col-md my-3">
+                                    <div class="text-center">
                                         <div class="col-auto">
                                             <div class="imgbx">
-                                                <img src="https://jbsdevices.com/assets/images/services/1613403754payments.png"
-                                                    loading="lazy" class="img-fluid" alt="">
+                                                <img src="https://jbsdevices.com/assets/images/services/1613403777tag.png" loading="lazy" class="img-fluid" alt="">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="caption">
-                                                <h6 class="mb-0">Payment</h6>
-                                                <p class="mb-0">Secure System</p>
+                                                <h6 class="mb-0">Only Best</h6>
+                                                <p class="mb-0">Brands</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col">
-                                    <div class="row align-items-center justify-content-center text-center">
+                                <div class="col-md my-3">
+                                    <div class="text-center">
                                         <div class="col-auto">
                                             <div class="imgbx">
                                                 <img src="https://jbsdevices.com/assets/images/services/1613403689feedback.png"
@@ -148,8 +161,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col">
-                                    <div class="row align-items-center justify-content-center text-center">
+                                <div class="col-md my-3">
+                                    <div class="text-center">
                                         <div class="col-auto">
                                             <div class="imgbx">
                                                 <img src="https://jbsdevices.com/assets/images/services/1613403646free-delivery.png"
@@ -165,8 +178,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col">
-                                    <div class="row align-items-center justify-content-center text-center">
+                                <div class="col-md my-3">
+                                    <div class="text-center">
                                         <div class="col-auto">
                                             <div class="imgbx">
                                                 <img src="https://jbsdevices.com/assets/images/services/1613403777tag.png"
@@ -542,11 +555,11 @@
                     <div class="col">
                         <h3>Add a review</h3>
                         <div class="rating">
-                            <span class="star" id="star1">&#9734;</span>
-                            <span class="star" id="star2">&#9734;</span>
-                            <span class="star" id="star3">&#9734;</span>
-                            <span class="star" id="star4">&#9734;</span>
-                            <span class="star" id="star5">&#9734;</span>
+                            <span class="star bx bxs-star text-warning" id="star1"></span>
+                            <span class="star bx bxs-star " id="star2"></span>
+                            <span class="star bx bxs-star " id="star3"></span>
+                            <span class="star bx bxs-star " id="star4"></span>
+                            <span class="star bx bxs-star " id="star5"></span>
                         </div>
                         <span class="heading-border mb-3"></span>
 
@@ -640,7 +653,7 @@
                 @foreach($related_products as $key=>$relatedproducts)
                 <div class="swiper-slide">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <a href="product-detail/{{ $relatedproducts->product_slug }}">
                                 <img src="{{ asset('image/products/'.$relatedproducts->product_image) }}"
                                     class="img-fluid" loading="lazy" alt="...">
@@ -686,92 +699,6 @@
 </div>
 <!-- image show on click end -->
 
-<script>
-$(document).ready(function() {
-    $('.minus').click(function() {
-        var $input = $(this).parent().siblings().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $input.change();
-        return false;
-    });
-    $('.plus').click(function() {
-        var $input = $(this).parent().siblings().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        return false;
-    });
-});
-</script>
-
-<script>
-const stars = document.querySelectorAll('.star');
-
-for (let i = 0; i < stars.length; i++) {
-    stars[i].addEventListener('mouseover', function() {
-        for (let j = 0; j <= i; j++) {
-            stars[j].style.color = "orange";
-        }
-    });
-
-    stars[i].addEventListener('mouseout', function() {
-        for (let j = 0; j <= i; j++) {
-            stars[j].style.color = "gray";
-        }
-    });
-
-    stars[i].addEventListener('click', function() {
-        for (let j = 0; j <= i; j++) {
-            stars[j].classList.add("active");
-        }
-        for (let j = i + 1; j < stars.length; j++) {
-            stars[j].classList.remove("active");
-        }
-    });
-}
-
-$('.star').click(function() {
-
-    var rating = $(this).index() + 1;
-    var activeStars = $(this).siblings('.active').length + 1;
-
-
-    $(this).prevAll().addClass('active');
-    $(this).addClass('active');
-    $(this).nextAll().removeClass('active');
-
-    $('#rating').val(activeStars);
-
-});
-
-$('.add_review').click(function() {
-
-    let product_id = $('#product_id').val();
-    let user_name = $('#user_name').val();
-    let user_email = $('#user_email').val();
-    let review_description = $('#review_description').val();
-    let rating = $('#rating').val();
-
-    $.ajax({
-        url: '/star-ratings',
-        type: 'POST',
-        data: {
-            _token: "{{ csrf_token() }}",
-            rating: rating,
-            product_id: product_id,
-            user_name: user_name,
-            user_email: user_email,
-            review_description: review_description,
-        },
-        success: function(response) {
-            location.reload();
-
-        },
-        error: function(error) {
-            console.error(error);
-        },
-    });
-});
-</script>
+@include('frontend.rating_js')
+    
 @include('frontend.footer')

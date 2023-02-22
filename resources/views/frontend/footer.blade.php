@@ -34,7 +34,7 @@
 
     <!-- Section: Links  -->
     <div>
-        <div class="container text-center text-md-start mt-5">
+        <div class="container text-start text-md-start mt-5">
             <!-- Grid row -->
             <div class="row mt-3">
                 <!-- Grid column -->
@@ -127,8 +127,11 @@
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <!-- custom js  -->
-<script src="../frontend_assets/js/slider.js"></script>
-<script src="../frontend_assets/js/script.js"></script>
+<script src="/frontend_assets/js/slider.js"></script>
+<script src="/frontend_assets/js/script.js"></script>
+
+<!-- <script src="../frontend_assets/js/toast.js"></script> -->
+
 
 <!-- MDB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>

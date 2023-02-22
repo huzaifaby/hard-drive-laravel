@@ -46,7 +46,7 @@ $(document).ready(function() {
 
     function customers(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-customers?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }

@@ -54,9 +54,9 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-group ">
+                            <div class="form-group mt-2 ">
                                 <label for="up_category_id"> Product Category</label>
-                                <select class="form-select" name="up_category_id" id="up_category_id">
+                                <select class="form-select category_id" name="up_category_id" id="up_category_id">
                                     <option hidden>Select</option>
                                     @foreach($products_category as $key=>$productscategory)
                                     <option value="{{ $productscategory->id }}">{{ $productscategory->category_name }}
@@ -66,7 +66,25 @@
                             </div>
                         </div>
 
+
                         <div class="col">
+                            <div class="form-group mt-2 ">
+                                <label for="up_sub_category_id"> Sub Category Category</label>
+                                <select class="form-select sub_category_id" name="up_sub_category_id" id="up_sub_category_id">
+                                    <option hidden>Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                     
+
+                    </div>
+
+
+
+                    <div class="row">
+
+                    <div class="col">
                             <div class="form-group mt-2">
                                 <label for="up_brand_id"> Manufacturer</label>
                                 <select class="form-select" name="up_brand_id" id="up_brand_id">
@@ -79,11 +97,6 @@
                             </div>
                         </div>
 
-                    </div>
-
-
-
-                    <div class="row">
                         <div class="col">
                             <div class="form-group mt-2">
                                 <label for="up_availability"> Availability </label>

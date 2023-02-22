@@ -38,7 +38,7 @@
                             class="btn btn-success update_brand_form">
                             <i class="las la-edit"></i></a>
 
-                            <a href="" data-id="{{ $brands->id }}" class="btn btn-danger delete_category">
+                            <a href="" data-id="{{ $brands->id }}" class="btn btn-danger delete_brand">
                                 <i class="las la-trash-alt"></i></a>
                         </td>
                     </tr>

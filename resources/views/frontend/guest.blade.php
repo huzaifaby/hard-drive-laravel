@@ -16,8 +16,8 @@
         <div class="row mt-5 align-items-center">
             <div class="col-md-6 mb-3 px-5">
                 <h2 class="border-bottom pb-3 mb-4">Don't have an account ? Place Order as Guest</h2>
-                <a href="#" class="square-block-btn mb-3 py-3"> Checkout as Guest <i class='bx bx-right-arrow-alt'></i> </a>
-                <a href="#" class="square-block-btn py-3"> <i class='bx bx-arrow-back'></i> Back to Shopping  </a>
+                <a href="{{ url('/checkout') }}" class="square-block-btn mb-3 py-3"> Checkout as Guest <i class='bx bx-right-arrow-alt'></i> </a>
+                <a href="{{ url('/') }}" class="square-block-btn py-3"> <i class='bx bx-arrow-back'></i> Back to Shopping  </a>
             </div>
             <div class="col-md-6 mb-5">
                 <div class="container">
@@ -25,15 +25,21 @@
                     <span class="heading-border mb-4"></span>
                     <p class>Login to your JBS user portal</p>
                     <!-- form start  -->
-                    <form>
+                    @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                    @endif
+                    <form method="POST" action="{{ route('customer.login') }}">
+                        @csrf
                         <div class="col mb-3">
                             <label for="loginEmail" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control shadow-none" placeholder="Email" id="loginEmail">
+                            <input type="email" name="email" class="form-control shadow-none" placeholder="Email" id="loginEmail">
                         </div>
                         <div class="col mb-3">
                             <label for="loginPassword" class="form-label">Password <span
                                     class="text-danger">*</span></label>
-                            <input type="password" class="form-control shadow-none" placeholder="Password"
+                            <input type="password" name="password" class="form-control shadow-none" placeholder="Password"
                                 id="loginPassword">
                         </div>
                         <div class="mb-3 form-check border-bottom pb-3">

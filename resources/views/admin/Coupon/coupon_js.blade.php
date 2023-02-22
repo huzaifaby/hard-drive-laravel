@@ -2,9 +2,9 @@
 $(document).ready(function() {
 
     //delete customers  data
-    $(document).on('click', '.delete_customers', function(e) {
+    $(document).on('click', '.delete_coupon', function(e) {
         e.preventDefault();
-        let product_id = $(this).data('id');
+        let coupon_id = $(this).data('id');
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -16,10 +16,10 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ route('delete.customers') }}",
+                    url: "{{ route('delete.coupon') }}",
                     method: 'post',
                     data: {
-                        product_id: product_id
+                        coupon_id: coupon_id
                     },
                     success: function(res) {
                         if (res.status == 'success') {
@@ -41,12 +41,12 @@ $(document).ready(function() {
     $(document).on('click', '.pagination a', function(e) {
         e.preventDefault();
         let page = $(this).attr('href').split('page=')[1]
-        customers(page)
+        coupon(page)
     })
 
-    function customers(page) {
+    function coupon(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-coupon?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }
@@ -59,7 +59,7 @@ $(document).ready(function() {
         e.preventDefault();
         let search_string = $('#search').val();
         $.ajax({
-            url: "{{ route('search.customers') }}",
+            url: "{{ route('search.coupon') }}",
             method: 'GET',
             data: {
                 search_string: search_string

@@ -20,7 +20,8 @@ class ProductDetailController extends Controller
         $related_products = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->
         where('products.product_slug', $product_slug)->get();
  
-        $reviews = product_reviews::all();
+        $reviews = product_reviews::join('products', 'products.id', '=', 'product_reviews.product_id')->
+        where('products.product_slug', $product_slug)->get();
  
         $product_brand = Product::join('product_brands', 'product_brands.id', '=', 'products.brand_id')->
         where('products.product_slug', $product_slug)->first();

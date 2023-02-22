@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
+                    <!-- <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button text-dark shadow-none bg-white" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
@@ -38,7 +38,7 @@
                                 <a href="#" class="text-dark">Storage Devices</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card-title mt-3">Latest Products</div>
                     <span class="heading-border"></span>
 
@@ -55,7 +55,7 @@
                                             <div class="col">
                                                 <a href="product-detail/{{ $latestproducts->product_slug }}">
                                                     <img src="{{ asset('image/products/'.$latestproducts->product_image) }}"
-                                                        class="img-fluid" width="84" loading="lazy" alt="...">
+                                                        class="img-fluid mb-3" width="84" loading="lazy" alt="...">
                                                 </a>
                                             </div>
                                             <div class="col">
@@ -85,7 +85,7 @@
                 <!-- category box start  -->
                 <div class="catBoxes">
 
-                    <h3 class="border-bottom pb-2">Storage Devices Categories</h3>
+                    <h3 class="border-bottom pb-2">All Categories</h3>
                     <p class="mt-3 my-5">Our site offers the most innovative, reliable, and convenient products for the
                         home. We offer a
                         wide range of storage products, from branded hard disk drives to cheaper external drives and
@@ -100,7 +100,7 @@
                                 <div class="card-body">
                                     <a href="{{ url('/category/' . $allcategories->category_slug) }}">
                                         <img src="{{ asset('image/category/'.$allcategories->category_image) }}"
-                                            class="img-fluid" loading="lazy" alt="...">
+                                            class="img-fluid " loading="lazy" alt="...">
                                     </a>
                                 </div>
                                 <div class="card-footer text-center">

@@ -28,7 +28,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="{{ route('dashboard') }}">Laravel</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -196,6 +196,66 @@
             <main>
                 <div class="container-fluid px-4">
                     @yield('content')
+
+                    @if (isset($out_of_stock))
+
+                    <div class="row mt-4">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body total-orders"></div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-decoration-none" href="{{ route('orders') }}">awating
+                                        processing</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-secondary text-white mb-4">
+                                <div class="card-body onholdorders"> </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-decoration-none" href="{{ url('/dashboard/orders?status=on hold') }}">on-hold</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body">{{$low_in_stock}} products</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-decoration-none" href="{{ route('orders') }}">low in
+                                        stock</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-danger text-white mb-4">
+                                <div class="card-body">{{$out_of_stock}} products</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-decoration-none" href="{{ route('orders') }}">out of
+                                        stock</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-danger text-white mb-4">
+                                <div class="card-body">${{$currentMonthSales}} </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-decoration-none" href="{{ route('orders') }}">net sales this month</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
@@ -330,6 +390,10 @@
                 url: "/load-orders-data",
                 method: "GET",
                 success: function(response) {
+                    $('.total-orders').html(response.processing + ' orders');
+                    $('.onholdorders').html(response.on_hold + ' orders');
+
+
                     $('.new-orders').html(response.processing);
                     $('.all-orders').html('(' + response.all_orders + ')');
                     $('.processing-orders').html('(' + response.processing + ')');

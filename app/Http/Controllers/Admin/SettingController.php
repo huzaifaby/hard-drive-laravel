@@ -9,17 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
- 
+    //index
     public function index()
     {
         $setting = Settings::where('id', 1)->first();
         return view('admin.setting')->with(compact('setting'));
     }  
+     //end
 
 
        
    //update settings
-public function updateSetting(Request $request){
+    public function updateSetting(Request $request){
 
     //get the settings and image file
     $settings = Settings::find($request->up_id);
@@ -58,7 +59,8 @@ public function updateSetting(Request $request){
     return response()->json([
         'status' => 'success',
     ]);
-}
+    }
+ //end
 
 
 

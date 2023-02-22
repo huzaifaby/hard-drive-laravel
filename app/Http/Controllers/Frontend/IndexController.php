@@ -23,10 +23,10 @@ class IndexController extends Controller
         $sale_products = Product::where('is_sale', 1)->get();
         $featured_products = Product::where('is_featured', 1)->get();
         $featured_categories = ProductCategory::where('category_is_featured', 1)->take(4)->get();
-        $Networking = Product::where('category_id', 1)->get();
-        $power_supply_unit = Product::where('category_id', 3)->get();
-        $memory = Product::where('category_id', 2)->get();
-        $desktop_motherboard = Product::where('category_id', 4)->get();
+        $Networking = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->where('product_categories.category_name', 'Networking Devices')->get();
+        $power_supply_unit = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->where('product_categories.category_name', 'Power Supply & others')->get();
+        $memory = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->where('product_categories.category_name', 'Memory')->get();
+        $desktop_motherboard = Product::join('product_categories', 'product_categories.id', '=', 'products.category_id')->where('product_categories.category_name', 'Desktop & Server Motherboards')->get();
         $banners = ProductBanner::all();
         $brands = ProductBrand::all();
  
@@ -58,8 +58,15 @@ class IndexController extends Controller
 
     public function search(Request $request)
     {
+
+ 
+        if($request->input('search')){
         $search = $request->input('search');
         $data = Product::where('product_title', 'LIKE', '%'. $search. '%')->get();
+        } else {
+        $searchPrice = $request->input('price');
+        $data = Product::whereBetween('product_price', [0, $searchPrice])->get();
+        }
 
         return view('frontend.search')->with(compact('data'));
 

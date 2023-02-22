@@ -30,7 +30,6 @@ class SubCategoryController extends Controller
         [
             'sub_category_name' => 'required|unique:category',
             'sub_category_slug' => 'required|unique:slug',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ],
         [
             'sub_category_name.required' => 'Sub Category Name is Required',

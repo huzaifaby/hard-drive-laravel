@@ -20,17 +20,19 @@ class CustomersController extends Controller
     //CustomersController view
    public function customers()
    {    
-
         $customers = Customers::latest()->paginate(5);
         return view('admin.Customers.customers')->with(compact('customers'));
    }
+   //end
 
+    //edit
    public function CustomersEdit($id)
    {
       $customers = Customers::where('id', $id)->first();
 
        return view('admin.Customers.update_customers')->with(compact('customers'));
    }  
+   //end
    
 
       
@@ -55,7 +57,6 @@ public function updateCustomers(Request $request){
 
     }
 
-
     $customers->update([
         'customer_image' => $new_image,
         'full_name'=>$request->full_name,
@@ -69,7 +70,8 @@ public function updateCustomers(Request $request){
     ]);
 
     return redirect()->route('customers');
-}
+    }
+    //end
 
 
     //delete Customers
@@ -83,23 +85,23 @@ public function updateCustomers(Request $request){
         'status' => 'success',
     ]);
 
-}
+    }
+    //end
 
 
     //pagination page
    public function pagination(Request $request){
 
     $customers = Customers::latest()->paginate(5);
-  
     return view('admin.Customers.pagination_customers',compact('customers'))->render();
-
    }
+   //end
 
     //search customers
    public function searchCustomers(Request $request){
 
-    $customers = Customers::latest()->paginate(5);
-
+    $customers = Customers::latest()->where('full_name', 'like', '%'.$request->search_string.'%')->
+    paginate(5);
 
     if($customers->count() >= 1){
         return view('admin.Customers.pagination_customers',compact('customers'))->render();
@@ -109,8 +111,8 @@ public function updateCustomers(Request $request){
 
         ]);
     }
-
    }
+   //end
 
 
 }

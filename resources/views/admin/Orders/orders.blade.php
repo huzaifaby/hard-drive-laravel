@@ -4,7 +4,6 @@
 
 <h1 class="mt-4">Orders Tables</h1>
 <div class="mb-4 bg-light text-end p-2">
-    <a href="{{ route('orders.csv') }}" class="btn btn-success ">Import</a>
     <a href="{{ route('orders.export') }}" class="btn btn-success">Export</a>
 </div>
 
@@ -32,8 +31,8 @@
         <input type="text" name="search" id="search" class="form-control" placeholder="Search Here...">
     </div>
     <div class="card-body">
-        <div class="table-data">
-            <table class="table table-bordered">
+        <div class="table-data table-responsive">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th scope="col">Order</th>

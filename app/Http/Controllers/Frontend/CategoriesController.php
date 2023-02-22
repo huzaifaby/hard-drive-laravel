@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\SubCategory;
 
 
 class CategoriesController extends Controller
@@ -20,15 +21,33 @@ class CategoriesController extends Controller
         return view('frontend.category')->with(compact('all_categories'))->with(compact('latest_products'));
     }  
 
-
-    public function CategoryDetail($category_slug)
+    public function Categories()
     {
-        $categoriess = ProductCategory::where('category_slug', $category_slug)->first();
+        $sub_categories = SubCategory::all();
+        return view('frontend.categories', compact('sub_categories'));
 
-        $products_by_category = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-        ->where('product_categories.category_slug', $category_slug)->get();
-        return view('frontend.category-detail')->with(compact('products_by_category'));
-    }  
+    }
+
+
+    public function parentCategory($parent)
+    {
+        $category = ProductCategory::where('category_slug', $parent)->firstOrFail();
+        $products_by_category = Product::where('category_id', $category->id)->get();
+    
+        return view('frontend.category-detail', compact('category', 'products_by_category'));
+    }
+
+    
+    public function parentSubCategory($parent, $sub)
+{
+    $category = ProductCategory::where('category_slug', $parent)->firstOrFail();
+    $subcategory = SubCategory::where('sub_category_slug', $sub)->firstOrFail();
+    $products_by_category = Product::where('category_id', $category->id)->where('sub_category_id', $subcategory->id)->get();
+
+    return view('frontend.category-detail', compact('category', 'subcategory', 'products_by_category'));
+}
+
+
         
    
 }

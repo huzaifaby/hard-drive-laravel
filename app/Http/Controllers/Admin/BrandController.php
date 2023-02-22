@@ -22,8 +22,6 @@ class BrandController extends Controller
        //add Brand
    public function addBrand(Request $request){
 
- 
-
         $imageName = '';
         if($image = $request->file('image')){
             $imageName = time().'-'.uniqid().'.'.$image->getClientOriginalExtension();
@@ -39,17 +37,14 @@ class BrandController extends Controller
        
         return response()->json([
             'status' => 'success',
-        ]);
-
-        
+        ]);        
    }
+   //end
 
 
 
    //update brand
    public function updateBrand(Request $request){
-
-
 
     //get the brand and image file
     $brand = ProductBrand::find($request->up_brand_id);
@@ -78,6 +73,7 @@ class BrandController extends Controller
         'status' => 'success',
     ]);
 }
+//end
 
 
     //delete brand
@@ -91,13 +87,12 @@ class BrandController extends Controller
     }
     $brand->delete();
 
-
-
     return response()->json([
         'status' => 'success',
     ]);
 
 }
+//end
 
 
     //pagination page
@@ -107,6 +102,7 @@ class BrandController extends Controller
     return view('admin.ProductBrand.pagination_brand',compact('brand'))->render();
 
    }
+   //end
 
     //search brand
    public function searchBrand(Request $request){
@@ -125,6 +121,7 @@ class BrandController extends Controller
     }
 
    }
+   //end
 
 
 }

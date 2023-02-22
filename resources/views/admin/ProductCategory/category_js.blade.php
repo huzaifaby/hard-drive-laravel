@@ -186,7 +186,7 @@ $(document).ready(function() {
 
     function category(page) {
         $.ajax({
-            url: "/pagination/paginate-data?page=" + page,
+            url: "/pagination/paginate-category?page=" + page,
             success: function(res) {
                 $('.table-data').html(res);
             }

@@ -41,13 +41,7 @@
                                 <input type="file" class="form-control" name="up_category_image" id="up_category_image">
                             </div>
                         </div>
-                        <div class="col-auto">
-
-                            <img width="100" class="img-thumbnail" src="" id="img-preview">
-
-
-                        </div>
-
+               
                     </div>
 
                 </div>
