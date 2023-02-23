@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 06:20 PM
+-- Host: localhost:3306
+-- Generation Time: Feb 23, 2023 at 11:56 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -40,10 +40,22 @@ CREATE TABLE `billing_details` (
   `post_code` int(255) NOT NULL,
   `company_name` varchar(255) DEFAULT NULL,
   `payment_method` varchar(150) NOT NULL,
-  `transaction_id` varchar(255) NOT NULL,
+  `transaction_id` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `billing_details`
+--
+
+INSERT INTO `billing_details` (`id`, `order_id`, `full_name`, `phone_no`, `email`, `address`, `country`, `state`, `city`, `post_code`, `company_name`, `payment_method`, `transaction_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Muhammad Huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2728', '5757', 74000, 'test', 'Credit Card', NULL, '2023-02-07 06:07:45', '2023-02-10 09:49:53'),
+(2, 2, 'asdasd', '12312313', 'huzi@gmail.com', 'a238', '14', '291', '7118', 74000, 'test', 'Credit Card', NULL, '2023-02-08 10:05:38', '2023-02-08 10:05:38'),
+(3, 3, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31555', 74000, 'test', 'Credit Card', NULL, '2023-02-08 12:15:00', '2023-02-08 12:15:00'),
+(5, 5, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Credit Card', NULL, '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
+(6, 6, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2723', '31287', 74000, 'test', 'Paypal', NULL, '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
+(7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Paypal', NULL, '2023-02-22 06:25:35', '2023-02-22 06:25:35');
 
 -- --------------------------------------------------------
 
@@ -48312,6 +48324,33 @@ INSERT INTO `countries` (`id`, `sortname`, `country_name`, `phonecode`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` int(255) NOT NULL,
+  `product_id` int(150) NOT NULL,
+  `coupon_code` varchar(255) NOT NULL,
+  `discount_type` varchar(150) NOT NULL,
+  `coupon_amount` varchar(150) NOT NULL,
+  `coupon_expiry_date` varchar(150) NOT NULL,
+  `minimum_spend` int(150) NOT NULL,
+  `maximum_spend` int(150) NOT NULL,
+  `coupon_status` int(15) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `product_id`, `coupon_code`, `discount_type`, `coupon_amount`, `coupon_expiry_date`, `minimum_spend`, `maximum_spend`, `coupon_status`, `created_at`, `updated_at`) VALUES
+(14, 1, 'test45', 'Percentage discount', '20', '2023-02-28', 500, 2500, 1, '2023-02-22 05:58:27', '2023-02-22 06:11:03');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customers`
 --
 
@@ -48350,9 +48389,23 @@ CREATE TABLE `orders` (
   `user_id` int(255) NOT NULL,
   `order_status` varchar(255) NOT NULL,
   `total_amount` varchar(255) NOT NULL,
+  `couponcode` varchar(150) DEFAULT NULL,
+  `discount_amount` varchar(150) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `session_id`, `user_id`, `order_status`, `total_amount`, `couponcode`, `discount_amount`, `created_at`, `updated_at`) VALUES
+(1, '0', 1, 'Completed', '476.06', '', '', '2023-02-07 06:07:45', '2023-02-22 05:57:25'),
+(2, '63e3b0881851b', 0, 'Processing', '784', 'DISCOUNT20', '', '2023-02-08 10:05:37', '2023-02-08 10:05:37'),
+(3, '63e3d4bc0f542', 0, 'Completed', '784', 'DISCOUNT20', '98', '2023-02-08 12:14:59', '2023-02-11 06:16:53'),
+(5, '63e4ce9e57e69', 0, 'Processing', '1260.06', 'DISCOUNT20', '98', '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
+(6, '63e4d6126ae5a', 0, 'Processing', '490', '', '', '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
+(7, '63f5f7ebdae78', 0, 'Processing', '1142.02', 'test45', '98', '2023-02-22 06:25:35', '2023-02-22 06:25:35');
 
 -- --------------------------------------------------------
 
@@ -48376,9 +48429,18 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`id`, `order_id`, `qty`, `price`, `product_id`, `product_name`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '66.42', 5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '2023-02-02 09:52:01', '2023-02-02 09:52:01'),
-(2, 1, 1, '409.64', 4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '2023-02-02 09:52:01', '2023-02-02 09:52:01'),
-(3, 1, 1, '490', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-02 09:52:01', '2023-02-02 09:52:01');
+(1, 1, 1, '66.42', 5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '2023-02-07 06:07:45', '2023-02-07 06:07:45'),
+(2, 1, 1, '409.64', 4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '2023-02-07 06:07:45', '2023-02-07 06:07:45'),
+(3, 2, 2, '784', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-08 10:05:37', '2023-02-08 10:05:37'),
+(4, 3, 2, '784', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-08 12:14:59', '2023-02-08 12:14:59'),
+(8, 5, 2, '784', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-09 05:50:59', '2023-02-09 05:50:59'),
+(9, 5, 1, '409.64', 4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '2023-02-09 05:50:59', '2023-02-09 05:50:59'),
+(10, 5, 1, '66.42', 5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '2023-02-09 05:50:59', '2023-02-09 05:50:59'),
+(11, 6, 1, '490', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-09 06:41:30', '2023-02-09 06:41:30'),
+(12, 7, 1, '273.96', 12, 'AF547A HP 5xC13 Intelligent Modular Power Distribution Unit Extension Bars G2 Kit', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(13, 7, 1, '66.42', 5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(14, 7, 1, '409.64', 4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(15, 7, 1, '392', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-22 06:25:35', '2023-02-22 06:25:35');
 
 -- --------------------------------------------------------
 
@@ -48400,6 +48462,7 @@ CREATE TABLE `products` (
   `is_sale` int(15) NOT NULL,
   `is_featured` int(15) NOT NULL,
   `category_id` int(255) NOT NULL,
+  `sub_category_id` int(150) DEFAULT NULL,
   `brand_id` int(255) NOT NULL,
   `availability` int(15) NOT NULL,
   `quantity` int(255) NOT NULL,
@@ -48411,10 +48474,11 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `product_title`, `product_price`, `product_image`, `product_sku`, `product_condition`, `product_description`, `product_slug`, `product_meta_title`, `product_meta_description`, `is_sale`, `is_featured`, `category_id`, `brand_id`, `availability`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 'HP BL10e C-GbE Interconnect Switch', '490.00', '1674559139-63cfbea36fa7c.jpg', '253077-001', 'Refurbished', '<p>253077-001 HP BL10e C-GbE Interconnect Switch</p>', 'hp-bl10e-c-gbe-interconnect-switch', 'HP BL10e C-GbE Interconnect Switch', 'HP BL10e C-GbE Interconnect Switch', 0, 0, 1, 1, 0, 22, '2023-01-31 10:16:00', '2023-01-31 10:16:00'),
-(4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '409.64', '1674561399-63cfc77709b21.jpg', 'AP14FS35', 'Refurbished', 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', 'ap14fs35-sun-ultra45-1000-watt-power-supply', 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', 0, 1, 3, 1, 1, 24, '2023-01-31 10:16:00', '2023-01-31 10:16:00'),
-(5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '66.42', '1674561461-63cfc7b521c5d.jpg', '412358-001', 'Refurbished', '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '412358-001-hp-256mb-ddr2-533mhz-pc2-4200-non-ecc-unbuffered-cl4-200-pin-sodimm-1-8v-memory-module', '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', 0, 1, 2, 1, 1, 44, '2023-01-31 10:16:00', '2023-01-31 10:16:00');
+INSERT INTO `products` (`id`, `product_title`, `product_price`, `product_image`, `product_sku`, `product_condition`, `product_description`, `product_slug`, `product_meta_title`, `product_meta_description`, `is_sale`, `is_featured`, `category_id`, `sub_category_id`, `brand_id`, `availability`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 'HP BL10e C-GbE Interconnect Switch', '490.00', '1674559139-63cfbea36fa7c.jpg', '253077-001', 'Refurbished', '<p>253077-001 HP BL10e C-GbE Interconnect Switch</p>', 'hp-bl10e-c-gbe-interconnect-switch', 'HP BL10e C-GbE Interconnect Switch', 'HP BL10e C-GbE Interconnect Switch', 0, 0, 1, NULL, 1, 0, 2, '2023-01-31 10:16:00', '2023-02-22 10:07:22'),
+(4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '409.64', '1674561399-63cfc77709b21.jpg', 'AP14FS35', 'Refurbished', 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', 'ap14fs35-sun-ultra45-1000-watt-power-supply', 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', 0, 1, 3, NULL, 1, 1, 24, '2023-01-31 10:16:00', '2023-01-31 10:16:00'),
+(5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '66.42', '1674561461-63cfc7b521c5d.jpg', '412358-001', 'Refurbished', '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '412358-001-hp-256mb-ddr2-533mhz-pc2-4200-non-ecc-unbuffered-cl4-200-pin-sodimm-1-8v-memory-module', '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', 0, 1, 2, NULL, 1, 1, 44, '2023-01-31 10:16:00', '2023-01-31 10:16:00'),
+(12, 'AF547A HP 5xC13 Intelligent Modular Power Distribution Unit Extension Bars G2 Kit', '273.96', '1677082133.png', 'AF547A', 'good', '<p>asdadasd</p>', 'af547a-hp-5xc13-intelligent-modular-power-distribution-unit-extension-bars-g2-kit', 'asdasd', 'asdasd', 0, 0, 3, 3, 1, 1, 22, '2023-02-15 07:13:57', '2023-02-22 11:08:53');
 
 -- --------------------------------------------------------
 
@@ -48426,7 +48490,7 @@ CREATE TABLE `product_banners` (
   `id` int(255) NOT NULL,
   `banner_name` varchar(255) NOT NULL,
   `banner_slug` varchar(255) NOT NULL,
-  `banner_description` varchar(255) NOT NULL,
+  `banner_description` text NOT NULL,
   `banner_image` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -48437,8 +48501,7 @@ CREATE TABLE `product_banners` (
 --
 
 INSERT INTO `product_banners` (`id`, `banner_name`, `banner_slug`, `banner_description`, `banner_image`, `created_at`, `updated_at`) VALUES
-(1, 'Speakers', 'speakers', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, voluptate?', '1674565598.jpg', '2023-01-24 08:02:51', '2023-01-24 08:06:38'),
-(2, 'Mobile', 'mobile', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, voluptate?', '1674565999-63cfd96fafa75.jpg', '2023-01-24 08:13:19', '2023-01-24 08:13:19');
+(2, 'Desktop & Server Motherboards', 'desktop-server-motherboards', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', '1674565999-63cfd96fafa75.jpg', '2023-01-24 08:13:19', '2023-02-16 09:35:43');
 
 -- --------------------------------------------------------
 
@@ -48487,7 +48550,7 @@ INSERT INTO `product_categories` (`id`, `category_name`, `category_slug`, `categ
 (2, 'Memory', 'memory', '1674558921-63cfbdc9435d8.jpg', 1, '2023-01-24 06:15:21', '2023-01-25 08:18:08'),
 (3, 'Power Supply & others', 'power-supply-others', '1674558963-63cfbdf3b7235.jpg', 1, '2023-01-24 06:16:03', '2023-01-25 08:18:06'),
 (4, 'Storage Devices', 'storage-devices', '1674558994-63cfbe12ac00e.jpg', 1, '2023-01-24 06:16:34', '2023-01-25 08:18:01'),
-(7, 'sadasdad', 'sadasdad', '1675255634-63da5f5239c97.jpeg', 0, '2023-02-01 07:47:14', '2023-02-01 07:47:14');
+(8, 'Desktop & Server Motherboards', 'desktop-server-motherboards', '1676370902-63eb63d6963eb.jpg', 0, '2023-02-14 05:35:02', '2023-02-14 05:35:02');
 
 -- --------------------------------------------------------
 
@@ -48497,11 +48560,21 @@ INSERT INTO `product_categories` (`id`, `category_name`, `category_slug`, `categ
 
 CREATE TABLE `product_reviews` (
   `id` int(255) NOT NULL,
+  `product_id` int(150) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `review_description` text NOT NULL,
-  `review_stars` varchar(255) NOT NULL
+  `review_stars` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_reviews`
+--
+
+INSERT INTO `product_reviews` (`id`, `product_id`, `user_name`, `user_email`, `review_description`, `review_stars`, `created_at`, `updated_at`) VALUES
+(1, 4, 'adasd', 'huzi@gmail.com', 'asdasd', '4', '2023-02-11 10:04:24', '2023-02-11 10:04:24');
 
 -- --------------------------------------------------------
 
@@ -48555,6 +48628,18 @@ CREATE TABLE `shipping_details` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `shipping_details`
+--
+
+INSERT INTO `shipping_details` (`id`, `order_id`, `full_name`, `phone_no`, `email`, `address`, `country`, `state`, `city`, `post_code`, `company_name`, `order_notes`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Muhammad Huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'test', '2023-02-07 06:07:45', '2023-02-10 09:49:53'),
+(2, 2, 'asdasd', '12312313', 'huzi@gmail.com', 'a238', '14', '291', '7118', 74000, 'test', 'asdasd', '2023-02-08 10:05:38', '2023-02-08 10:05:38'),
+(3, 3, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31555', 74000, 'test', 'test', '2023-02-08 12:15:00', '2023-02-08 12:15:00'),
+(5, 5, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'TEST', '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
+(6, 6, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2723', '31287', 74000, 'test', 'test', '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
+(7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'test', '2023-02-22 06:25:35', '2023-02-22 06:25:35');
 
 -- --------------------------------------------------------
 
@@ -52701,7 +52786,8 @@ CREATE TABLE `sub_categories` (
 --
 
 INSERT INTO `sub_categories` (`id`, `category_id`, `sub_category_name`, `sub_category_slug`, `sub_category_image`, `created_at`, `updated_at`) VALUES
-(3, 3, 'Power Distribution Unit (PDU)', 'power-distribution-unit-pdu', '1675093249-63d7e501118a5.jpg', '2023-01-30 10:40:49', '2023-01-30 10:40:49');
+(3, 3, 'Power Distribution Unit (PDU)', 'power-distribution-unit-pdu', '1675093249-63d7e501118a5.jpg', '2023-01-30 10:40:49', '2023-01-30 10:40:49'),
+(4, 3, 'Power Inverters', 'power-inverters', '', '2023-02-14 05:54:16', '2023-02-14 05:54:16');
 
 -- --------------------------------------------------------
 
@@ -52752,6 +52838,12 @@ ALTER TABLE `cities`
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52846,7 +52938,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `billing_details`
 --
 ALTER TABLE `billing_details`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -52867,28 +52959,34 @@ ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `product_banners`
@@ -52900,19 +52998,19 @@ ALTER TABLE `product_banners`
 -- AUTO_INCREMENT for table `product_brands`
 --
 ALTER TABLE `product_brands`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
 --
 ALTER TABLE `product_reviews`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -52924,7 +53022,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `shipping_details`
 --
 ALTER TABLE `shipping_details`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `slug`
@@ -52942,7 +53040,7 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
