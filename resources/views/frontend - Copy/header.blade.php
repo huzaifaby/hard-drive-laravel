@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
+
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
     <!-- MDB -->
@@ -41,19 +42,11 @@
         display: none;
         position: absolute;
         background-color: white;
-        width: 100%;
+        width: 544px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         padding: 12px 16px;
-        z-index: 10;
+        z-index: 999;
         margin-top: 45px;
-    }
-
-    #search_list .container {
-        border-bottom: 1px solid #ddd;
-    }
-
-    #search_list .container:last-child {
-        border-bottom: none;
     }
 
     #search_list div {
@@ -61,9 +54,14 @@
         cursor: pointer;
     }
 
-    #search_list .container .row a:hover,
-    #search_list .container .row a:hover span {
-        color: #000;
+    #search_list div:hover {
+        background-color: #ddd;
+    }
+
+    /* isko correct krna hai */
+    input#quantities {
+        height: 16px;
+        width: 68px;
     }
     </style>
 
@@ -124,27 +122,24 @@
     <!-- header end  -->
 
     <!-- category start  -->
-    <div class="category bg-white d-none d-lg-block">
+    <div class="category bg-white py-3 d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-3 order-3 order-lg-1">
+                <div class="col-md-2 order-3 mb-3 order-lg-1">
                     <div class="dropdown-left d-lg-block d-none">
-                        <button class="bg-white w-100 border border-3 fw-light rounded text-center"
-                            style="padding:5px 16px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="bx bx-menu"></i> CATEGORIES <i class="bx bx-chevron-down"></i>
+                        <button class="square-block-btn" type="button" id="dropdownMenuButton"
+                            data-mdb-toggle="dropdown" aria-expanded="false">
+                            CATEGORIES <i class="bx bx-menu ms-2"></i>
                         </button>
 
-                        <ul class="dropdown-menu mt-3 rounded border border-2 py-0" style="min-width:18.44rem"
-                            aria-labelledby="dropdownMenuButton">
-                            <li class="px-4">
-                                <a class="dropdown-item px-0 pt-3 pb-2 border-bottom bg-white"
+                        <ul class="dropdown-menu rounded-0 " aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item border-bottom bg-white"
                                     href="{{ url('/category/power-supply-others') }}">
-                                    Power Supply & others
-                                    <span class="bx bx-chevron-right float-end text-dark"></span>
+                                    Power Supply & others &raquo;
                                 </a>
                                 <!-- Dropdown menu -->
-                                <div class="dropdown-menu dropdown-submenu border border-2 megamenu mt-2 rounded">
+                                <div class="dropdown-menu dropdown-submenu megamenu mt-0 rounded-0">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="menu-col">
@@ -163,7 +158,6 @@
                                                                     <li class="mb-2">
                                                                         <a href="{{ url('/category/power-supply-others/' . $subcategory->sub_category_slug) }}"
                                                                             class="text-dark">{{ $subcategory->sub_category_name }}</a>
-
                                                                     </li>
                                                                 </div>
                                                                 <?php 
@@ -181,32 +175,31 @@
                                     </div><!-- End .row -->
                                 </div><!-- End .megamenu -->
                             </li>
-                            <li class="px-4"><a class="dropdown-item px-0 py-2 border-bottom bg-white"
+                            <li><a class="dropdown-item border-bottom bg-white"
                                     href="{{ url('/category/networking-devices') }}">Networking Devices</a></li>
-                            <li class="px-4">
-                                <a class="dropdown-item px-0 py-2 border-bottom bg-white"
+                            <li>
+                                <a class="dropdown-item border-bottom bg-white"
                                     href="{{ url('/category/memory') }}">Memory</a>
                             </li>
-                            <li class="px-4">
-                                <a class="dropdown-item px-0 py-2 border-bottom bg-white"
+                            <li>
+                                <a class="dropdown-item border-bottom bg-white"
                                     href="{{ url('/category/storage-devices') }}">Storage Devices</a>
                             </li>
-                            <li class="px-4">
-                                <a class="dropdown-item px-0 py-2 bg-white mb-0"
-                                    href="{{ route('category.index') }}">See All
+                            <li>
+                                <a class="dropdown-item bg-white mb-0" href="{{ route('category.index') }}">See All
                                     Categories</a>
                             </li>
                         </ul>
                     </div>
 
                 </div>
-                <div class="col-md-5 order-1 order-lg-2">
+                <div class="col-md-5 mb-3 order-1 order-lg-2">
 
                     <!-- form start  -->
-                    <div class="searchBar position-relative">
+                    <div class="searchBar">
                         <input type="search"
                             placeholder="Please Search by Part Number, by Brand, by Model name or any keyword"
-                            class="searchName " name="search">
+                            class="searchName" name="search">
 
                         <button type="submit" id="searchProduct"><i class="bx bx-search"></i></button>
                         <div id="search_list"></div>
@@ -214,37 +207,37 @@
                     <!-- form end  -->
 
                 </div>
-                <div class="col-md-4 order-2 order-lg-3">
+                <div class="col-md-5 mb-3 order-2 order-lg-3">
 
-                    <div class="d-flex flex-wrap align-items-center">
+                    <div class="row align-items-center">
 
-                        <div class="">
-                            <ul class="list-group list-group-horizontal">
+                        <div class="col-auto mb-3">
+                            <ul class="list-group list-group-horizontal-lg">
                                 <li class="list-group-item number border border-0">
-                                    <div class="d-flex flex-wrap align-items-center">
-                                        <div class="me-2">
-                                            <i class='bx bx-headphone fs-5 fw-light'></i>
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <i class='bx bx-headphone fs-5'></i>
                                         </div>
-                                        <div class="">
+                                        <div class="col">
                                             <a href="tel:{{ $settings[0]->phone_no_1}}"
-                                                class="fs-7 fw-light text-dark">{{ $settings[0]->phone_no_1}}</a><br>
+                                                class="text-dark">{{ $settings[0]->phone_no_1}}</a><br>
                                             <a href="tel:{{ $settings[0]->phone_no_2}}"
-                                                class="fs-7 fw-light text-dark">{{ $settings[0]->phone_no_2}}</a>
+                                                class="text-dark">{{ $settings[0]->phone_no_2}}</a>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
 
-                        <div class="me-3">
+                        <div class="col">
                             <ul class="list-group list-group-horizontal-lg">
                                 <li class="list-group-item number border border-0 p-0">
                                     <?php  if (Auth::guard('customer')->check()) { ?>
-                                    <a href="{{ route('customer.dashboard') }}" class="fs-7 fw-light text-dark">
+                                    <a href="{{ route('customer.dashboard') }}" class="text-dark">
                                         <i class="bx bx-user fs-5"></i> <span class="text-dark">Account</span>
                                     </a>
                                     <?php } else { ?>
-                                    <a href="{{ route('account.show') }}" class="fs-7 fw-light text-dark">
+                                    <a href="{{ route('account.show') }}" class="text-dark">
                                         <i class="bx bx-user fs-5"></i> <span class="text-dark">Account</span>
                                     </a>
                                     <?php }  ?>
@@ -253,10 +246,10 @@
                             </ul>
                         </div>
 
-                        <div>
+                        <div class="col-auto">
                             <div class="dropdown-center cart-btn">
-                                <button class="bg-white fs-8 fw-light" type="button" id="cartDropdown"
-                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                <button class="bg-white" type="button" id="cartDropdown" data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
                                     <i class='bx bx-shopping-bag'></i>
                                     <span class="badge text-bg-light rounded-circle fw-light cart-count">0</span>
                                     Your Cart
@@ -285,35 +278,40 @@
     </div>
     <!-- category end  -->
 
+    <!-- navbar start  -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-none d-sm-block d-lg-none">
+        <div class="container">
+            <div class="row align-items-center w-100">
+                <div class="col">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ asset('image/logo/'.$settings[0]->logo) }}" class="img-fluid" loading="lazy"
+                        width="150" alt="">
+                </a>
+                </div>
+                <div class="col-auto">
+                    <div>
+                        <ul class="nav me-auto mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#"><i class="bx bx-headphone fs-5"></i></a>
+                            </li>
+                            <li class="nav-item">
+                            <?php  if (Auth::guard('customer')->check()) { ?>
+                                <a class="nav-link text-dark" href="{{ route('customer.dashboard') }}"><i class="bx bx-user fs-5"></i></a>
 
-    <!-- mobile header start  -->
+                                <?php } else { ?>
+                                    <a class="nav-link text-dark" href="{{ route('account.show') }}"><i class="bx bx-user fs-5"></i></a>
 
-    <nav class="navbar d-sm-block d-lg-none bg-white shadow-none">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="{{ asset('image/logo/'.$settings[0]->logo) }}" class="img-fluid"
-                    loading="lazy" width="150" alt=""></a>
-            <ul class="navbar-nav flex-row ms-auto mb-lg-0">
-                <li class="nav-item me-3">
-                    <a class="nav-link text-dark" href="#"><i class="bx bx-headphone fs-5"></i></a>
-                </li>
-                <li class="nav-item">
-                    <?php  if (Auth::guard('customer')->check()) { ?>
-                    <a class="nav-link text-dark" href="{{ route('customer.dashboard') }}"><i
-                            class="bx bx-user fs-5"></i></a>
-
-                    <?php } else { ?>
-                    <a class="nav-link text-dark" href="{{ route('account.show') }}"><i class="bx bx-user fs-5"></i></a>
-
-                    <?php }  ?>
-                </li>
-            </ul>
-
+                                    <?php }  ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
-
     <!-- navbar end  -->
 
-
+    <!-- mobile header start  -->
     <header class="d-sm-block d-lg-none mainMobileHeader">
 
         <!-- menubar, searchbar and cart start -->
@@ -321,7 +319,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <button class="bg-white" id="OpenSidebarToggle">
+                        <button class="bg-white" id="sideNavMenuBar">
                             <i class="bx bx-menu fs-5"></i>
                         </button>
                     </div>
@@ -366,84 +364,57 @@
     <!-- mobile header end  -->
 
 
+
     <!-- sidebar start  -->
-    <nav class="sb-sidenav accordion" id="sidenavAccordion" style="display:none;">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
-                <div class="sb-sidenav-menu-heading p-2" style="background:#f1f1f1 !important;">
-                    <!-- Sidebar Toggle-->
-                    <button class="btn-sm fs-6 order-1 order-lg-0" id="CloseSidebarToggle" href="#"><i
-                            class="bx bx-x fs-4"></i> Close</button>
-                </div>
+    <nav class="sidenav d-sm-block d-lg-none" id="sideNavBar">
+
+        <!-- close button  -->
+        <a href="#" class="bg-light pb-2"><i class="bx bx-x" id="sideNavCloseMenuBar"></i> Close</a>
 
 
-                <a class="nav-link collapsed" href="{{ url('/category/power-supply-others') }}"
-                    data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false"
-                    aria-controls="collapseCategory">
-
-                    Power Supply & others
-                    <div class="sb-sidenav-collapse-arrow"><i class='bx bx-minus'></i></div>
+        <!-- categories nav start  -->
+        <ul class="ps-0 mt-2">
+            <li>
+                
+                <a href="{{ url('/category/power-supply-others') }}" 
+                class="dropdown-btn sideNavDropdown">Power Supply & others
+                    <i class="bx bx-plus "></i>
                 </a>
-
-                <div class="collapse" style="background:#f1f1f1 !important" id="collapseCategory"
-                    aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        @foreach($sub_category as $key=>$subcategory)
-                        <a class="nav-link"
-                            href="{{ url('/category/power-supply-others/' . $subcategory->sub_category_slug) }}">{{ $subcategory->sub_category_name }}</a>
-                        @endforeach
-                    </nav>
-                </div>
-
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBanner"
-                    aria-expanded="false" aria-controls="collapseBanner">
-
-                    Networking Devices
-                    <div class="sb-sidenav-collapse-arrow"><i class='bx bx-minus'></i></div>
+                
+                <ul class="dropdown-container sideNavsubmenu">
+                @foreach($sub_category as $key=>$subcategory)
+                <li><a href="{{ url('/category/power-supply-others/' . $subcategory->sub_category_slug) }}">{{ $subcategory->sub_category_name }}</a></li>
+                @endforeach
+                 
+                </ul>
+            </li>
+            <li>
+                <a href="{{ url('/category/networking-devices') }}" class="dropdown-btn sideNavDropdown">Networking Devices
+                    <i class="bx bx-plus"></i>
                 </a>
-
-                <div class="collapse" style="background:#f1f1f1 !important" id="collapseBanner"
-                    aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a href="{{ url('/category/networking-devices') }}" class="nav-link">Networking Devices</a>
-                    </nav>
-                </div>
-
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBrand"
-                    aria-expanded="false" aria-controls="collapseBrand">
-
-                    Memory
-                    <div class="sb-sidenav-collapse-arrow"><i class='bx bx-minus'></i></div>
+     
+            </li>
+            <li>
+                <a href="{{ url('/category/memory') }}" class="dropdown-btn sideNavDropdown">Memory
+                    <i class="bx bx-plus"></i>
                 </a>
-
-                <div class="collapse" style="background:#f1f1f1 !important" id="collapseBrand"
-                    aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ url('/category/memory') }}">Memory</a>
-                    </nav>
-                </div>
-
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct"
-                    aria-expanded="false" aria-controls="collapseProduct">
-
-                    Storage Devices
-                    <div class="sb-sidenav-collapse-arrow"><i class='bx bx-minus'></i></div>
+             
+            </li>
+            <li>
+                <a href="{{ url('/category/storage-devices') }}" class="dropdown-btn sideNavDropdown">Storage Devices
+                    <i class="bx bx-plus"></i>
                 </a>
-                <div class="collapse" style="background:#f1f1f1 !important" id="collapseProduct"
-                    aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ url('/category/storage-devices') }}">Storage Devices</a>
-                    </nav>
-                </div>
+                
+            </li>
 
 
-            </div>
-        </div>
+        </ul>
+        <!-- categories nav end  -->
+
     </nav>
     <!-- sidebar end  -->
 
     <!-- main layout start  -->
     <div class="layout-container">
 
-        @include('frontend.orders_js')
-        @include('frontend.wishlist_js')
+    @include('frontend.orders_js')

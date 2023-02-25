@@ -29,13 +29,39 @@ class CategoriesController extends Controller
     }
 
 
-    public function parentCategory($parent)
+    public function parentCategory(Request $request, $parent)
     {
         $category = ProductCategory::where('category_slug', $parent)->firstOrFail();
-        $products_by_category = Product::where('category_id', $category->id)->get();
     
+        // Get the products by category
+        $query = Product::where('category_id', $category->id);
+    
+        // Handle dynamic filters
+        if ($request->has('display_prods')) {
+            $query->limit($request->input('display_prods'));
+        }
+    
+        if ($request->has('sort')) {
+            switch ($request->input('sort')) {
+                case 'date_desc':
+                    $query->orderByDesc('created_at');
+                    break;
+                case 'date_asc':
+                    $query->orderBy('created_at');
+                    break;
+                case 'price_asc':
+                    $query->orderBy('product_price');
+                    break;
+                case 'price_desc':
+                    $query->orderByDesc('product_price');
+                    break;
+            }
+        }
+    
+        $products_by_category = $query->get();
         return view('frontend.category-detail', compact('category', 'products_by_category'));
     }
+    
 
     
     public function parentSubCategory($parent, $sub)

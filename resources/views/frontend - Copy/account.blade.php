@@ -1,7 +1,7 @@
 @include('frontend.header')
 
 
-<div class="cart-wrapper mt-3">
+<div class="cart-wrapper ">
     <div class="container">
 
         <!-- breadcrumb start  -->
@@ -13,7 +13,7 @@
         </nav>
         <!-- breadcrumb end  -->
 
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-6 mb-5">
                 <div class="container">
                     <h2>Login</h2>

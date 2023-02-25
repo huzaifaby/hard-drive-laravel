@@ -1,66 +1,82 @@
 @include('frontend.header')
 
 
-<div class="cart-wrapper mt-4">
+<div class="cart-wrapper ">
     <div class="container">
 
-        <div class="row">
-            <div class="col-md-3 d-lg-block d-none">
-
-            <!-- breadcrumb start  -->
+        <!-- breadcrumb start  -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" class="text-secondary">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Category</li>
+                <li class="breadcrumb-item"><a href="#">Category</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Memory</li>
             </ol>
         </nav>
         <!-- breadcrumb end  -->
 
+        <div class="row">
+            <div class="col-md-3">
                 <div class="accordion" id="accordionExample">
-            
+                    <!-- <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button text-dark shadow-none bg-white" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                Categories
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse border-top"
+                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <a href="#" class="text-dark">Desktop & Server Motherboards</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div id="collapseTwo" class=" show" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <a href="#" class="text-dark">Storage Devices</a>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="card-title mt-3">Latest Products</div>
                     <span class="heading-border"></span>
 
                     <!-- Swiper -->
                     <div class="swiper latestProductSwiper">
                         <div class="swiper-wrapper pb-5">
-                            @php
-                            $productChunks = array_chunk($latest_products->toArray(), 3);
-                            @endphp
-
-                            @foreach ($productChunks as $productChunk)
-                            <div class="swiper-slide mt-3 border-top">
-                                @foreach($productChunk as $latestproducts)
+                            @foreach($latest_products as $key=>$latestproducts)
+                            <div class="swiper-slide">
                                 <!-- swiper box start -->
-                                <div class="card rounded-0 border-bottom border-0 shadow-none">
+
+                                <div class="card border-end-0 border-start-0 rounded-0 mt-3 shadow-none">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-auto">
-                                                <a href="product-detail/{{ $latestproducts['product_slug'] }}">
-                                                    <img src="{{ asset('image/products/'.$latestproducts['product_image']) }}"
+                                            <div class="col">
+                                                <a href="product-detail/{{ $latestproducts->product_slug }}">
+                                                    <img src="{{ asset('image/products/'.$latestproducts->product_image) }}"
                                                         class="img-fluid mb-3" width="84" loading="lazy" alt="...">
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a href="">
-                                                    <p class="card-title-price">
-                                                        ${{ $latestproducts['product_price'] }}/-
+                                                    <p class="card-title-price">${{ $latestproducts->product_price }}/-
                                                     </p>
                                                     <p class="card-text">
-                                                        {{ substr($latestproducts['product_title'], 0, 30) . '...' }}
+                                                        {{ substr($latestproducts->product_title, 0, 50) . '...' }}
                                                     </p>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- swiper box end -->
-                                @endforeach
                             </div>
                             @endforeach
                         </div>
+                        <div class="swiper-pagination"></div>
                     </div>
-
 
                 </div>
             </div>

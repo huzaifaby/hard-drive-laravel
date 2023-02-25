@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 23, 2023 at 11:56 AM
+-- Generation Time: Feb 25, 2023 at 06:28 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -55,7 +55,8 @@ INSERT INTO `billing_details` (`id`, `order_id`, `full_name`, `phone_no`, `email
 (3, 3, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31555', 74000, 'test', 'Credit Card', NULL, '2023-02-08 12:15:00', '2023-02-08 12:15:00'),
 (5, 5, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Credit Card', NULL, '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
 (6, 6, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2723', '31287', 74000, 'test', 'Paypal', NULL, '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
-(7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Paypal', NULL, '2023-02-22 06:25:35', '2023-02-22 06:25:35');
+(7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Paypal', NULL, '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(8, 8, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Paypal', NULL, '2023-02-25 08:08:37', '2023-02-25 08:08:37');
 
 -- --------------------------------------------------------
 
@@ -48346,7 +48347,8 @@ CREATE TABLE `coupons` (
 --
 
 INSERT INTO `coupons` (`id`, `product_id`, `coupon_code`, `discount_type`, `coupon_amount`, `coupon_expiry_date`, `minimum_spend`, `maximum_spend`, `coupon_status`, `created_at`, `updated_at`) VALUES
-(14, 1, 'test45', 'Percentage discount', '20', '2023-02-28', 500, 2500, 1, '2023-02-22 05:58:27', '2023-02-22 06:11:03');
+(14, 1, 'test45', 'Percentage discount', '20', '2023-02-28', 500, 2500, 1, '2023-02-22 05:58:27', '2023-02-22 06:11:03'),
+(15, 1, '127.0.0.1', 'Percentage discount', '33', '2023-02-02', 500, 2500, 1, '2023-02-25 08:02:52', '2023-02-25 08:02:52');
 
 -- --------------------------------------------------------
 
@@ -48391,6 +48393,7 @@ CREATE TABLE `orders` (
   `total_amount` varchar(255) NOT NULL,
   `couponcode` varchar(150) DEFAULT NULL,
   `discount_amount` varchar(150) NOT NULL,
+  `user_ipaddress` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -48399,13 +48402,14 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `session_id`, `user_id`, `order_status`, `total_amount`, `couponcode`, `discount_amount`, `created_at`, `updated_at`) VALUES
-(1, '0', 1, 'Completed', '476.06', '', '', '2023-02-07 06:07:45', '2023-02-22 05:57:25'),
-(2, '63e3b0881851b', 0, 'Processing', '784', 'DISCOUNT20', '', '2023-02-08 10:05:37', '2023-02-08 10:05:37'),
-(3, '63e3d4bc0f542', 0, 'Completed', '784', 'DISCOUNT20', '98', '2023-02-08 12:14:59', '2023-02-11 06:16:53'),
-(5, '63e4ce9e57e69', 0, 'Processing', '1260.06', 'DISCOUNT20', '98', '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
-(6, '63e4d6126ae5a', 0, 'Processing', '490', '', '', '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
-(7, '63f5f7ebdae78', 0, 'Processing', '1142.02', 'test45', '98', '2023-02-22 06:25:35', '2023-02-22 06:25:35');
+INSERT INTO `orders` (`id`, `session_id`, `user_id`, `order_status`, `total_amount`, `couponcode`, `discount_amount`, `user_ipaddress`, `created_at`, `updated_at`) VALUES
+(1, '0', 1, 'Completed', '476.06', '', '', '', '2023-02-07 06:07:45', '2023-02-22 05:57:25'),
+(2, '63e3b0881851b', 0, 'Processing', '784', 'DISCOUNT20', '', '', '2023-02-08 10:05:37', '2023-02-08 10:05:37'),
+(3, '63e3d4bc0f542', 0, 'Completed', '784', 'DISCOUNT20', '98', '', '2023-02-08 12:14:59', '2023-02-11 06:16:53'),
+(5, '63e4ce9e57e69', 0, 'Processing', '1260.06', 'DISCOUNT20', '98', '', '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
+(6, '63e4d6126ae5a', 0, 'Processing', '490', '', '', '', '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
+(7, '63f5f7ebdae78', 0, 'Processing', '1142.02', 'test45', '98', '', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(8, '63fa04af146e8', 0, 'Processing', '392', 'test45', '98', '127.0.0.1', '2023-02-25 08:08:37', '2023-02-25 08:08:37');
 
 -- --------------------------------------------------------
 
@@ -48440,7 +48444,8 @@ INSERT INTO `order_products` (`id`, `order_id`, `qty`, `price`, `product_id`, `p
 (12, 7, 1, '273.96', 12, 'AF547A HP 5xC13 Intelligent Modular Power Distribution Unit Extension Bars G2 Kit', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
 (13, 7, 1, '66.42', 5, '412358-001 HP 256MB DDR2-533MHz PC2-4200 non-ECC Unbuffered CL4 200-Pin SoDIMM 1.8V Memory Module', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
 (14, 7, 1, '409.64', 4, 'AP14FS35 Sun Ultra45 1000 Watt Power Supply', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
-(15, 7, 1, '392', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-22 06:25:35', '2023-02-22 06:25:35');
+(15, 7, 1, '392', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(16, 8, 1, '392', 1, 'HP BL10e C-GbE Interconnect Switch', '2023-02-25 08:08:37', '2023-02-25 08:08:37');
 
 -- --------------------------------------------------------
 
@@ -48574,7 +48579,7 @@ CREATE TABLE `product_reviews` (
 --
 
 INSERT INTO `product_reviews` (`id`, `product_id`, `user_name`, `user_email`, `review_description`, `review_stars`, `created_at`, `updated_at`) VALUES
-(1, 4, 'adasd', 'huzi@gmail.com', 'asdasd', '4', '2023-02-11 10:04:24', '2023-02-11 10:04:24');
+(1, 4, 'huzaifa', 'huzi@gmail.com', 'good', '4', '2023-02-11 10:04:24', '2023-02-23 11:26:25');
 
 -- --------------------------------------------------------
 
@@ -48639,7 +48644,8 @@ INSERT INTO `shipping_details` (`id`, `order_id`, `full_name`, `phone_no`, `emai
 (3, 3, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31555', 74000, 'test', 'test', '2023-02-08 12:15:00', '2023-02-08 12:15:00'),
 (5, 5, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'TEST', '2023-02-09 05:50:59', '2023-02-09 07:18:03'),
 (6, 6, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2723', '31287', 74000, 'test', 'test', '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
-(7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'test', '2023-02-22 06:25:35', '2023-02-22 06:25:35');
+(7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'test', '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
+(8, 8, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'test', '2023-02-25 08:08:37', '2023-02-25 08:08:37');
 
 -- --------------------------------------------------------
 
@@ -52812,6 +52818,28 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `updated_at`, `created_a
 (8, 'Muhammad Huzaifa', 'huzi@gmail.com', '$2y$10$0VnkeTOQDKaVM81uQHyECuVmHBkp5HvGvom14o4dRERRc4PeGtqz6', '2023-01-18 07:23:59', '2023-01-18 07:23:59'),
 (9, 'Humaambyv', 'humaam.byv@gmail.com', '$2y$10$c/x3skrAYrIkyYahQNih0OeDHvUEN4PT7HKLknzyoo8IxOC81k.IO', '2023-01-21 02:16:53', '2023-01-21 02:16:53');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlists`
+--
+
+CREATE TABLE `wishlists` (
+  `id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wishlists`
+--
+
+INSERT INTO `wishlists` (`id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(13, 1, 12, '2023-02-25 09:48:37', '2023-02-25 09:48:37'),
+(14, 1, 4, '2023-02-25 10:37:06', '2023-02-25 10:37:06');
+
 --
 -- Indexes for dumped tables
 --
@@ -52931,6 +52959,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -52938,7 +52972,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `billing_details`
 --
 ALTER TABLE `billing_details`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -52962,7 +52996,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -52974,13 +53008,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -53010,7 +53044,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_reviews`
 --
 ALTER TABLE `product_reviews`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -53022,7 +53056,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `shipping_details`
 --
 ALTER TABLE `shipping_details`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `slug`
@@ -53047,6 +53081,12 @@ ALTER TABLE `sub_categories`
 --
 ALTER TABLE `users`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\ReviewsController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 
@@ -46,6 +47,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         //end
 
+        //wishlist
+        Route::post('/wishlist/add', [IndexController::class, 'addToWishlist'])->name('wishlist.add');
+        //end
 
         //cart page code
         Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
@@ -231,6 +235,15 @@ Route::get('/pagination/paginate-coupon',[CouponController::class,'pagination'])
 Route::get('/search-coupon',[CouponController::class,'searchCoupon'])->name('search.coupon');
 //end
 
+//product reviews
+Route::get('dashboard/reviews', [ReviewsController::class, 'reviews'])->name('reviews');
+Route::get('dashboard/edit-reviews/{id}', [ReviewsController::class,'ReviewsEdit'])->name('reviews.edit');
+Route::post('/update-reviews',[ReviewsController::class,'updateReviews'])->name('update.reviews');
+Route::post('/delete-reviews',[ReviewsController::class,'deleteReviews'])->name('delete.reviews');
+Route::get('/pagination/paginate-reviews',[ReviewsController::class,'pagination']);
+Route::get('/search-reviews',[ReviewsController::class,'searchReviews'])->name('search.reviews');
+//end
+
 
 
 
@@ -246,6 +259,9 @@ Route::get('/search-coupon',[CouponController::class,'searchCoupon'])->name('sea
     Route::post('update-profile', [UserDashboardController::class, 'updateProfile'])->name('update.profile');
     Route::get('user/reset', [UserDashboardController::class, 'customerReset'])->name('customer.reset');
     Route::post('reset-password', [UserDashboardController::class, 'resetPassword'])->name('reset.password');
+    Route::get('user/wishlist', [UserDashboardController::class, 'Wishlist'])->name('wishlist');
+    Route::post('/delete-wishlist',[UserDashboardController::class,'deleteWishlist'])->name('delete.wishlist');
+
     Route::get('user/lgout', [CustomerAuthController::class, 'logout'])->name('logout');
 
     });

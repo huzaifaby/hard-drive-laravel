@@ -1,26 +1,47 @@
 $(document).ready(function () {
 
-    'use-strict';
+ 
     let swiper;
 
     // banner start 
-    swiper = new Swiper(".bannerSwiper", {
-        spaceBetween: 30,
-        grabCursor: true,
-        centeredSlides: true,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
+    // swiper = new Swiper(".bannerSwiper", {
+    //     spaceBetween: 30,
+    //     grabCursor: true,
+    //     centeredSlides: true,
+    //     autoplay: {
+    //         delay: 2500,
+    //         disableOnInteraction: false,
+    //     },
+    //     pagination: {
+    //         el: ".swiper-pagination",
+    //         clickable: true,
+    //     },
+    //     navigation: {
+    //         nextEl: ".swiper-button-next",
+    //         prevEl: ".swiper-button-prev",
+    //     },
+    // });
+
+
+    // hero start 
+  
+        
+
+          $(".hero__slider").owlCarousel({
+            loop: true,
+            margin: 0,
+            items: 1,
+            dots: true,
+            nav: true,
+            navText: ["<span class='bx bx-left-arrow-alt'><span/>", "<span class='bx bx-right-arrow-alt'><span/>"],
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn',
+            smartSpeed: 1200,
+            autoHeight: false,
+            autoplay: true
+          });
+   
+    // hero end
     // banner end 
 
     swiper = new Swiper(".productSlide", {

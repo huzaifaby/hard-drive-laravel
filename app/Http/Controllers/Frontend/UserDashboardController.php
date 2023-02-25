@@ -13,6 +13,7 @@ use App\Models\ProductBrand;
 use App\Models\Settings;
 use App\Models\Customers;
 use App\Models\Orders;
+use App\Models\wishlists;
 
 
 class UserDashboardController extends Controller
@@ -121,6 +122,37 @@ class UserDashboardController extends Controller
           
             return redirect("user/reset")->withSuccess('Updated Successfully');
           }
+
+
+
+
+          public function Wishlist()
+          {
+        
+            $user_id = Auth::guard('customer')->user()->id;
+            $wishlist_products = wishlists::select('wishlists.id as wishlists_id', 'wishlists.*', 'products.*','customers.*')
+            ->join('customers', 'customers.id', '=', 'wishlists.user_id')->
+            join('products', 'products.id', '=', 'wishlists.product_id')
+            ->where('wishlists.user_id', $user_id)->get();
+           
+     
+            return view('frontend.wishlist')->with(compact('wishlist_products'));
+      
+          }
+
+        //delete Customers
+        public function deleteWishlist(Request $request){
+
+            $id = $request->id;
+            $wishlists = wishlists::find($id);
+            $wishlists->delete();
+        
+            return response()->json([
+                'status' => 'success',
+            ]);
+        
+            }
+            //end
 
     
 

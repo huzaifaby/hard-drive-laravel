@@ -1,15 +1,10 @@
 @include('frontend.header')
 
 
-<div class="cart-wrapper mt-3">
+<div class="cart-wrapper">
     <div class="container">
 
-        
-
-        <div class="row">
-            <div class="col-md-8">
-
-            <!-- breadcrumb start  -->
+        <!-- breadcrumb start  -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -18,6 +13,8 @@
         </nav>
         <!-- breadcrumb end  -->
 
+        <div class="row">
+            <div class="col-md-8">
                 <!-- table start  -->
                 <div class="table-responsive">
 

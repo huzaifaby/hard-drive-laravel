@@ -124,6 +124,7 @@ class CheckoutController extends Controller
 
       
         $coupon = session()->get('coupon');
+        $ipAddress = $request->ip();
 
 
         if($coupon != null ){
@@ -150,6 +151,8 @@ class CheckoutController extends Controller
             'total_amount'=>$subtotal,
             'couponcode'=>$coupon_code,
             'discount_amount' =>$discount_amount,
+            'user_ipaddress' =>$ipAddress
+
         ]);
 
     } else {
@@ -163,6 +166,7 @@ class CheckoutController extends Controller
             'total_amount'=>$subtotal,
             'couponcode'=>$coupon_code,
             'discount_amount' =>$discount_amount,
+            'user_ipaddress' =>$ipAddress,
 
         ]);
         }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
   
-class Orders extends Model
+class wishlists extends Model
 {
     use HasFactory;
   
@@ -15,6 +15,6 @@ class Orders extends Model
      * @return response()
      */
     protected $fillable = [
-        'user_id','order_status', 'total_amount','session_id','couponcode','discount_amount','user_ipaddress'
+        'user_id','product_id'
     ];
 }

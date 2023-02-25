@@ -1,8 +1,5 @@
 <script>
     $(document).ready(function() {
-
-        'use strict';
-
         $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -11,6 +8,60 @@
 
 
 loadcart();
+
+$('.wishlist-btn').click(function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.ajax({
+        url: '/wishlist/add',
+        method: 'POST',
+        data: {
+            id: id,
+        },
+        success: function(response) {
+            if (response.success) {
+                toastr.success('Successfully Added To Wishlist', '', {
+                    "progressBar": true,
+                    "timeOut": 1500
+                });
+            } else if (response.error) {
+                toastr.error(response.error, '', {
+                    "progressBar": true,
+                    "timeOut": 1500
+                });
+            }
+        },
+        error: function(error) {
+            toastr.error('Error Adding Product To Wishlist', '', {
+                "progressBar": true,
+                "timeOut": 1500
+            });
+        }
+    });
+});
+
+
+
+
+
+//wishlist
+$('.remove_from_wishlist').click(function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        $.ajax({
+            url: "{{ route('delete.wishlist') }}",
+            method: 'POST',
+            data: {
+                id: id,
+            },
+            success: function(data) {
+                location.reload();
+
+            }
+        });
+    });
+//end
+
 
 //add to cart
     // Add to cart
@@ -31,9 +82,8 @@ loadcart();
                     "timeOut": 1500
                 });
 
-                // loadcart();
-                window.location.href = "/cart";
-                        },
+                loadcart();
+            },
             error: function(xhr, status, error) {
                 // Handle CSRF token mismatch error
                 if (xhr.status === 419) {
@@ -113,22 +163,13 @@ function loadcart() {
                     <td class="align-middle">$${productPrice}</td>
                     <td class="align-middle">
                         <!-- Inc / Dec start  -->
-                    
-                        <!-- Inc / Dec start  -->
-                        <div>
-                            <div class="d-flex">
-                                <div class="border px-3 py-2 rounded-start">
-                                    <span class="bg-white  minus-button" data-id="${id}" id="minus-button"><button class="bg-white">-</button></span>
-                                </div>
-                                <div class="border-top px-3 py-2  border-bottom">
-                                <p class="card-text-para mb-0">${quantity}</p>
-                                </div>
-                                <div class="border px-3 py-2 rounded-end">
-                                    <span class="bg-white plus-button" data-id="${id}" id="plus-button"><button class="bg-white">+</button></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Inc / Dec end  -->
+                        <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item"><button class="bg-white minus-button" data-id="${id}" id="minus-button"> <i class="bx bx-minus"></i></button></li>
+                        <li class="list-group-item">
+                            <p class="card-text-para mb-0">${quantity}</p>
+                        </li>
+                        <li class="list-group-item "><button class="bg-white plus-button" data-id="${id}" id="plus-button"> <i class="bx bx-plus"></i></button></li>
+                        </ul>
                       
                     </td>
                     <td class="align-middle">$${(quantity * productPrice).toFixed(2)}/-</td>
@@ -284,13 +325,13 @@ $('.searchName').on('keyup', function() {
                 $('#search_list').html('');
                 $.each(data, function(key, value) {
                     $('#search_list').append(
-                        '<div class="container"><div class="row align-items-center"><div class="col-auto"><a href="/product-detail/' +
+                        '<div class="row align-items-center border-bottom"><div class="col-auto"><a href="/product-detail/' +
                         value.product_slug +
                         '"><img width="50" src="{{ asset("image/products" ) }}/' +
                         value.product_image + '"></div>' +
                         '<div class="col">' + value.product_title +
                         '<span class="d-block">Price: ' + value
-                        .product_price + '</span></a></div></div></div>');
+                        .product_price + '</span></a></div></div>');
                 });
             }
         });

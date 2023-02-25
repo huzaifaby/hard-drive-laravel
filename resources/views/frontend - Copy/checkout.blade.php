@@ -1,21 +1,33 @@
 @include('frontend.header')
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" /> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div class="cart-wrapper mt-4">
+<div class="cart-wrapper">
     <div class="container">
+
+        <!-- breadcrumb start  -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+        </nav>
+        <!-- breadcrumb end  -->
+
+        <div class="row mb-3">
+            <div class="col-lg-4 col-7">
+                <input id="coupon_code" class="form-control py-2 shadow-none" placeholder="Coupon Code" type="text">
+            </div>
+            <div class="col-lg-4 col-5">
+                <button id="applyCouponBtn" class="square-sm-btn apply_coupon">Apply Coupon</button>
+            </div>
+        </div>
+
+
+
+
 
         <div class="row">
             <div class="col-md-8">
-
-                <!-- breadcrumb start  -->
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                    </ol>
-                </nav>
-                <!-- breadcrumb end  -->
-
                 <h1>Billing Details</h1>
                 <span class="heading-border mb-4"></span>
                 <!-- form start  -->
@@ -197,8 +209,7 @@
                                     <tr>
                                         <td>{{ $details['quantity'] }} ×
                                             {{ substr($details['product_title'], 0, 30) }}...</td>
-                                        <td class="text-end">${{ $details['quantity'] * $details['product_price'] }}
-                                        </td>
+                                        <td class="text-end">${{ $details['quantity'] * $details['product_price'] }}  </td>
                                     </tr>
                                     @endforeach
                                     @endif
@@ -334,20 +345,6 @@
                     </div>
                 </div>
                 <!-- side card /  -->
-
-                <div class="form-group mt-3 bg-white shadow-sm border pt-4 pb-4 px-3 rounded">
-                    <span><i class='bx bx-purchase-tag-alt'></i> Have a promotion code?</span>
-                    <div class="row mt-1">
-                        <div class="col pe-0">
-                            <input id="coupon_code" class="form-control py-2 rounded-0 rounded-start shadow-none"
-                                placeholder="Coupon Code" type="text">
-                        </div>
-                        <div class="col-auto ps-0">
-                            <button id="applyCouponBtn" class="square-sm-btn rounded-0 rounded-end apply_coupon">Apply
-                                Coupon</button>
-                        </div>
-                    </div>
-                </div>
 
                 </form>
 

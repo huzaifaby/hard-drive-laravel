@@ -24,34 +24,34 @@ $(document).ready(function () {
   window.addEventListener("scroll", myFunction);
 
 
-  sideNavMenuBar = document.querySelector("#sideNavMenuBar");
-  sideNavCloseMenuBar = document.querySelector("#sideNavCloseMenuBar");
-  sideNavBar = document.querySelector("#sideNavBar");
-  dropdown = document.getElementsByClassName("sideNavDropdown");
+  // sideNavMenuBar = document.querySelector("#sideNavMenuBar");
+  // sideNavCloseMenuBar = document.querySelector("#sideNavCloseMenuBar");
+  // sideNavBar = document.querySelector("#sideNavBar");
+  // dropdown = document.getElementsByClassName("sideNavDropdown");
 
-  sideNavMenuBar.onclick = () => {
-    sideNavBar.classList.add("active");
-  }
-  sideNavCloseMenuBar.onclick = () => {
-    sideNavBar.classList.remove("active");
-  }
+  // sideNavMenuBar.onclick = () => {
+  //   sideNavBar.classList.add("active");
+  // }
+  // sideNavCloseMenuBar.onclick = () => {
+  //   sideNavBar.classList.remove("active");
+  // }
 
-  for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function () {
-      this.classList.toggle("active");
-      dropdownContent = this.nextElementSibling;
-      if (dropdownContent.style.display === "block") {
-        dropdownContent.style.display = "none";
-      } else {
-        dropdownContent.style.display = "block";
-      }
-    });
-  }
+  // for (i = 0; i < dropdown.length; i++) {
+  //   dropdown[i].addEventListener("click", function () {
+  //     this.classList.toggle("active");
+  //     dropdownContent = this.nextElementSibling;
+  //     if (dropdownContent.style.display === "block") {
+  //       dropdownContent.style.display = "none";
+  //     } else {
+  //       dropdownContent.style.display = "block";
+  //     }
+  //   });
+  // }
   // header end 
 
   // checkout js start 
   let checkbox = document.getElementById("checkDiffAddress");
-  if(checkbox){
+  if (checkbox) {
     checkbox.addEventListener("change", function () {
       let form = document.getElementById("shiptoDiffAddress");
       if (checkbox.checked) {
@@ -59,13 +59,28 @@ $(document).ready(function () {
         checkbox.value = 1;
       } else {
         form.style.display = "none";
-        checkbox.value= 0
+        checkbox.value = 0
       }
     });
   }
-
-
   //  /
 
+  window.onload = () => {
+
+    const OpenSidebarToggle = document.body.querySelector('#OpenSidebarToggle');
+    const CloseSidebarToggle = document.body.querySelector('#CloseSidebarToggle');
+
+    if (OpenSidebarToggle) {
+      OpenSidebarToggle.addEventListener('click', event => {
+        document.getElementById("sidenavAccordion").style.display = "flex";
+      });
+    }
+    if (CloseSidebarToggle) {
+      CloseSidebarToggle.addEventListener('click', event => {
+        document.getElementById("sidenavAccordion").style.display = "none";
+      });
+    }
+
+  };
 
 });

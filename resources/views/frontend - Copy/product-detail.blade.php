@@ -14,35 +14,39 @@ span.active {
     color: #ffcc00;
 }
 
-span.bg-white.plus,
-span.bg-white.minus {
+span.bg-white.plus,span.bg-white.minus {
     cursor: pointer;
 }
 
-/* 
 input#quantities {
-    min-width: 17px!important;
-    max-width: 68px;
-} */
-</style>
-<div class="single-product-wrapper mt-4">
-    <div class="container">
+    height: 16px;
+    width: 68px;
+    text-align: center;
+}
 
+@media only screen and (max-width: 600px) {
+    input#quantities {
+   
+    width: 48px;
+
+}
+}
+</style>
+<div class="single-product-wrapper">
+    <div class="container">
+        <!-- breadcrumb start  -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </nav>
+        <!-- breadcrumb end  -->
 
         <!-- single product start  -->
         <div class="row">
             <div class="col-md-3 mb-3">
-
-                <!-- breadcrumb start  -->
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Library</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
-                <!-- breadcrumb end  -->
-
                 <button type="button" class="imgbx" data-bs-toggle="modal" data-bs-target="#imageModal">
                     <img src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail"
                         loading="lazy" alt="">
@@ -57,7 +61,7 @@ input#quantities {
                     {{ $product->product_price }}
                 </p>
                 <hr>
-                <table class="table table-borderless">
+                <table class="table table-striped">
                     <tbody>
                         <tr>
                             <td>SKU</td>
@@ -83,35 +87,34 @@ input#quantities {
                         </tr>
                     </tbody>
                 </table>
-                <hr>
-                <div class="row mb-3">
-                    <div class="col-6">
+
+                <div class="row">
+                    <div class="col-6 mb-3">
                         <!-- Inc / Dec start  -->
-                        <div>
-                            <div class="d-flex">
-                                <div class="border px-3 py-2 rounded-start">
-                                    <span class="bg-white minus"> - </span>
-                                </div>
-                                <div class="border-top border-bottom">
-                                    <input type="text" class="w-100 h-100 d-block text-center mb-0" id="quantities"
-                                        name="quantities" value="1" />
-                                </div>
-                                <div class="border px-3 py-2 rounded-end">
-                                    <span class="bg-white plus"> + </span>
-                                </div>
-                            </div>
-                        </div>
+                        <ul class="list-group list-group-horizontal text-center number">
+                            <li class="list-group-item">
+                                <span class="bg-white minus"> - </span>
+                            </li>
+                            <li class="list-group-item">
+                                <input type="text" class="card-text-para mb-0" id="quantities" name="quantities"
+                                    value="1" />
+                            </li>
+                            <li class="list-group-item">
+                                <span class="bg-white plus"> + </span>
+                            </li>
+                        </ul>
+
                         <!-- Inc / Dec end  -->
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 mb-3">
                         <!-- addto cart btns  -->
                         <a href="javascript:void(0)" class="square-block-btn add-to-cart"
                             data-id="{{ $product->id }}"><i class="bx bx-cart"></i> Add to Cart</a>
                         <!-- addto cart btns / -->
                     </div>
 
-
+        
                 </div>
 
                 <p class="card-text-para my-3">
@@ -129,8 +132,7 @@ input#quantities {
                                     <div class="text-center">
                                         <div class="col-auto">
                                             <div class="imgbx">
-                                                <img src="https://jbsdevices.com/assets/images/services/1613403777tag.png"
-                                                    loading="lazy" class="img-fluid" alt="">
+                                                <img src="https://jbsdevices.com/assets/images/services/1613403777tag.png" loading="lazy" class="img-fluid" alt="">
                                             </div>
                                         </div>
                                         <div class="col">
@@ -476,7 +478,7 @@ input#quantities {
 
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 mb-3">
+                    <div class="col-4">
 
                         <div class="review-detail">
                             <h3 class="border-bottom pb-3 mb-3">Review (45)</h3>
@@ -488,7 +490,7 @@ input#quantities {
                                 <i class="bx bxs-star text-warning"></i>
                             </p>
                             <div class="row align-items-center">
-                                <div class="col">
+                                <div class="col-4">
                                     <i class="bx bxs-star text-warning"></i>
                                     <i class="bx bxs-star text-warning"></i>
                                     <i class="bx bxs-star text-warning"></i>
@@ -508,7 +510,7 @@ input#quantities {
                                 </div>
                             </div>
                             <div class="row align-items-center">
-                                <div class="col">
+                                <div class="col-4">
                                     <i class="bx bxs-star text-warning"></i>
                                     <i class="bx bxs-star text-warning"></i>
                                     <i class="bx bxs-star text-warning"></i>
@@ -528,7 +530,7 @@ input#quantities {
                                 </div>
                             </div>
                             <div class="row align-items-center">
-                                <div class="col">
+                                <div class="col-4">
                                     <i class="bx bxs-star text-warning"></i>
                                     <i class="bx bxs-star text-warning"></i>
                                     <i class="bx bxs-star-half text-warning"></i>
@@ -552,14 +554,14 @@ input#quantities {
                     </div>
                     <div class="col">
                         <h3>Add a review</h3>
-                        <span class="heading-border mb-3"></span>
-                        <div class="rating mb-3">
+                        <div class="rating">
                             <span class="star bx bxs-star text-warning" id="star1"></span>
                             <span class="star bx bxs-star " id="star2"></span>
                             <span class="star bx bxs-star " id="star3"></span>
                             <span class="star bx bxs-star " id="star4"></span>
                             <span class="star bx bxs-star " id="star5"></span>
                         </div>
+                        <span class="heading-border mb-3"></span>
 
                         <!-- form start  -->
 
@@ -601,7 +603,8 @@ input#quantities {
                             <h6>{{ $review->user_name }}</h6>
                             <p>{{ $review->created_at->format('M d, Y') }}</p>
                             <span>
-                                @for($i = 1; $i <= 5; $i++) @if($i <=$review->review_stars)
+                                @for($i = 1; $i <= 5; $i++) 
+                                @if($i <=$review->review_stars)
                                     <i class="bx bxs-star text-warning"></i>
                                     @else
                                     <i class="bx bxs-star" style="color:grey;"></i>
@@ -688,8 +691,8 @@ input#quantities {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <img src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail" loading="lazy"
-                    alt="">
+                <img src="https://jbsdevices.com/assets/images/products/BF0720B26A.jpg" class="img-thumbnail"
+                    loading="lazy" alt="">
             </div>
         </div>
     </div>
@@ -697,5 +700,5 @@ input#quantities {
 <!-- image show on click end -->
 
 @include('frontend.rating_js')
-
+    
 @include('frontend.footer')

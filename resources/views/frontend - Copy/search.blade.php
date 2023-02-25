@@ -50,51 +50,17 @@
                     $test = $app->make('url')->to('/');
                     ?>
 
-                    @php
-                    $user_id = Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id :
-                    null;
-                    @endphp
-
-
                     @foreach($data as $key=>$datas)
-                    @php
-                    $bg_color = 'none';
-                    if ($user_id) {
-                    $in_wishlist = DB::table('wishlists')
-                    ->where('user_id', $user_id)
-                    ->where('product_id', $datas->id)
-                    ->exists();
-                    $bg_color = $in_wishlist ? 'red' : 'none';
-                    }
-                    @endphp
-
                     <div class="col-md-3 mb-3">
                         <div class="card">
                             <div class="card-body text-center">
                                 <a href="{{ url('/product-detail/' . $datas->product_slug) }}">
-
-
-                                    <div class="wishlist-container">
-                                        @if ($user_id)
-                                        <button class="wishlist-btn" data-id="{{ $datas->id }}">
-                                            <svg class="wishlist-icon" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                height="24" viewBox="0 0 24 24" fill="{{ $bg_color }}" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"
-                                                class="feather feather-heart color-filled">
-                                                <path
-                                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        @endif
-                                    </div>
-                                    <img src="{{ asset('image/products/'.$datas->product_image) }}"
-                                        class="img-fluid mb-3" loading="lazy" alt="...">
+                                    <img src="{{ asset('image/products/'.$datas->product_image) }}" class="img-fluid mb-3"
+                                        loading="lazy" alt="...">
                                     <h5 class="card-title-price text-center">${{ $datas->product_price }}/-</h5>
                                     <p class="card-text-para">{{ substr($datas->product_title, 0, 50) . '...' }}</p>
                                 </a>
-                                <a href="javascript:void(0)" data-id="{{ $datas->id }}"
-                                    class="mb-2 pills-block-btn add-to-cart">
+                                <a href="javascript:void(0)" data-id="{{ $datas->id }}" class="mb-2 pills-block-btn add-to-cart">
                                     <i class="bx bx-cart"></i> Add to Cart</a>
                                 <a href="#" class="addtoCompare ">+ Add to
                                     Compare</a>

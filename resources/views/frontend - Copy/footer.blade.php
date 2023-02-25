@@ -20,11 +20,11 @@
             <a href="{{ $settings[0]->twitter}}" class="me-4 text-reset">
                 <i class="bx bxl-twitter"></i>
             </a>
-
+      
             <a href="{{ $settings[0]->instagram}}" class="me-4 text-reset">
                 <i class="bx bxl-instagram"></i>
             </a>
-            <a href="{{ $settings[0]->linkedin}}" class="text-reset">
+            <a href="{{ $settings[0]->linkedin}}" class="me-4 text-reset">
                 <i class="bx bxl-linkedin"></i>
             </a>
         </div>
@@ -41,11 +41,11 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        <img src="{{ asset('image/logo/'.$settings[0]->logo) }}" class="img-fluid" loading="lazy"
-                            width="150" alt="">
+                    <img src="{{ asset('image/logo/'.$settings[0]->logo) }}" class="img-fluid" loading="lazy"
+                        width="150" alt="">
                     </h6>
                     <p>
-                        {{ $settings[0]->footer_description}}
+                    {{ $settings[0]->footer_description}}
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -114,7 +114,7 @@
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
         COPYRIGHT © <?php echo date("Y"); ?>. All Rights Reserved By
-        <a class="text-reset fw-bold" href="#">harddisk.com</a>
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">harddisk.com</a>
     </div>
     <!-- Copyright -->
 </footer>
@@ -131,10 +131,7 @@
 <script src="/frontend_assets/js/script.js"></script>
 
 <!-- <script src="../frontend_assets/js/toast.js"></script> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 
 <!-- MDB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>

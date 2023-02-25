@@ -11,6 +11,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductBanner;
 use App\Models\ProductBrand;
 use App\Models\Settings;
+use App\Models\wishlists;
 
 
 class IndexController extends Controller
@@ -73,6 +74,38 @@ class IndexController extends Controller
     }
 
 
+    public function addToWishlist(Request $request) {
+        $id = $request->id;
+    
+        // Check if user is logged in
+        if (Auth::guard('customer')->check()) {
+            // Get the user_id from the logged in user
+            $user_id = Auth::guard('customer')->user()->id;
+    
+            // Check if the user has already added the product to their wishlist
+            $wishlist = wishlists::where('user_id', $user_id)
+                                  ->where('product_id', $id)
+                                  ->first();
+    
+            if ($wishlist) {
+                return response()->json(['error' => 'Product already added to wishlist']);
+            }
+            
+            // Create a new wishlist entry
+            wishlists::create([
+                'user_id'=>$user_id,
+                'product_id'=>$id,
+            ]);
+    
+            return response()->json(['success' => 'Product added to wishlist']);
+        } else {
+            // Handle case where user is not logged in
+        }
+    }
+    
+
+
+   
 
 
 
