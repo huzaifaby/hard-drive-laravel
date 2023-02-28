@@ -12,6 +12,8 @@
     <meta name="robots" content="noindex, nofollow">
     <!-- CSS link  -->
     <link rel="stylesheet" href="/frontend_assets/css/style.css">
+    <link rel="stylesheet" href="/frontend_assets/css/blog.css">
+
     <!-- bootstrap  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <!-- boxicons  -->

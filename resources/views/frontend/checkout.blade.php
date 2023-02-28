@@ -1,11 +1,23 @@
 @include('frontend.header')
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+
+<style>
+@media (min-width: 768px) {
+    .left {
+        width: 70%
+    }
+
+    .right {
+        width: 30%
+    }
+}
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div class="cart-wrapper mt-4">
     <div class="container">
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 left mb-3">
 
                 <!-- breadcrumb start  -->
                 <nav aria-label="breadcrumb">
@@ -61,7 +73,7 @@
                         <div class="col">
                             <label for="country" class="form-label">Country Code <span
                                     class="text-danger">*</span></label>
-                            <select name="country" class="form-select shadow-none country-dd">
+                            <select name="country" required class="form-select shadow-none country-dd">
                                 <option value="">Select Country</option>
                                 @foreach ($countries as $data)
                                 <option value="{{$data->id}}">
@@ -179,7 +191,7 @@
 
                     <!-- form end -->
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 right">
 
                 <!-- side card  -->
                 <div class="card bg-light border border-0 px-4">
@@ -187,39 +199,28 @@
                         <h3 class="p-2 border-bottom">Your Order</h3>
                         <div class="table-responsive">
                             <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>Product</td>
-                                        <td class="text-end">Total</td>
-                                    </tr>
-                                    @if(!empty($cart))
-                                    @foreach($cart as $id => $details)
-                                    <tr>
-                                        <td>{{ $details['quantity'] }} ×
-                                            {{ substr($details['product_title'], 0, 30) }}...</td>
-                                        <td class="text-end">${{ $details['quantity'] * $details['product_price'] }}
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                    <tr>
-                                        <td>Subtotal</td>
-                                        <td class="text-end total_price">${{ number_format($subtotal, 2) }}</td>
-                                    </tr>
-                                    <tr id="couponcode">
-                                        <td>Coupon</td>
-                                        <td class="text-end pb-4 coupon_code"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax</td>
-                                        <td class="text-end pb-4">0%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td class="text-end total_price">${{ number_format($subtotal, 2) }}</td>
-                                    </tr>
+                                <tbody id="checkoutTable">
+                                    
+
+
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="form-group my-3 rounded">
+                            <span><i class='bx bx-purchase-tag-alt'></i> Have a promotion code?</span>
+                            <div class="row mt-1">
+                                <div class="col pe-0">
+                                    <input id="coupon_code"
+                                        class="form-control py-2 rounded-0 rounded-start shadow-none"
+                                        placeholder="Coupon Code" type="text">
+                                </div>
+                                <div class="col-auto ps-0">
+                                    <button id="applyCouponBtn"
+                                        class="square-sm-btn rounded-0 rounded-end apply_coupon">Apply
+                                        Coupon</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-check">
@@ -335,19 +336,7 @@
                 </div>
                 <!-- side card /  -->
 
-                <div class="form-group mt-3 bg-white shadow-sm border pt-4 pb-4 px-3 rounded">
-                    <span><i class='bx bx-purchase-tag-alt'></i> Have a promotion code?</span>
-                    <div class="row mt-1">
-                        <div class="col pe-0">
-                            <input id="coupon_code" class="form-control py-2 rounded-0 rounded-start shadow-none"
-                                placeholder="Coupon Code" type="text">
-                        </div>
-                        <div class="col-auto ps-0">
-                            <button id="applyCouponBtn" class="square-sm-btn rounded-0 rounded-end apply_coupon">Apply
-                                Coupon</button>
-                        </div>
-                    </div>
-                </div>
+
 
                 </form>
 

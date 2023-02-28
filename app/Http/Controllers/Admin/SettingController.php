@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Settings;
+use App\Models\PrivacyPolicy;
+use App\Models\TermsandCondition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -63,6 +65,67 @@ class SettingController extends Controller
  //end
 
 
+  //privacyPolicy
+  public function privacyPolicy()
+  {
+      $PrivacyPolicy = PrivacyPolicy::where('id', 1)->first();
+      return view('admin.privacypolicy')->with(compact('PrivacyPolicy'));
+  }  
+   //end
+
+
+   //update privacyPolicy
+   public function updatePrivacyPolicy(Request $request){
+
+    $PrivacyPolicy = PrivacyPolicy::find($request->up_id);
+   
+
+    $PrivacyPolicy->update([
+       
+        'title' => $request->title,
+        'description' => $request->privacypolicy_description,
+        'meta_title' => $request->meta_title,
+        'meta_description' => $request->meta_description,
+
+    ]);
+
+    return response()->json([
+        'status' => 'success',
+    ]);
+    }
+ //end
+
+
+
+  //privacyPolicy
+  public function termsandCondition()
+  {
+      $TermsandCondition = TermsandCondition::where('id', 1)->first();
+      return view('admin.termsandcondition')->with(compact('TermsandCondition'));
+  }  
+   //end
+
+
+   //update privacyPolicy
+   public function updateTermsandCondition(Request $request){
+
+    $TermsandCondition = TermsandCondition::find($request->up_id);
+   
+
+    $TermsandCondition->update([
+       
+        'title' => $request->title,
+        'description' => $request->termsandcondition_description,
+        'meta_title' => $request->meta_title,
+        'meta_description' => $request->meta_description,
+
+    ]);
+
+    return response()->json([
+        'status' => 'success',
+    ]);
+    }
+ //end
 
 
 }

@@ -93,9 +93,16 @@
                                     <h5 class="card-title-price text-center">${{ $datas->product_price }}/-</h5>
                                     <p class="card-text-para">{{ substr($datas->product_title, 0, 50) . '...' }}</p>
                                 </a>
-                                <a href="javascript:void(0)" data-id="{{ $datas->id }}"
-                                    class="mb-2 pills-block-btn add-to-cart">
-                                    <i class="bx bx-cart"></i> Add to Cart</a>
+                                @if($datas->availability == 0 )
+                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                        Out of stock
+                                    </a>
+                                    @else
+                                    <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                        data-id="{{ $datas->id }}">
+                                        <i class="bx bx-cart"></i> Add to Cart
+                                    </a>
+                                    @endif
                                 <a href="#" class="addtoCompare ">+ Add to
                                     Compare</a>
                             </div>

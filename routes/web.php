@@ -12,17 +12,21 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ReviewsController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 
 //frontend controller
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\BlogsController;
 use App\Http\Controllers\Frontend\ProductDetailController;
 use App\Http\Controllers\Frontend\CategoriesController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Auth\CustomerAuthController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+use App\Http\Controllers\Frontend\PrivacyPolicyController;
+use App\Http\Controllers\Frontend\TermsandConditionController;
 
 use App\Http\Controllers\StripePaymentController;
 
@@ -94,8 +98,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/category/{parent}/{sub}', [CategoriesController::class,'parentSubCategory'])->name('category.parent-sub');
         //end
 
+        // privacy policy
+        Route::get('privacy-policy', [PrivacyPolicyController::class,'index'])->name('privacy.policy');
+        //end
+
+        // privacy policy
+        Route::get('terms-and-conditions', [TermsandConditionController::class,'index'])->name('terms.condition');
+        //end
 
 
+       //Blog
+       Route::get('/blog', [BlogsController::class,'index'])->name('blogs.show');
+       Route::get('blog-detail/{blog_slug}', [BlogsController::class,'BlogDetail'])->name('blogs.detail');
+       Route::get('blog-search/', [BlogsController::class,'BlogSearch'])->name('blogs.search');
+       //end
+      
+
+
+        
 
         //frontend work end
 
@@ -141,6 +161,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('dashboard/setting', [SettingController::class,'index'])->name('dashboard.setting');
 Route::post('/update-setting',[SettingController::class,'updateSetting'])->name('update.setting');
+Route::get('dashboard/privacypolicy', [SettingController::class,'privacyPolicy'])->name('dashboard.privacyPolicy');
+Route::post('/update-privacypolicy',[SettingController::class,'updatePrivacyPolicy'])->name('update.privacyPolicy');
+Route::get('dashboard/termsandcondition', [SettingController::class,'termsandCondition'])->name('dashboard.termsandcondition');
+Route::post('/update-termsandcondition',[SettingController::class,'updateTermsandCondition'])->name('update.termsandcondition');
 Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
 //end
@@ -242,6 +266,19 @@ Route::post('/update-reviews',[ReviewsController::class,'updateReviews'])->name(
 Route::post('/delete-reviews',[ReviewsController::class,'deleteReviews'])->name('delete.reviews');
 Route::get('/pagination/paginate-reviews',[ReviewsController::class,'pagination']);
 Route::get('/search-reviews',[ReviewsController::class,'searchReviews'])->name('search.reviews');
+//end
+
+
+
+//Blog Crud
+Route::get('dashboard/blogs', [BlogController::class, 'index'])->name('blog.show');
+Route::get('dashboard/add-blog', [BlogController::class,'addBlog'])->name('blog.add');
+Route::post('/save-blog',[BlogController::class,'saveBlog'])->name('blog.save');
+Route::get('dashboard/edit-blog/{id}', [BlogController::class,'blogEdit'])->name('blog.edit');
+Route::post('/update-blog',[BlogController::class,'updateBlog'])->name('blog.update');
+Route::post('/delete-blog',[BlogController::class,'deleteBlog'])->name('delete.blog');
+Route::get('/pagination/paginate-blog',[BlogController::class,'pagination']);
+Route::get('/search-blog',[BlogController::class,'searchBlog'])->name('search.blog');
 //end
 
 

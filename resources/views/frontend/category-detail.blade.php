@@ -125,9 +125,16 @@
                                         <p class="card-text-para">
                                             {{ substr($productsbycategory->product_title, 0, 50) . '...' }}</p>
                                     </a>
-                                    <a href="javascript:void(0)" data-id="{{ $productsbycategory->id }}"
-                                        class="mb-2 pills-block-btn add-to-cart">
-                                        <i class="bx bx-cart"></i> Add to Cart</a>
+                                    @if($productsbycategory->availability == 0 )
+                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                        Out of stock
+                                    </a>
+                                    @else
+                                    <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                        data-id="{{ $productsbycategory->id }}">
+                                        <i class="bx bx-cart"></i> Add to Cart
+                                    </a>
+                                    @endif
                                     <a href="#" class="addtoCompare ">+ Add to
                                         Compare</a>
                                 </div>

@@ -323,11 +323,18 @@
                                                         ${{ $latestproduct->product_price }}/-</h5>
                                                     <p class="card-text-para">
                                                         {{ substr($latestproduct->product_title, 0, 50) . '...' }}</p>
+                                                    @if($latestproduct->availability == 0 )
+                                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                                        Out of stock
+                                                    </a>
+                                                    @else
                                                     <a href="javascript:void(0)"
                                                         class="mb-2 pills-block-btn add-to-cart"
                                                         data-id="{{ $latestproduct->id }}">
                                                         <i class="bx bx-cart"></i> Add to Cart
                                                     </a>
+                                                    @endif
+
                                                     <a href="#" class="addtoCompare">+ Add to Compare</a>
                                                 </a>
                                             </div>
@@ -390,10 +397,17 @@
                                                         ${{ $saleproducts->product_price }}/-</h5>
                                                     <p class="card-text-para">
                                                         {{ substr($saleproducts->product_title, 0, 50) . '...' }}</p>
-                                                    <a href="javascript:void(0)" data-id="{{ $latestproducts->id }}"
-                                                        class="mb-2 pills-block-btn add-to-cart">
+                                                    @if($saleproducts->availability == 0 )
+                                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                                        Out of stock
+                                                    </a>
+                                                    @else
+                                                    <a href="javascript:void(0)"
+                                                        class="mb-2 pills-block-btn add-to-cart"
+                                                        data-id="{{ $saleproducts->id }}">
                                                         <i class="bx bx-cart"></i> Add to Cart
                                                     </a>
+                                                    @endif
                                                     <a href="#" class="addtoCompare">+ Add to
                                                         Compare</a>
                                                 </a>
@@ -462,9 +476,17 @@
                                                     <p class="card-text-para">
                                                         {{ substr($featuredproducts->product_title, 0, 50) . '...' }}
                                                     </p>
-                                                    <a href="javascript:void(0)" data-id="{{ $featuredproducts->id }}"
-                                                        class="mb-2 pills-block-btn add-to-cart">
-                                                        <i class="bx bx-cart"></i> Add to Cart</a>
+                                                    @if($featuredproducts->availability == 0 )
+                                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                                        Out of stock
+                                                    </a>
+                                                    @else
+                                                    <a href="javascript:void(0)"
+                                                        class="mb-2 pills-block-btn add-to-cart"
+                                                        data-id="{{ $featuredproducts->id }}">
+                                                        <i class="bx bx-cart"></i> Add to Cart
+                                                    </a>
+                                                    @endif
                                                     <a href="#" class="addtoCompare">+ Add to
                                                         Compare</a>
                                                 </a>
@@ -844,9 +866,16 @@
                                             {{ substr($desktopmotherboard->product_title, 0, 50) . '...' }}
                                         </p>
                                     </a>
-                                    <a href="javascript:void(0)" data-id="{{ $desktopmotherboard->id }}"
-                                        class="mb-2 pills-block-btn add-to-cart"> <i class="bx bx-cart"></i>
-                                        Add to Cart</a>
+                                    @if($desktopmotherboard->availability == 0 )
+                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                        Out of stock
+                                    </a>
+                                    @else
+                                    <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                        data-id="{{ $desktopmotherboard->id }}">
+                                        <i class="bx bx-cart"></i> Add to Cart
+                                    </a>
+                                    @endif
                                     <a href="#" class="addtoCompare ">+ Add to
                                         Compare</a>
                                 </div>
@@ -942,9 +971,16 @@
                                             <p class="card-text-para">
                                                 {{ substr($Network->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="javascript:void(0)" data-id="{{ $Network->id }}"
-                                            class="mb-2 pills-block-btn     ">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
+                                        @if($Network->availability == 0 )
+                                        <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                            Out of stock
+                                        </a>
+                                        @else
+                                        <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                            data-id="{{ $Network->id }}">
+                                            <i class="bx bx-cart"></i> Add to Cart
+                                        </a>
+                                        @endif
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
                                     </div>
@@ -977,9 +1013,16 @@
                                             <p class="card-text-para">
                                                 {{ substr($powersupplyunit->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="javascript:void(0)" data-id="{{ $powersupplyunit->id }}"
-                                            class="mb-2 pills-block-btn add-to-cart">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
+                                        @if($powersupplyunit->availability == 0 )
+                                        <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                            Out of stock
+                                        </a>
+                                        @else
+                                        <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                            data-id="{{ $powersupplyunit->id }}">
+                                            <i class="bx bx-cart"></i> Add to Cart
+                                        </a>
+                                        @endif
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
                                     </div>
@@ -1012,9 +1055,16 @@
                                             <p class="card-text-para">
                                                 {{ substr($memories->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        <a href="javascript:void(0)" data-id="{{ $memories->id }}"
-                                            class="mb-2 pills-block-btn add-to-cart">
-                                            <i class="bx bx-cart"></i> Add to Cart</a>
+                                        @if($memories->availability == 0 )
+                                        <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
+                                            Out of stock
+                                        </a>
+                                        @else
+                                        <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                            data-id="{{ $memories->id }}">
+                                            <i class="bx bx-cart"></i> Add to Cart
+                                        </a>
+                                        @endif
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
                                     </div>

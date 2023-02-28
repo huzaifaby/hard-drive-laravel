@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 25, 2023 at 06:28 PM
+-- Generation Time: Feb 28, 2023 at 06:09 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -57,6 +57,35 @@ INSERT INTO `billing_details` (`id`, `order_id`, `full_name`, `phone_no`, `email
 (6, 6, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2723', '31287', 74000, 'test', 'Paypal', NULL, '2023-02-09 06:41:30', '2023-02-10 07:23:36'),
 (7, 7, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Paypal', NULL, '2023-02-22 06:25:35', '2023-02-22 06:25:35'),
 (8, 8, 'muhammad huzaifa', '03012780856', 'huzi@gmail.com', 'a238', '166', '2729', '31594', 74000, 'test', 'Paypal', NULL, '2023-02-25 08:08:37', '2023-02-25 08:08:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL,
+  `blog_category` varchar(255) DEFAULT NULL,
+  `blog_title` varchar(255) DEFAULT NULL,
+  `blog_slug` varchar(255) DEFAULT NULL,
+  `blog_description` text DEFAULT NULL,
+  `blog_source` varchar(255) DEFAULT NULL,
+  `blog_views` int(255) DEFAULT NULL,
+  `blog_image` varchar(255) DEFAULT NULL,
+  `blog_tags` varchar(255) DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `blog_category`, `blog_title`, `blog_slug`, `blog_description`, `blog_source`, `blog_views`, `blog_image`, `blog_tags`, `meta_title`, `meta_description`, `created_at`, `updated_at`) VALUES
+(2, 'Oil & gas', 'How to design effective arts?', 'how-to-design-effective-arts', '<p>The recording starts with the patter of a summer squall. Later, a drifting tone like that of a not-quite-tuned-in radio station rises and for a while drowns out the patter. These are the sounds encountered by NASA’s Cassini spacecraft as it dove the gap between Saturn and its innermost ring on April 26, the first of 22 such encounters before it will plunge into atmosphere in September. What Cassini did not detect were many of the collisions of dust particles hitting the spacecraft it passed through the plane of the ringsen the charged particles oscillate in unison.</p><h3>How its Works ?</h3><p>MIAMI — For decades, South Florida schoolchildren and adults fascinated by far-off galaxies, earthly ecosystems, the proper ties of light and sound and other wonders of science had only a quaint, antiquated museum here in which to explore their interests. Now, with the long-delayed opening of a vast new science museum downtown set for Monday, visitors will be able to stand underneath a suspended, 500,000-gallon aquarium tank and gaze at hammerhead and tiger sharks, mahi mahi, devil rays and other creatures through a 60,000-pound oculus.<br></p>', 'www.geniusocean.com', NULL, '1677595850.webp', 'Business, Research, Mechanical, Process, Innovation, Engineering', 'test1234', 'test', '2023-02-28 08:37:36', '2023-02-28 10:04:14');
 
 -- --------------------------------------------------------
 
@@ -48450,6 +48479,29 @@ INSERT INTO `order_products` (`id`, `order_id`, `qty`, `price`, `product_id`, `p
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `privacy_policies`
+--
+
+CREATE TABLE `privacy_policies` (
+  `id` int(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `privacy_policies`
+--
+
+INSERT INTO `privacy_policies` (`id`, `title`, `description`, `meta_title`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 'Privacy Policy', '<p>At JBS Devices, accessible from https://jbsdevices.com/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by JBS Devices and how we use it.</p>\r\n\r\n<p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>\r\n\r\n<p>This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in JBS Devices. This policy is not applicable to any information collected offline or via channels other than this website. Our Privacy Policy was created with the help of the&nbsp;<a href=\"https://www.privacypolicygenerator.info/\">Free Privacy Policy Generator</a>.</p>\r\n\r\n<h3>Consent</h3>\r\n\r\n<p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>\r\n\r\n<h3>Information we collect</h3>\r\n\r\n<p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>\r\n\r\n<p>If you contact us directly, we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide.</p>\r\n\r\n<p>When you register for an Account, we may ask for your contact information, including items such as name, company name, address, email address, and telephone number.</p>\r\n\r\n<h3>How we use your information</h3>\r\n\r\n<p>We use the information we collect in various ways, including to:</p>\r\n\r\n<ul>\r\n	<li>Provide, operate, and maintain our website</li>\r\n	<li>Improve, personalize, and expand our website</li>\r\n	<li>Understand and analyze how you use our website</li>\r\n	<li>Develop new products, services, features, and functionality</li>\r\n	<li>Communicate with you, either directly or through one of our partners, including for customer service, to provide you with updates and other information relating to the website, and for marketing and promotional purposes</li>\r\n	<li>Send you emails</li>\r\n	<li>Find and prevent fraud</li>\r\n</ul>\r\n\r\n<h3>Log Files</h3>\r\n\r\n<p>JBS Devices follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services&#39; analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users&#39; movement on the website, and gathering demographic information.</p>\r\n\r\n<h3>Cookies and Web Beacons</h3>\r\n\r\n<p>Like any other website, JBS Devices uses &#39;cookies&#39;. These cookies are used to store information including visitors&#39; preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users&#39; experience by customizing our web page content based on visitors&#39; browser type and/or other information.</p>\r\n\r\n<p>For more general information on cookies, please read&nbsp;<a href=\"https://www.generateprivacypolicy.com/#cookies\">&quot;Cookies&quot; article from the Privacy Policy Generator</a>.</p>\r\n\r\n<h3>Advertising Partners Privacy Policies</h3>\r\n\r\n<p>You may consult this list to find the Privacy Policy for each of the advertising partners of JBS Devices.</p>\r\n\r\n<p>Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on JBS Devices, which are sent directly to users&#39; browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.</p>\r\n\r\n<p>Note that JBS Devices has no access to or control over these cookies that are used by third-party advertisers.</p>\r\n\r\n<h3>Third Party Privacy Policies</h3>\r\n\r\n<p>JBS Devices&#39;s Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.</p>\r\n\r\n<p>You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers&#39; respective websites.</p>\r\n\r\n<h3>CCPA Privacy Rights (Do Not Sell My Personal Information)</h3>\r\n\r\n<p>Under the CCPA, among other rights, California consumers have the right to:</p>\r\n\r\n<p>Request that a business that collects a consumer&#39;s personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.</p>\r\n\r\n<p>Request that a business delete any personal data about the consumer that a business has collected.</p>\r\n\r\n<p>Request that a business that sells a consumer&#39;s personal data, not sell the consumer&#39;s personal data.</p>\r\n\r\n<p>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</p>\r\n\r\n<h3>GDPR Data Protection Rights</h3>\r\n\r\n<p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:</p>\r\n\r\n<p>The right to access &ndash; You have the right to request copies of your personal data. We may charge you a small fee for this service.</p>\r\n\r\n<p>The right to rectification &ndash; You have the right to request that we correct any information you believe is inaccurate. You also have the right to request that we complete the information you believe is incomplete.</p>\r\n\r\n<p>The right to erasure &ndash; You have the right to request that we erase your personal data, under certain conditions.</p>\r\n\r\n<p>The right to restrict processing &ndash; You have the right to request that we restrict the processing of your personal data, under certain conditions.</p>\r\n\r\n<p>The right to object to processing &ndash; You have the right to object to our processing of your personal data, under certain conditions.</p>\r\n\r\n<p>The right to data portability &ndash; You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.</p>\r\n\r\n<p>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</p>\r\n\r\n<h3>Children&#39;s Information</h3>\r\n\r\n<p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>\r\n\r\n<p>JBS Devices does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>', 'test', 'testt', '2023-02-28 10:31:34', '2023-02-28 07:00:43');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -52798,6 +52850,29 @@ INSERT INTO `sub_categories` (`id`, `category_id`, `sub_category_name`, `sub_cat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `termsand_conditions`
+--
+
+CREATE TABLE `termsand_conditions` (
+  `id` int(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `termsand_conditions`
+--
+
+INSERT INTO `termsand_conditions` (`id`, `title`, `description`, `meta_title`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 'Terms and Conditions', '<p>Conditions and Terms of Use&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>The following are the guidelines relating to the proper use of the JBSDevices.com website, the goods, and services provided by us are not limited to, our product directory, lists, but also include external links to every other website.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>You agree to abide by the above Terms and Conditions of Use of the Site (TCUS) while accessing our website, including, but not limited to, our privacy policy, other instructions that we may check and amend over time, collected and written for your reference herein, and you also agree to follow our relevant JBS Devices rules and regulations. The JBS Devices (the &quot;Company&quot;) reserves the right, if necessary, to adjust its TCUS every so often. To read about the latest improvements and improvements made on the website, users are responsible for reviewing our account from time to time. Your existence and use of the website would be viewed as approval of some improvement following the improvements in JBS Devices TCUS (s). Users under the age of 13 years of age are explicitly barred from accessing our website and from publishing personal and identifying material.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>The aim of our website is not to be used by people aged 13 or under. The JBS Devices (the &quot;Company&quot;) reserves the right, if necessary, to adjust its TCUS every so often. To read about the latest improvements made on the website, users are responsible for reviewing our account from time to time. Your existence and use of the website would be viewed as approval of some improvement following the improvements in JBS Devices TCUS (s).&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Users under the age of 13 years of age are explicitly barred from accessing our website and from publishing personal and identifying material. The aim of our website is not to be used by people aged 13 or under.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Authorization and Usage Privileges&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>JBS Devices (the &quot;Company&quot;) offers users an inclusive right and permission to view and use the website for any real, commercial or non-commercial purchase of products for use or resale, including but not limited to.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Our access privileges and permissions, however, specifically, preclude the following actions:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li>The resale of the website or its related material&nbsp;</li>\r\n	<li>Prohibits the compilation and use, unless expressly approved, of its product lists, names, specifications, and prices&nbsp;</li>\r\n	<li>Plagiarized, replicated use of our site or its related material&nbsp;</li>\r\n	<li>Restricts data processing, robotics, data analysis, and extraction methods.&nbsp;</li>\r\n	<li>JBS Devices (the &quot;Company&quot;) is protected by US copyright law and international law and convention, including but not limited to, its activities and procedures, interface, content.&nbsp;</li>\r\n	<li>Except allowed, it shall not be copied, reproduced, imitated, sold, manipulated, maliciously visited, or resold in any manner for any unlawful and unacceptable purpose.&nbsp;</li>\r\n	<li>Any malicious and unauthorized use of the website shall automatically result in the revocation of the license and the privileges permitted by the company and may subject you to legal action and investigation.&nbsp;</li>\r\n	<li>You can make hyperlinks anywhere on the website limited, revocable, and inclusive, as long as the connection created restricts the display of the Website, the&nbsp;</li>\r\n	<li>The organization, its affiliates, investors, co-brand accomplices, licensors, and any other partners, its goods and services, in a manner that is deceiving, harsh, or in any way invasive or damaging.&nbsp;</li>\r\n	<li>Unless otherwise approved in writing by the Firm, its subsidiary, associate, co-brand partner, or other partner or licensor, you shall not use any licensor, associate, subsidiary, co-brand partner, partner logo, or registered graphic or trademark associated with JBS Devices as part of a link to the website.&nbsp;</li>\r\n	<li>You are permitted to make hyperlinks to any page of the website limited, revocable, and inclusive, as long as the connection created restricts the display of the website, the&nbsp;</li>\r\n	<li>The organization, its associates, investors, co-brand accomplices, licensors, and any other partners, its goods and services in a manner that is deceiving, harsh, or in any way invasive or damaging.&nbsp;</li>\r\n	<li>Unless otherwise approved in writing by the Firm, its subsidiary, associate, co-brand partner, or other partner or licensor, you shall not use any licensor, associate, subsidiary, co-brand partner, partner logo, or registered graphic or trademark associated with JBS Devices as part of a link to the website.&nbsp;</li>\r\n	<li>You are permitted to make hyperlinks to any page of the website limited, revocable, and inclusive, as long as the connection created restricts the display of the website, the&nbsp;</li>\r\n	<li>The organization, its associates, investors, co-brand accomplices, licensors, and any other partners, its goods and services, in a manner that is deceiving, harsh, or in any way invasive or damaging.&nbsp;</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Contents and Stock Listings&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>JBS Devices strives and works to provide comprehensive details about all of the items offered; the specifications, names, photographs shown, costs, links, references to compatibility, and other related information on the website.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>However, as regards human potential, it cannot promise or warrant that, irrespective of its source, the material and relevant material contributed to on the website would be fully correct, credible, modified, or error-free.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>The material provided on the website by JBS Devices is for information purposes only and does not produce any sponsorship of any product, service, reseller, manufacturer, or other related entities offered.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>In case of any typographical, technological, or other miscalculation, a product or service sold by a company has incorrect details or erroneous pricing, the company shall, with its sole caution, reserve the right to deny or refuse orders made for the product or service in question and thus immediately check and change the product or service records.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Links to Sites and Businesses&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Our website provides links (hyperlinks) to websites of other vendors, details blog pages of third parties, analysis sites, related firms, and affiliate sites, and other outlets to help users with their buying choices. Each connection provided by the Organization is for information purposes only and the assistance of customers. The Corporation does not equate these ties in any manner with any recognition of the content of the third-party pages or their market practices.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Order Acknowledgement&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>If you buy a product from the JBS Devices product page, you get a website order acknowledgment that makes and accepts your order. However, it is not a contract and does not produce approval of the order, and acts merely as a record of the order, describing the purchase and its pricing. JBS Devices will decide whether or not to satisfy your order after you put an order. For any because which may not be disclosed, JBS Devices retain the right to cancel or restrict your order.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>JBS Devices does not recognize any duties or liabilities for the assessment of such material or other enterprises. Reading and reviewing their TCUS and privacy policy policies are your responsibility.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>JBS Devices does not have any influence or jurisdiction over the entities affiliated with its website or any of its corporate processes and procedures. In no way does the Company monitor or take responsibility for the quality, legality, and protection of the goods and services provided on the hyperlinked website or company, nor does the Company take responsibility for or control business transactions carried out on the linked companies or websites.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Delivery Disputes</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>In the event of any dispute or wrongdoing between a customer and any company site redirected to JBS Devices.com to the maximum degree allowed by the relevant statute, the user shall keep JBS Devices innocent and discharge its founders, branches, partners or any other affiliated group, its respective officials, administrators, staff, agents or legal representatives, arising out of any or any of the roles and statements or damages arising out of or in some manner connected with some such wrongdoing or dispute, whether identified or unknown, alleged or unsuspected. In the order placing process, clients often reserve the right to convey their delivery orders to the carrier service.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>However, JBS Devices will select a shipping method that better suits the distribution of the customer&#39;s ordered product where there are no directions given by the customer.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>In no circumstances will the Company be responsible for any delay or harm sustained during the shipping process of the freight.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Also, if the shipping is postponed due to the customer, the Company shall, in all cases, store the goods purchased at the customer&#39;s cost and cost.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Damage during shipping</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Chance of any injury or failure to the product in the case of the FOB shipping process, any harm, loss, or damage to the product will be carried on to the consumer, his agent, or the freight/carrier service solely.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Order cancellation</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Order Termination Orders accepted by JBS Devices will NOT be subject to a customer&#39;s modification or revocation without the express approval of JBS Devices or its approved members. Every order canceled, substituted, or updated would have a nominal processing charge of $25 or 15 percent of the order value. If you wish to cancel or change your order, you will contact our customer service.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>There will be no order termination emails approved. In the event of a product&#39;s unavailability or backorder status, JBS Devices can reject or cancel, at its own will, an order. We apologize to you for any inconvenience of that kind.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>You are expected to become conscious, verify, or acknowledge that any of the things in our listings may not be in stock. Therefore, please check the stock specifics before making an order.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>If the company no longer offers/stocks a good that it has received for substitution from a client, or if the service is out of stock on occasion, it may be referred to the Department of RMA. The consumer would have two alternatives in such a situation: JBS Devices will give you a similar repair or replacement piece. JBS Devices issues a rebate that evaluates the actual market value of the commodity purchased. In every such scenario, the present price of the retail product does not surpass the initial invoiced price of the good.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Jurisdiction authority&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>In the event of any judicial proceeding to deduce or enforce the terms of this Arrangement being taken, the jurisdiction and location shall be within the Local or Superior courts of the State of Circuit Court of the United States, or elsewhere, according to the joint agreement of the parties involved.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Control &amp; Central Law&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Any questions respecting the form and development of this Arrangement, the rights and obligations of the parties, as provided for in the terms of the documents, shall be decided and determined only in compliance with the relevant legislation of the State of the United States of America.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Prosecutor&#39;s Cost&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Where any civil act, mediation, prosecutions are carried out in compliance with the clarifications or enforcements of this Arrangement, or in respect to the interests of a Defendant, due to any perceived violation of the Agreement, wrongdoing or disagreement, effective misconduct, or the principal Party, fair attorney&#39;s fees or other associated costs shall be recovered.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Dropship Requests for Product by Customers</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>If a customer asks our company to sell or send their goods to a third party, the customer and the third party&#39;s final user would both have to be bound by the terms and conditions of this arrangement.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Conflicting words</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Any terms and conditions related to and/or presented in the orders of the consumer that may interfere with JBS Devices TCUS would not be available without JBS Devices&#39; written approval. Both instructions approved by JBS Devices shall, however, be subject to TCUS.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Purchase Money Security Interest</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>If the customer effectively completes, executes, and approves an order, the customer gives JBS Devices the right to &#39;continued buying money protection interest&#39; as security on all due or timely payments in all payable sums under any purchased order from the customer.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>It hereby grants access to all merchandise or other proceeds of which the consumer has any right, title, or interest. Upon its timely request, customers shall enter JBS Devices to complete financial statements, any changes, or continuity statements and pay the same filing costs at any time when JBS Devices estimates are required; customers shall complete and send to JBS Devices all records, equipment and do as JBS Devices may request to fully enforce this Protection Inter Drives&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>If under the protection arrangement given, the customer/buyer is in default, JBS Devices retains the right to seek relief available under the statute.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Cash Back guarantee&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Please read our return policy carefully, so you can swap or return the product ordered from JBS Devices in case of any inconvenience.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Professional Assistance from Free CCIE:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>We also set up a free Cisco Specialist Consulting Program for professional learning and technological assistance for customers. By phone, email, or the live chat option, you can contact us.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Payment &amp; Shipping Secure:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Our customers trust us and, above all, we respect this trust. Our suppliers ship our goods on schedule and with proper protection, ensuring that a safe payment system is in operation. Our checked authorization includes VeriSign Safe, MacAfee Security.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Copyrights&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>JBS Devices does not reflect, in any way, known or unknown, any intellectual property rights that it may or may not have on the catalog of goods on its websites.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>100 percent Price Match Guarantee: Warranty Info&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>At JBS Devices, we aim to provide you with the lowest available commodity costs and provide a 100% guarantee that our prices will never reach the price of the rival.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Free Technical Support&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>We provide free training to our clients by hiring cisco expert. You can get the training by contacting our customer service helpline.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>100% Quality Assurance:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>We emphasize product quality for improved consumer service, and thus, before each shipping, a full check and balance is carried out for all goods. We still make sure that all of our products are 100% authentic and original.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Secure shipment and payment&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Our clients trust us and at JBS Devices we value this trust above all. Our manufacturers ship the products on time and with complete safety, ensuring there is a secure payment method in place. Our verified authorization are: VeriSign Secured, MacAfee Security.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Return Material Authorization (RMA) Process:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>In the case of any returns, after agreeing on the terms and conditions are given, an RMA request should be raised:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>Regardless of the justification for return, it is obligatory on all returns of JBS Devices objects.&nbsp;</li>\r\n	<li>Products with all the accessories, manuals, applications, and warranty statements should be returned. The original packaging does not result in any harm.&nbsp;</li>\r\n	<li>You will have to repack items exactly as they have been shipped to you upon getting your RMA number, maybe in the original outer box/package. If the original packaging is destroyed, a re-stocking fee of 25 percent may be paid.&nbsp;</li>\r\n	<li>Do not write explicitly on the initial box to prevent return rejection.&nbsp;</li>\r\n	<li>Mention the address of JBS Devices on the outer box correctly and simply by using a sticker.&nbsp;</li>\r\n	<li>When our supply chain department has acquired and checked the shipment, you can collect the exchanged package within 10 days of delivery of the defective item.&nbsp;</li>\r\n	<li>Please notice that we must be told within two days of the arrival of the items in case of any inconsistencies between your PO and the products purchased.&nbsp;</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Faulty products under warranty&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Immediately after you encounter a defect in your purchased piece, please submit an RMA order. The terms and conditions to be agreed upon before the RMA submission are as follows:&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li>Quote the damaged item&#39;s order number, purchase date, and serial number.&nbsp;</li>\r\n	<li>After verifying the warranty of the damaged device, one of our engineers will attempt to fix your issue over the phone or through remote access.&nbsp;</li>\r\n	<li>An RMA number will be given if the problem continues, and you will need to follow our regular RMA protocol.</li>\r\n	<li>We will test it and correct the issue after the object has been returned. When the object will not be restored, we can send a replacement.&nbsp;</li>\r\n	<li>Hardware that has been replaced can be new or similar to new and have equal or equivalent requirements.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', NULL, NULL, '2023-02-28 10:31:48', '2023-02-28 07:16:26');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -52851,6 +52926,12 @@ ALTER TABLE `billing_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
@@ -52890,6 +52971,12 @@ ALTER TABLE `orders`
 -- Indexes for table `order_products`
 --
 ALTER TABLE `order_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `privacy_policies`
+--
+ALTER TABLE `privacy_policies`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52953,6 +53040,12 @@ ALTER TABLE `sub_categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `termsand_conditions`
+--
+ALTER TABLE `termsand_conditions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -52973,6 +53066,12 @@ ALTER TABLE `wishlists`
 --
 ALTER TABLE `billing_details`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -53015,6 +53114,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_products`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `privacy_policies`
+--
+ALTER TABLE `privacy_policies`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -53075,6 +53180,12 @@ ALTER TABLE `states`
 --
 ALTER TABLE `sub_categories`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `termsand_conditions`
+--
+ALTER TABLE `termsand_conditions`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

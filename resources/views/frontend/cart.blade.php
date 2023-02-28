@@ -1,22 +1,32 @@
 @include('frontend.header')
 
+<style>
+    @media (min-width: 768px){
+        .left{
+            width:70%
+        }
+        .right{
+            width:30%
+        }
+    }
+</style>
 
 <div class="cart-wrapper mt-3">
     <div class="container">
 
-        
+
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 left mb-3">
 
-            <!-- breadcrumb start  -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cart</li>
-            </ol>
-        </nav>
-        <!-- breadcrumb end  -->
+                <!-- breadcrumb start  -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                    </ol>
+                </nav>
+                <!-- breadcrumb end  -->
 
                 <!-- table start  -->
                 <div class="table-responsive">
@@ -41,7 +51,7 @@
                 <p class="mb-0 no_product">No products in the cart.</p>
                 <!-- table end  -->
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 right">
 
                 <!-- side card  -->
                 <div class="card bg-light border border-0 px-4">
