@@ -1,14 +1,15 @@
 @include('frontend.header')
 
 <style>
-    @media (min-width: 768px){
-        .left{
-            width:70%
-        }
-        .right{
-            width:30%
-        }
+@media (min-width: 768px) {
+    .left {
+        width: 70%
     }
+
+    .right {
+        width: 30%
+    }
+}
 </style>
 
 <div class="cart-wrapper mt-3">
@@ -29,9 +30,9 @@
                 <!-- breadcrumb end  -->
 
                 <!-- table start  -->
-                <div class="table-responsive">
+                <div class="table-responsive-sm d-none d-lg-block">
 
-                    <table class="table  table-borderless">
+                    <table class="table table-borderless">
                         <thead class="border border-bottom border-0">
                             <tr>
                                 <td colspan="2">Product</td>
@@ -50,6 +51,13 @@
                 </div>
                 <p class="mb-0 no_product">No products in the cart.</p>
                 <!-- table end  -->
+
+                <!-- mobile cart  -->
+                <div id="MobileCartPage" class="d-block d-lg-none">
+            
+                </div>
+                <!-- mobile cart /  -->
+
             </div>
             <div class="col-md-4 right">
 
@@ -96,13 +104,6 @@
 
 
 
-
-
-
-
-<script>
-
-</script>
 
 
 @include('frontend.footer')

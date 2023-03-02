@@ -221,16 +221,14 @@ a {
     box-shadow: var(--box-shadow);
 }
 
-#pills-tab .nav-link,
-#pills-tab2 .nav-link {
+.nav.nav-pills .nav-link {
     background: none !important;
     color: var(--black) !important;
     border-radius: 0 !important;
     font-size: 18px;
 }
 
-#pills-tab .nav-link.active,
-#pills-tab2 .nav-link.active {
+.nav.nav-pills .nav-link.active {
     border-bottom: 2px solid var(--theme-color);
 }
 
