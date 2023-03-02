@@ -59,9 +59,11 @@ $(document).ready(function() {
                 let checkoutTable = $('#checkoutTable');
                 let cartTableMobile = $('#cartTableMobile');
                 let cartpage = $('#cartpage');
+                let MobileCartPage = $('#MobileCartPage');
                 cartTable.html('');
                 cartTableMobile.html('');
                 cartpage.html('');
+                MobileCartPage.html('');
                 checkoutTable.html('');
                 let coupon = response && response.coupon;
 
@@ -139,6 +141,62 @@ $(document).ready(function() {
                 `;
                             cartpage.append(row1);
 
+
+
+                            let row5 = `
+                                <div class="mb-3 border-bottom pb-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <p class="mb-0">9BX158-306 Seagate 1TB 7200RPM SATA 3GB/s 3.5-inch...</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <img src="https://jbsdevices.com/assets/images/products/9BX158-306.webp" alt="" width="100" class="img-fluid">
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#" class="remove-from-cart" data-id="${id}"><i class="bx bx-trash text-danger fs-4"></i></a>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <p class="mb-0">Price</p>
+                                    </div>
+                                    <div class="col-auto">
+                                    <p class="mb-0"> $${productPrice}</p>
+                                    </div>
+                                </div>
+                               <div class="row align-items-center">
+                               <div class="col">
+                               <p class="mb-0">Quantity</p>
+                               </div
+                               <!-- Inc / Dec start  -->
+                        <div class="col-auto">
+                            <div class="d-flex">
+                                <div class="border px-3 py-2 rounded-start">
+                                    <span class="bg-white  minus-button" data-id="${id}" id="minus-button"><button class="bg-white">-</button></span>
+                                </div>
+                                <div class="border-top px-3 py-2  border-bottom">
+                                <p class="card-text-para mb-0">${quantity}</p>
+                                </div>
+                                <div class="border px-3 py-2 rounded-end">
+                                    <span class="bg-white plus-button" data-id="${id}" id="plus-button"><button class="bg-white">+</button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Inc / Dec end  -->
+                        </div>
+                        <div class="row align-items-center">
+                                    <div class="col">
+                                        <p class="mb-0">Total Price</p>
+                                    </div>
+                                    <div class="col-auto">
+                                    <p class="mb-0"> $${(quantity * productPrice).toFixed(2)}/-</p>
+                                    </div>
+                                </div>
+                                </div>
+                            `;
+                            MobileCartPage.append(row5);
+
+
                             let row2 = `
                             <tr>
                                         <td>Product</td>
@@ -151,7 +209,7 @@ $(document).ready(function() {
                     </td>
                     </tr>
                     `;
-                    checkoutTable.append(row2);
+                            checkoutTable.append(row2);
                         }
 
                         let row3 = `
@@ -173,9 +231,9 @@ $(document).ready(function() {
                      <td class="text-end">$${subtotals}/-</td>
                     </tr>
                             `;
-                   checkoutTable.append(row3);
+                        checkoutTable.append(row3);
 
-                 let subTotalRow = `<tr class="border-bottom border-top">
+                        let subTotalRow = `<tr class="border-bottom border-top">
             <td colspan="3" class="text-center">Subtotal: $${subtotals}</td>
                 </tr>
                  <tr>

@@ -1,30 +1,5 @@
 @include('frontend.header')
 
-<style>
-.rating {
-    display: flex;
-}
-
-.star {
-    cursor: pointer;
-    color: gray;
-}
-
-span.active {
-    color: #ffcc00;
-}
-
-span.bg-white.plus,
-span.bg-white.minus {
-    cursor: pointer;
-}
-
-/* 
-input#quantities {
-    min-width: 17px!important;
-    max-width: 68px;
-} */
-</style>
 <div class="single-product-wrapper mt-4">
     <div class="container">
 
@@ -43,14 +18,26 @@ input#quantities {
                 </nav>
                 <!-- breadcrumb end  -->
 
-                <button type="button" class="imgbx" data-bs-toggle="modal" data-bs-target="#imageModal">
+                <!-- <div class="wrapper">
+                    <button type="button" class="imgbx" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        <div class="img-zoom-container">
+                        <img id="myimage" width="300" height="240"
+                            src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail"
+                            loading="lazy" alt="">
+                        <div id="myresult" class="img-zoom-result"></div>   
+                        </div>
+                    </button>
+                </div> -->
+
+                <div class="imgbx" data-bs-toggle="modal" data-bs-target="#imageModal">
                     <div class="img-zoom-container">
                         <img id="myimage" width="300" height="240"
                             src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail"
                             loading="lazy" alt="">
                         <div id="myresult" class="img-zoom-result"></div>
                     </div>
-                </button>
+                </div>
+
             </div>
             <!-- center  -->
             <div class="col-md-6">
@@ -686,9 +673,9 @@ input#quantities {
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-body text-center">
-                <img src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail w-100" loading="lazy"
-                    alt="">
+            <div class="modal-body text-center">
+                <img src="{{ asset('image/products/'.$product->product_image) }}" class="img-thumbnail w-100"
+                    loading="lazy" alt="">
             </div>
         </div>
     </div>

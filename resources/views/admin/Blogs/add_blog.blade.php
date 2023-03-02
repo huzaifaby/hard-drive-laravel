@@ -1,17 +1,26 @@
 @extends('admin.index')
 @section('content')
 
-<h3 class="mt-4">Reviews</h3>
+<h3 class="mt-4">Add Blogs</h3>
 <div class="mt-4">
     <form method="post" action="{{ route('blog.save') }}" id="updateSettingForm" enctype="multipart/form-data">
         @csrf
 
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
         <div class="row">
             <div class="col">
                 <div class="form-group">
                     <label for="blog_title">Title</label>
-                    <input type="text" name="blog_title" id="blog_title" class="form-control">
+                    <input type="text" name="blog_title" id="blog_title" class="form-control" >
                 </div>
             </div>
 

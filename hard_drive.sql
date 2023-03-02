@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 28, 2023 at 06:09 PM
+-- Generation Time: Mar 02, 2023 at 03:51 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -71,7 +71,7 @@ CREATE TABLE `blogs` (
   `blog_slug` varchar(255) DEFAULT NULL,
   `blog_description` text DEFAULT NULL,
   `blog_source` varchar(255) DEFAULT NULL,
-  `blog_views` int(255) DEFAULT NULL,
+  `blog_views` varchar(255) DEFAULT NULL,
   `blog_image` varchar(255) DEFAULT NULL,
   `blog_tags` varchar(255) DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`id`, `blog_category`, `blog_title`, `blog_slug`, `blog_description`, `blog_source`, `blog_views`, `blog_image`, `blog_tags`, `meta_title`, `meta_description`, `created_at`, `updated_at`) VALUES
-(2, 'Oil & gas', 'How to design effective arts?', 'how-to-design-effective-arts', '<p>The recording starts with the patter of a summer squall. Later, a drifting tone like that of a not-quite-tuned-in radio station rises and for a while drowns out the patter. These are the sounds encountered by NASA’s Cassini spacecraft as it dove the gap between Saturn and its innermost ring on April 26, the first of 22 such encounters before it will plunge into atmosphere in September. What Cassini did not detect were many of the collisions of dust particles hitting the spacecraft it passed through the plane of the ringsen the charged particles oscillate in unison.</p><h3>How its Works ?</h3><p>MIAMI — For decades, South Florida schoolchildren and adults fascinated by far-off galaxies, earthly ecosystems, the proper ties of light and sound and other wonders of science had only a quaint, antiquated museum here in which to explore their interests. Now, with the long-delayed opening of a vast new science museum downtown set for Monday, visitors will be able to stand underneath a suspended, 500,000-gallon aquarium tank and gaze at hammerhead and tiger sharks, mahi mahi, devil rays and other creatures through a 60,000-pound oculus.<br></p>', 'www.geniusocean.com', NULL, '1677595850.webp', 'Business, Research, Mechanical, Process, Innovation, Engineering', 'test1234', 'test', '2023-02-28 08:37:36', '2023-02-28 10:04:14');
+(2, 'Oil & gas', 'How to design effective arts?', 'how-to-design-effective-arts', '<p>The recording starts with the patter of a summer squall. Later, a drifting tone like that of a not-quite-tuned-in radio station rises and for a while drowns out the patter. These are the sounds encountered by NASA’s Cassini spacecraft as it dove the gap between Saturn and its innermost ring on April 26, the first of 22 such encounters before it will plunge into atmosphere in September. What Cassini did not detect were many of the collisions of dust particles hitting the spacecraft it passed through the plane of the ringsen the charged particles oscillate in unison.</p><h3>How its Works ?</h3><p>MIAMI — For decades, South Florida schoolchildren and adults fascinated by far-off galaxies, earthly ecosystems, the proper ties of light and sound and other wonders of science had only a quaint, antiquated museum here in which to explore their interests. Now, with the long-delayed opening of a vast new science museum downtown set for Monday, visitors will be able to stand underneath a suspended, 500,000-gallon aquarium tank and gaze at hammerhead and tiger sharks, mahi mahi, devil rays and other creatures through a 60,000-pound oculus.<br></p>', 'www.geniusocean.com', '18', '1677666361.webp', 'Business, Research, Mechanical, Process, Innovation, Engineering', 'test1234', 'test', '2023-02-28 08:37:36', '2023-03-02 09:43:33');
 
 -- --------------------------------------------------------
 
@@ -52881,6 +52881,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `role_id` int(255) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -52889,9 +52890,29 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `updated_at`, `created_at`) VALUES
-(8, 'Muhammad Huzaifa', 'huzi@gmail.com', '$2y$10$0VnkeTOQDKaVM81uQHyECuVmHBkp5HvGvom14o4dRERRc4PeGtqz6', '2023-01-18 07:23:59', '2023-01-18 07:23:59'),
-(9, 'Humaambyv', 'humaam.byv@gmail.com', '$2y$10$c/x3skrAYrIkyYahQNih0OeDHvUEN4PT7HKLknzyoo8IxOC81k.IO', '2023-01-21 02:16:53', '2023-01-21 02:16:53');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role_id`, `updated_at`, `created_at`) VALUES
+(8, 'Muhammad Huzaifa', 'huzi@gmail.com', '$2y$10$0VnkeTOQDKaVM81uQHyECuVmHBkp5HvGvom14o4dRERRc4PeGtqz6', 2, '2023-03-02 13:25:43', '2023-01-18 07:23:59'),
+(9, 'Humaambyv', 'humaam.byv@gmail.com', '$2y$10$c/x3skrAYrIkyYahQNih0OeDHvUEN4PT7HKLknzyoo8IxOC81k.IO', 2, '2023-03-02 13:25:45', '2023-01-21 02:16:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `id` int(255) NOT NULL,
+  `user_role` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`id`, `user_role`, `created_at`, `updated_at`) VALUES
+(2, 'Admin', '2023-03-02 08:18:59', '2023-03-02 08:18:59');
 
 -- --------------------------------------------------------
 
@@ -53052,6 +53073,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `wishlists`
 --
 ALTER TABLE `wishlists`
@@ -53191,7 +53218,13 @@ ALTER TABLE `termsand_conditions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wishlists`

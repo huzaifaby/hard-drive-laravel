@@ -13,6 +13,54 @@ html {
     scroll-behavior: smooth;
 }
 
+
+.rating {
+    display: flex;
+}
+
+.star {
+    cursor: pointer;
+    color: gray;
+}
+
+span.active {
+    color: #ffcc00;
+}
+
+span.bg-white.plus,
+span.bg-white.minus {
+    cursor: pointer;
+}
+
+#search_list {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 10;
+    margin-top: 45px;
+}
+
+#search_list .container {
+    border-bottom: 1px solid #ddd;
+}
+
+#search_list .container:last-child {
+    border-bottom: none;
+}
+
+#search_list div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#search_list .container .row a:hover,
+#search_list .container .row a:hover span {
+    color: #000;
+}
+
 :root {
     --theme-color: #FD6602;
     --white: #fff;

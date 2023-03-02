@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ReviewsController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\UsersRoleController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 
@@ -111,6 +113,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
        Route::get('/blog', [BlogsController::class,'index'])->name('blogs.show');
        Route::get('blog-detail/{blog_slug}', [BlogsController::class,'BlogDetail'])->name('blogs.detail');
        Route::get('blog-search/', [BlogsController::class,'BlogSearch'])->name('blogs.search');
+       Route::get('/blog/category/{category_slug}', [BlogsController::class,'blogCategory'])->name('blogs.category');
+       Route::get('/blog/archive/{archive_date}', [BlogsController::class,'blogArchive'])->name('blogs.archive');
        //end
       
 
@@ -167,6 +171,24 @@ Route::get('dashboard/termsandcondition', [SettingController::class,'termsandCon
 Route::post('/update-termsandcondition',[SettingController::class,'updateTermsandCondition'])->name('update.termsandcondition');
 Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
+//users
+Route::get('dashboard/users', [UsersController::class,'index'])->name('dashboard.users');
+Route::get('dashboard/add-users', [UsersController::class,'addUsers'])->name('users.add');
+Route::post('/save-users',[UsersController::class,'saveUsers'])->name('users.save');
+Route::get('dashboard/edit-users/{id}', [UsersController::class,'usersEdit'])->name('users.edit');
+Route::post('/update-users',[UsersController::class,'updateUsers'])->name('users.update');
+Route::post('/delete-users',[UsersController::class,'deleteUsers'])->name('delete.users');
+Route::get('/pagination/paginate-users',[UsersController::class,'pagination']);
+Route::get('/search-users',[UsersController::class,'searchUsers'])->name('search.users');
+//end
+
+//users role
+Route::get('dashboard/users-role', [UsersRoleController::class,'index'])->name('dashboard.users.role');
+Route::get('dashboard/add-users-role', [UsersRoleController::class,'addUsersRole'])->name('users.role.add');
+Route::post('/save-users-role',[UsersRoleController::class,'saveUsersRole'])->name('users.role.save');
+Route::get('dashboard/edit-users-role/{id}', [UsersRoleController::class,'usersroleEdit'])->name('users.role.edit');
+Route::post('/update-users-role',[UsersRoleController::class,'updateUsersRole'])->name('users.role.update');
+Route::post('/delete-users-role',[UsersRoleController::class,'deleteUsersRole'])->name('delete.users.role');
 //end
 
 //Product crud 
@@ -246,6 +268,7 @@ Route::post('/update-customers',[CustomersController::class,'updateCustomers'])-
 Route::post('/delete-customers',[CustomersController::class,'deleteCustomers'])->name('delete.customers');
 Route::get('/pagination/paginate-customers',[CustomersController::class,'pagination']);
 Route::get('/search-customers',[CustomersController::class,'searchCustomers'])->name('search.customers');
+Route::get('customersexportData',[ExportController::class,'customersExportData'])->name('customers.export');
 //end
 
 //Coupon crud 

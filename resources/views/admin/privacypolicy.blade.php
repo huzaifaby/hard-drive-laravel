@@ -103,10 +103,11 @@ $(document).ready(function() {
 
 
 <script>
-CKEDITOR.replace('privacypolicy_description');
-//ck editor set height & width
-CKEDITOR.config.height = '100';
-CKEDITOR.config.width = '100%';
-</script>
+      $('#privacypolicy_description').summernote({
+        tabsize: 2,
+        height: 300
+      });
+    </script>
+
 
 @endsection

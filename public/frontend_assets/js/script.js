@@ -24,6 +24,43 @@ $(document).ready(function () {
   window.addEventListener("scroll", myFunction);
 
 
+
+  // checkout js start 
+  let checkbox = document.getElementById("checkDiffAddress");
+  if (checkbox) {
+    checkbox.addEventListener("change", function () {
+      let form = document.getElementById("shiptoDiffAddress");
+      if (checkbox.checked) {
+        form.style.display = "block";
+        checkbox.value = 1;
+      } else {
+        form.style.display = "none";
+        checkbox.value = 0
+      }
+    });
+  }
+  //  /
+
+  window.onload = () => {
+
+    const OpenSidebarToggle = document.body.querySelector('#OpenSidebarToggle');
+    const CloseSidebarToggle = document.body.querySelector('#CloseSidebarToggle');
+
+    if (OpenSidebarToggle) {
+      OpenSidebarToggle.addEventListener('click', event => {
+        document.getElementById("sidenavAccordion").style.display = "flex";
+      });
+    }
+    if (CloseSidebarToggle) {
+      CloseSidebarToggle.addEventListener('click', event => {
+        document.getElementById("sidenavAccordion").style.display = "none";
+      });
+    }
+
+  };
+
+
+  
 // image zoom hover
 const imageZoom = (imgID, resultID) => {
   var img, lens, result, cx, cy;
@@ -97,39 +134,5 @@ const imageZoom = (imgID, resultID) => {
 imageZoom("myimage", "myresult");
 
 //end
-
-  // checkout js start 
-  let checkbox = document.getElementById("checkDiffAddress");
-  if (checkbox) {
-    checkbox.addEventListener("change", function () {
-      let form = document.getElementById("shiptoDiffAddress");
-      if (checkbox.checked) {
-        form.style.display = "block";
-        checkbox.value = 1;
-      } else {
-        form.style.display = "none";
-        checkbox.value = 0
-      }
-    });
-  }
-  //  /
-
-  window.onload = () => {
-
-    const OpenSidebarToggle = document.body.querySelector('#OpenSidebarToggle');
-    const CloseSidebarToggle = document.body.querySelector('#CloseSidebarToggle');
-
-    if (OpenSidebarToggle) {
-      OpenSidebarToggle.addEventListener('click', event => {
-        document.getElementById("sidenavAccordion").style.display = "flex";
-      });
-    }
-    if (CloseSidebarToggle) {
-      CloseSidebarToggle.addEventListener('click', event => {
-        document.getElementById("sidenavAccordion").style.display = "none";
-      });
-    }
-
-  };
 
 });

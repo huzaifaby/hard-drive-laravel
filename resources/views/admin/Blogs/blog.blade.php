@@ -30,6 +30,9 @@
                         <td>{{ $blog->blog_category }}</td>
                         <td>{{ $blog->created_at }}</td>
                         <td>
+
+                       <a href="{{ url('blog-detail/' . $blog->blog_slug) }}" class="btn btn-primary orders_view">
+                          <i class="fas fa-eye"></i></a>
                             <a href="{{ url('dashboard/edit-blog/' . $blog->id) }}" class="btn btn-success">
                                 <i class="fas fa-edit"></i></a>
 

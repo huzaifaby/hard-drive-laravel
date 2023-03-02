@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('content')
 
-<h3 class="mt-4">Reviews</h3>
+<h3 class="mt-4">Update Reviews</h3>
 <div class="mt-4">
     <form method="post" action="{{ route('update.reviews') }}" id="updateSettingForm" enctype="multipart/form-data">
         @csrf
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary update_setting">Save</button>
+        <button type="submit" class="btn btn-primary update_setting">Update</button>
     </form>
 </div>
 

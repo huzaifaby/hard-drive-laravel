@@ -39,7 +39,7 @@
                                 <li>
                                     <a href="#">
                                         <i class='bx bxs-bullseye'></i>
-                                        156 View(s)
+                                        {{ $blogs->blog_views }} View(s)
                                     </a>
                                 </li>
                                 <li>
@@ -107,12 +107,14 @@
                             <ul class="categori-list">
                                 @foreach ($categories as $category)
                                 <li>
-                                    <a href="#">
+                                    <a
+                                        href="{{ url('/blog/category/' . str_replace(' ', '-', $category->blog_category)) }}">
                                         <span>{{ $category->blog_category }}</span>
                                         <span>({{ $category->post_count }})</span>
                                     </a>
                                 </li>
                                 @endforeach
+
                             </ul>
                         </div>
                         <div class="categori">
@@ -152,7 +154,7 @@
                             <ul class="categori-list">
                                 @foreach ($archives as $monthYear => $posts)
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url('/blog/archive/' . $monthYear )}}">
                                         <span>{{ $monthYear }}</span>
                                         <span>({{ count($posts) }})</span>
                                     </a>
@@ -186,89 +188,6 @@
         </div>
     </div>
 
-    <section class="footer-top">
-        <div class="container" style="max-width:1140px !important">
-            <div class="row">
-                <div class="col-lg-4">
-                    <h4>We’re Always Here To Help</h4>
-                    <p>Reach out to us through any of these support channels</p>
-                </div>
-                <div class="col-lg-2">
-                    <a href="#">
-                        <div class="row align-items-center">
-                            <div class="col-3">
-                                <h4>
-                                    <i class='bx bx-info-circle'></i>
-                                </h4>
-                            </div>
-                            <div class="col-9">
-                                <span>
-                                    HELP CENTER
-                                </span>
-                                <h4>
-                                    help.gaahak.pk
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2">
-                    <a href="#">
-                        <div class="row align-items-center">
-                            <div class="col-3">
-                                <h4>
-                                    <i class='bx bxs-envelope'></i>
-                                </h4>
-                            </div>
-                            <div class="col-9">
-                                <span>
-                                    EMAIL SUPPORT
-                                </span>
-                                <h4>
-                                    info@gaahak.pk
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2">
-                    <a href="#">
-                        <div class="row align-items-center">
-                            <div class="col-3">
-                                <h4>
-                                    <i class='bx bxs-phone'></i>
-                                </h4>
-                            </div>
-                            <div class="col-9">
-                                <span>
-                                    PHONE SUPPORT
-                                </span>
-                                <h4>
-                                    (000) - (000) - (000)
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2">
-                    <a href="#">
-                        <div class="row align-items-center">
-                            <div class="col-3">
-                                <h4>
-                                    <i class='bx bxl-whatsapp'></i>
-                                </h4>
-                            </div>
-                            <div class="col-9">
-                                <h4 class="mt-7">
-                                    Whatsapp Us
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
 </div>
 

@@ -31,7 +31,16 @@ class BlogController extends Controller
        //add product
    public function saveBlog(Request $request){
 
-   
+    $request->validate([
+        'blog_title' => 'required',
+        'blog_description' => 'required',
+        'blog_source' => 'required',
+        'blog_tags' => 'required',
+        'blog_category' => 'required',
+        'blog_slug' => 'required',
+        'blog_image' => 'required',
+
+    ]);
 
         $imageName = '';
         if($image = $request->file('blog_image')){

@@ -33,7 +33,7 @@
                 <!-- form start  -->
                 <!-- <form action="{{ route('order.add') }}" method="POST"> -->
 
-                <form role="form" action="{{ route('order.add') }}" method="post" class="require-validation"
+                <form action="{{ route('order.add') }}" method="post" class="require-validation"
                     data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
                     @csrf
 
@@ -49,29 +49,29 @@
                                 $phone_no = Auth::guard('customer')->user()->phone_no;
                               }
                             ?>
-                            <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow-none" value="{{ $full_name }}"
-                                placeholder="Full Name" name="full_name" id="name" required>
+                                placeholder="Full Name" name="full_name" id="fullname" required>
                         </div>
                         <div class="col">
-                            <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                            <label for="tel" class="form-label">Phone <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control shadow-none" value="{{ $phone_no }}"
-                                placeholder="Phone" name="phone_no" id="phone" required>
+                                placeholder="Phone" name="phone_no" id="tel" required>
                         </div>
                     </div>
                     <div class="col mb-3">
-                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                        <label for="mail" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control shadow-none" placeholder="Email" value="{{ $email }}"
-                            name="email" id="email" required>
+                            name="email" id="mail" required>
                     </div>
                     <div class="col mb-3">
-                        <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                        <label for="ship_address" class="form-label">Address <span class="text-danger">*</span></label>
                         <input type="text" class="form-control shadow-none" name="address" placeholder="Address"
-                            id="address" required>
+                            id="ship_address" required>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="country" class="form-label">Country Code <span
+                            <label for="form-select" class="form-label">Country Code <span
                                     class="text-danger">*</span></label>
                             <select name="country" required class="form-select shadow-none country-dd">
                                 <option value="">Select Country</option>
@@ -83,29 +83,29 @@
                             </select>
                         </div>
                         <div class="col">
-                            <label for="state" class="form-label">State Code <span class="text-danger">*</span></label>
-                            <select name="state" class="form-select shadow-none state-dd">
+                            <label for="form-select" class="form-label">State Code <span class="text-danger">*</span></label>
+                            <select name="state" class="form-select shadow-none state-dd" required>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="city" class="form-label">Town / City <span class="text-danger">*</span></label>
-                            <select name="city" class="form-select shadow-none city-dd">
+                            <label for="form-select" class="form-label">Town / City <span class="text-danger">*</span></label>
+                            <select name="city" class="form-select shadow-none city-dd" required>
                             </select>
                         </div>
                         <div class="col">
-                            <label for="zip" class="form-label">Postcode / ZIP <span
+                            <label for="postzip" class="form-label">Postcode / ZIP <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow-none" name="post_code"
-                                placeholder="Postcode / ZIP" id="zip" required>
+                                placeholder="Postcode / ZIP" id="postzip" required>
                         </div>
                     </div>
                     <div class="col mb-3">
-                        <label for="company" class="form-label">Company Name (optional) <span
+                        <label for="companyname" class="form-label">Company Name (optional) <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control shadow-none" name="company_name"
-                            placeholder="Company Name" id="company">
+                            placeholder="Company Name" id="companyname">
                     </div>
 
                     <div class="mb-3 form-check border-bottom pb-3">
@@ -140,7 +140,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="shipping_country" class="form-label">Country Code <span
+                                <label for="form-select" class="form-label">Country Code <span
                                         class="text-danger">*</span></label>
                                 <select name="shipping_country" class="form-select shadow-none country-dd">
                                     <option value="">Select Country</option>
@@ -152,7 +152,7 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <label for="shipping_state" class="form-label">State Code <span
+                                <label for="form-select" class="form-label">State Code <span
                                         class="text-danger">*</span></label>
                                 <select name="shipping_state" class="form-select shadow-none state-dd">
                                 </select>
@@ -160,7 +160,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="shipping_city" class="form-label">Town / City <span
+                                <label for="form-select" class="form-label">Town / City <span
                                         class="text-danger">*</span></label>
                                 <select name="shipping_city" class="form-select shadow-none city-dd">
                                 </select>
@@ -225,21 +225,21 @@
 
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <label class="form-check-input" for="flexRadioDefault1">
                                 Free Shipping (7-10 days) - $ 0
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
                                 checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <label class="form-check-input" for="flexRadioDefault2">
                                 Standard Shipping (3 - 5 days) - $ 20
                             </label>
                         </div>
                         <div class="form-check border-bottom pb-2">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
                                 checked>
-                            <label class="form-check-label" for="flexRadioDefault3">
+                            <label class="form-check-input" for="flexRadioDefault3">
                                 Fast Shipping (2 days) - $ 40
                             </label>
                         </div>
@@ -247,7 +247,7 @@
                         <div class="form-check py-3 text-primary">
                             <input class="form-check-input" type="radio" value="PayPal" name="paymentOption" id="paypal"
                                 checked onclick="displayPaypal()">
-                            <label class="form-check-label" for="paypal">
+                            <label class="form-check-input" for="paypal">
                                 PayPal Express
                                 <br>
                                 <small>Pay via your PayPal account.</small>
@@ -257,7 +257,7 @@
                         <div class="form-check text-primary">
                             <input class="form-check-input" type="radio" name="paymentOption" id="creditcard"
                                 onclick="displayCreditcard()">
-                            <label class="form-check-label" for="creditcard">
+                            <label class="form-check-input" for="creditcard">
                                 Credit card
                                 <br>
                                 <small>Pay via your Credit Card.</small>
@@ -347,169 +347,5 @@
 </div>
 
 
-<script>
-function displayPaypal() {
-    let paypalcheckbox = document.getElementById("paypal");
-    let creditcardcheckbox = document.getElementById("creditcard");
-    document.getElementById("creditcard-input").style.display = "none";
-    document.getElementById("payment-form").classList.remove("require-validation");
-    paypalcheckbox.value = 'PayPal';
-    creditcardcheckbox.value = '';
 
-
-}
-
-function displayCreditcard() {
-    let paypalcheckbox = document.getElementById("paypal");
-    let creditcardcheckbox = document.getElementById("creditcard");
-    document.getElementById("creditcard-input").style.display = "block";
-    document.getElementById("payment-form").classList.add("require-validation");
-    paypalcheckbox.value = '';
-    creditcardcheckbox.value = 'Credit Card';
-
-
-}
-</script>
-
-
-
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
-<script type="text/javascript">
-$(function() {
-
-    $('input[name="paymentOption"]').on('change', function() {
-        if (this.value === 'Credit Card') {
-
-            var $form = $(".require-validation");
-            $('form.require-validation').on('submit', function(e) {
-                var $form = $(".require-validation"),
-                    inputSelector = ['input[type=email]', 'input[type=password]',
-                        'input[type=text]', 'input[type=file]',
-                        'textarea'
-                    ].join(', '),
-                    $inputs = $form.find('.required').find(inputSelector),
-                    $errorMessage = $form.find('div.error'),
-                    valid = true;
-                $errorMessage.addClass('d-none');
-
-                $('.has-error').removeClass('has-error');
-                $inputs.each(function(i, el) {
-                    var $input = $(el);
-                    if ($input.val() === '') {
-                        $input.parent().addClass('has-error');
-                        $errorMessage.removeClass('d-none');
-                        e.preventDefault();
-                    }
-                });
-
-                if (!$form.data('cc-on-file')) {
-                    e.preventDefault();
-                    Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-                    Stripe.createToken({
-                        number: $('.card-number').val(),
-                        cvc: $('.card-cvc').val(),
-                        exp_month: $('.card-expiry-month').val(),
-                        exp_year: $('.card-expiry-year').val()
-                    }, stripeResponseHandler);
-                }
-
-            });
-
-            /*------------------------------------------
-            --------------------------------------------
-            Stripe Response Handler
-            --------------------------------------------
-            --------------------------------------------*/
-            function stripeResponseHandler(status, response) {
-                if (response.error) {
-                    $('.error')
-                        .removeClass('d-none')
-                        .find('.alert')
-                        .text(response.error.message);
-                } else {
-                    /* token contains id, last4, and card type */
-                    var token = response['id'];
-
-                    $form.find('input[type=text]').empty();
-                    $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-                    $form.get(0).submit();
-                }
-            }
-        }
-    });
-});
-</script>
-
-
-<script>
-function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
-    return true;
-}
-</script>
-
-
-
-
-<script>
-$(document).ready(function() {
-    $('.country-dd').on('change', function() {
-        var idCountry = this.value;
-        $(".state-dd").html('');
-        $.ajax({
-            url: "{{url('api/fetch-states')}}",
-            type: "POST",
-            data: {
-                country_id: idCountry,
-                _token: '{{csrf_token()}}'
-            },
-            dataType: 'json',
-            success: function(result) {
-                $('.state-dd').html('<option value="">Select State</option>');
-                $.each(result.states, function(key, value) {
-                    $(".state-dd").append('<option value="' + value
-                        .id + '">' + value.state_name + '</option>');
-                });
-                $('.city-dd').html('<option value="">Select City</option>');
-            }
-        });
-    });
-    $('.state-dd').on('change', function() {
-        var idState = this.value;
-        $(".city-dd").html('');
-        $.ajax({
-            url: "{{url('api/fetch-cities')}}",
-            type: "POST",
-            data: {
-                state_id: idState,
-                _token: '{{csrf_token()}}'
-            },
-            dataType: 'json',
-            success: function(res) {
-                $('.city-dd').html('<option value="">Select City</option>');
-                $.each(res.cities, function(key, value) {
-                    $(".city-dd").append('<option value="' + value
-                        .id + '">' + value.city_name + '</option>');
-                });
-            }
-        });
-    });
-});
-</script>
-
-
-
-
-
-<script>
-$(document).ready(function() {
-
-
-});
-</script>
-
-
-@include('frontend.footer')
+@include('frontend.country_state_city_js')

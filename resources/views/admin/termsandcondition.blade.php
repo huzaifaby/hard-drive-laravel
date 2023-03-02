@@ -45,7 +45,7 @@
 
         <div class="row my-4 text-center">
             <div class="col">
-            <button type="submit" class="btn btn-primary update_termsandcondition">Save Privacy Policy</button>
+            <button type="submit" class="btn btn-primary update_termsandcondition">Update Terms and Condition</button>
 
             </div>
         </div>
@@ -103,10 +103,10 @@ $(document).ready(function() {
 
 
 <script>
-CKEDITOR.replace('termsandcondition_description');
-//ck editor set height & width
-CKEDITOR.config.height = '100';
-CKEDITOR.config.width = '100%';
-</script>
+      $('#termsandcondition_description').summernote({
+        tabsize: 2,
+        height: 300
+      });
+    </script>
 
 @endsection

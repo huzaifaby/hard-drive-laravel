@@ -4,8 +4,7 @@
 
 <h1 class="mt-4">Customers Tables</h1>
 <div class="mb-4 bg-light text-end p-2">
-    <a href="{{ route('orders.csv') }}" class="btn btn-success ">Import</a>
-    <a href="{{ route('orders.export') }}" class="btn btn-success">Export</a>
+    <a href="{{ route('customers.export') }}" class="btn btn-success">Export</a>
 
 
 </div>

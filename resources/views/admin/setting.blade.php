@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('content')
 
-<h1 class="mt-4">Setting</h1>
+<h1 class="my-4 text-center">Setting</h1>
 <div class="card">
     <div class="card-body">
         <form method="post" id="updateSettingForm" enctype="multipart/form-data">

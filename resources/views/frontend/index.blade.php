@@ -1,11 +1,5 @@
 @include('frontend.header')
 
-
-<style>
-
-</style>
-
-
 <!-- banner start -->
 <!-- Hero Section Begin -->
 
@@ -253,7 +247,7 @@
             <div class="col-md-9">
                 <!-- tabs start  -->
                 <div class="products d-lg-block d-none">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills mb-3" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-newArrival-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-newArrival" type="button" role="tab"
@@ -270,7 +264,7 @@
                                 aria-controls="pills-bestRated" aria-selected="false">Best Rated</button>
                         </li>
                     </ul>
-                    <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-content">
                         <div class="tab-pane fade show active" id="pills-newArrival" role="tabpanel"
                             aria-labelledby="pills-newArrival-tab" tabindex="0">
 
@@ -301,43 +295,36 @@
                                         <div class="card">
                                             <div class="card-body text-center">
                                                 <a href="product-detail/{{ $latestproduct->product_slug }}">
-                                                    <div class="wishlist-container">
-                                                        @if ($user_id)
-                                                        <button class="wishlist-btn" data-id="{{ $latestproduct->id }}">
-                                                            <svg class="wishlist-icon"
-                                                                xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="{{ $bg_color }}"
-                                                                stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke="currentColor"
-                                                                class="feather feather-heart color-filled">
-                                                                <path
-                                                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-                                                        @endif
-                                                    </div>
                                                     <img src="{{ asset('image/products/'.$latestproduct->product_image) }}"
                                                         class="img-fluid mb-3" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $latestproduct->product_price }}/-</h5>
                                                     <p class="card-text-para">
-                                                        {{ substr($latestproduct->product_title, 0, 50) . '...' }}</p>
-                                                    @if($latestproduct->availability == 0 )
-                                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                                        Out of stock
-                                                    </a>
-                                                    @else
-                                                    <a href="javascript:void(0)"
-                                                        class="mb-2 pills-block-btn add-to-cart"
-                                                        data-id="{{ $latestproduct->id }}">
-                                                        <i class="bx bx-cart"></i> Add to Cart
-                                                    </a>
-                                                    @endif
-
-                                                    <a href="#" class="addtoCompare">+ Add to Compare</a>
+                                                        {{ substr($latestproduct->product_title, 0, 50) . '...' }}
+                                                    </p>
                                                 </a>
+                                                <div class="wishlist-container">
+                                                    @if ($user_id)
+                                                    <button class="wishlist-btn" data-id="{{ $latestproduct->id }}">
+                                                        <svg class="wishlist-icon feather feather-heart color-filled"
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="{{ $bg_color }}" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke="currentColor">
+                                                            <path
+                                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    @endif
+                                                </div>
+                                                <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
+                                                    data-id="{{ $latestproduct->id }}">
+                                                    <i class="bx bx-cart"></i> Add to Cart
+                                                </a>
+                                                <a href="#" class="addtoCompare">+ Add to Compare</a>
                                             </div>
+
                                         </div>
                                     </div>
                                     @endforeach
@@ -355,62 +342,24 @@
 
                             <div class="swiper productSlide">
                                 <div class="swiper-wrapper pb-5">
-                                    @php
-                                    $user_id = Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id :
-                                    null;
-                                    @endphp
-                                    @foreach($sale_products as $key=>$saleproducts)
-                                    @php
-                                    $bg_color = 'none';
-                                    if ($user_id) {
-                                    $in_wishlist = DB::table('wishlists')
-                                    ->where('user_id', $user_id)
-                                    ->where('product_id', $saleproducts->id)
-                                    ->exists();
-                                    $bg_color = $in_wishlist ? 'red' : 'none';
-                                    }
-                                    @endphp
 
+                                    @foreach($sale_products as $key=>$saleproducts)
                                     <div class="swiper-slide">
                                         <div class="card">
                                             <div class="card-body text-center">
                                                 <a href="product-detail/{{ $saleproducts->product_slug }}">
-                                                    <div class="wishlist-container">
-                                                        @if ($user_id)
-                                                        <button class="wishlist-btn" data-id="{{ $saleproducts->id }}">
-                                                            <svg class="wishlist-icon"
-                                                                xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="{{ $bg_color }}"
-                                                                stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke="currentColor"
-                                                                class="feather feather-heart color-filled">
-                                                                <path
-                                                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-                                                        @endif
-                                                    </div>
                                                     <img src="{{ asset('image/products/'.$saleproducts->product_image) }}"
                                                         class="img-fluid mb-3" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
                                                         ${{ $saleproducts->product_price }}/-</h5>
                                                     <p class="card-text-para">
                                                         {{ substr($saleproducts->product_title, 0, 50) . '...' }}</p>
-                                                    @if($saleproducts->availability == 0 )
-                                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                                        Out of stock
-                                                    </a>
-                                                    @else
-                                                    <a href="javascript:void(0)"
-                                                        class="mb-2 pills-block-btn add-to-cart"
-                                                        data-id="{{ $saleproducts->id }}">
-                                                        <i class="bx bx-cart"></i> Add to Cart
-                                                    </a>
-                                                    @endif
-                                                    <a href="#" class="addtoCompare">+ Add to
-                                                        Compare</a>
                                                 </a>
+                                                <a href="javascript:void(0)" data-id="{{ $latestproducts->id }}"
+                                                    class="mb-2 pills-block-btn add-to-cart">
+                                                    <i class="bx bx-cart"></i> Add to Cart
+                                                </a>
+                                                <a href="#" class="addtoCompare">+ Add to Compare</a>
                                             </div>
                                         </div>
                                     </div>
@@ -433,42 +382,12 @@
 
                             <div class="swiper productSlide">
                                 <div class="swiper-wrapper pb-5">
-                                    @php
-                                    $user_id = Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id :
-                                    null;
-                                    @endphp
+
                                     @foreach($featured_products as $key=>$featuredproducts)
-                                    @php
-                                    $bg_color = 'none';
-                                    if ($user_id) {
-                                    $in_wishlist = DB::table('wishlists')
-                                    ->where('user_id', $user_id)
-                                    ->where('product_id', $featuredproducts->id)
-                                    ->exists();
-                                    $bg_color = $in_wishlist ? 'red' : 'none';
-                                    }
-                                    @endphp
                                     <div class="swiper-slide">
                                         <div class="card">
                                             <div class="card-body text-center">
                                                 <a href="product-detail/{{ $featuredproducts->product_slug }}">
-                                                    <div class="wishlist-container">
-                                                        @if ($user_id)
-                                                        <button class="wishlist-btn"
-                                                            data-id="{{ $featuredproducts->id }}">
-                                                            <svg class="wishlist-icon"
-                                                                xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="{{ $bg_color }}"
-                                                                stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke="currentColor"
-                                                                class="feather feather-heart color-filled">
-                                                                <path
-                                                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-                                                        @endif
-                                                    </div>
                                                     <img src="{{ asset('image/products/'.$featuredproducts->product_image) }}"
                                                         class="img-fluid mb-3" loading="lazy" alt="...">
                                                     <h5 class="card-title-price text-center">
@@ -476,21 +395,14 @@
                                                     <p class="card-text-para">
                                                         {{ substr($featuredproducts->product_title, 0, 50) . '...' }}
                                                     </p>
-                                                    @if($featuredproducts->availability == 0 )
-                                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                                        Out of stock
-                                                    </a>
-                                                    @else
-                                                    <a href="javascript:void(0)"
-                                                        class="mb-2 pills-block-btn add-to-cart"
-                                                        data-id="{{ $featuredproducts->id }}">
-                                                        <i class="bx bx-cart"></i> Add to Cart
-                                                    </a>
-                                                    @endif
-                                                    <a href="#" class="addtoCompare">+ Add to
-                                                        Compare</a>
                                                 </a>
+                                                <a href="javascript:void(0)" data-id="{{ $featuredproducts->id }}"
+                                                    class="mb-2 pills-block-btn add-to-cart">
+                                                    <i class="bx bx-cart"></i> Add to Cart
+                                                </a>
+                                                <a href="#" class="addtoCompare">+ Add to Compare</a>
                                             </div>
+
                                         </div>
                                     </div>
                                     @endforeach
@@ -523,7 +435,7 @@
                                 aria-controls="pills-bestRated2" aria-selected="false">Best Rated</button>
                         </li>
                     </ul>
-                    <div class="tab-content" id="pills-tabContent2">
+                    <div class="tab-content">
                         <div class="tab-pane fade show active" id="pills-newArrival2" role="tabpanel"
                             aria-labelledby="pills-newArrival-tab" tabindex="0">
 
@@ -532,49 +444,17 @@
                             <div class="swiper productSlide">
                                 <div class="swiper-wrapper pb-5">
                                     @php
-                                    $user_id = Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id :
-                                    null;
                                     $productChunks = array_chunk($latest_products->toArray(), 4);
                                     @endphp
 
                                     @foreach ($productChunks as $productChunk)
-
                                     <div class="swiper-slide">
                                         <div class="row">
                                             @foreach ($productChunk as $product)
-                                            @php
-                                            $bg_color = 'none';
-                                            if ($user_id) {
-                                            $in_wishlist = DB::table('wishlists')
-                                            ->where('user_id', $user_id)
-                                            ->where('product_id', $product['id'])
-                                            ->exists();
-                                            $bg_color = $in_wishlist ? 'red' : 'none';
-                                            }
-                                            @endphp
                                             <div class="col-6 mb-3">
                                                 <div class="card">
                                                     <div class="card-body text-center">
                                                         <a href="product-detail/{{ $product['product_slug'] }}">
-
-                                                            <div class="wishlist-container">
-                                                                @if ($user_id)
-                                                                <button class="wishlist-btn"
-                                                                    data-id="{{ $product['id'] }}">
-                                                                    <svg class="wishlist-icon"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="{{ $bg_color }}" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke="currentColor"
-                                                                        class="feather feather-heart color-filled">
-                                                                        <path
-                                                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                        </path>
-                                                                    </svg>
-                                                                </button>
-                                                                @endif
-                                                            </div>
                                                             <img src="{{ asset('image/products/'.$product['product_image']) }}"
                                                                 class="img-fluid mb-3" loading="lazy" alt="...">
                                                             <h5 class="card-title-price text-center">
@@ -603,48 +483,16 @@
                             <div class="swiper productSlide">
                                 <div class="swiper-wrapper pb-5">
                                     @php
-                                    $user_id = Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id :
-                                    null;
                                     $productChunks = array_chunk($sale_products->toArray(), 4);
                                     @endphp
                                     @foreach ($productChunks as $productChunk)
                                     <div class="swiper-slide">
                                         <div class="row">
                                             @foreach ($productChunk as $product)
-
-                                            @php
-                                            $bg_color = 'none';
-                                            if ($user_id) {
-                                            $in_wishlist = DB::table('wishlists')
-                                            ->where('user_id', $user_id)
-                                            ->where('product_id', $product['id'])
-                                            ->exists();
-                                            $bg_color = $in_wishlist ? 'red' : 'none';
-                                            }
-                                            @endphp
                                             <div class="col-6 mb-3">
                                                 <div class="card">
                                                     <div class="card-body text-center">
                                                         <a href="product-detail/{{ $product['product_slug'] }}">
-
-                                                            <div class="wishlist-container">
-                                                                @if ($user_id)
-                                                                <button class="wishlist-btn"
-                                                                    data-id="{{ $product['id'] }}">
-                                                                    <svg class="wishlist-icon"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="{{ $bg_color }}" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke="currentColor"
-                                                                        class="feather feather-heart color-filled">
-                                                                        <path
-                                                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                        </path>
-                                                                    </svg>
-                                                                </button>
-                                                                @endif
-                                                            </div>
                                                             <img src="{{ asset('image/products/'.$product['product_image']) }}"
                                                                 class="img-fluid mb-3" loading="lazy" alt="...">
                                                             <h5 class="card-title-price text-center">
@@ -674,47 +522,16 @@
                             <div class="swiper productSlide">
                                 <div class="swiper-wrapper pb-5">
                                     @php
-                                    $user_id = Auth::guard('customer')->user() ? Auth::guard('customer')->user()->id :
-                                    null;
                                     $productChunks = array_chunk($featured_products->toArray(), 4);
                                     @endphp
                                     @foreach ($productChunks as $productChunk)
                                     <div class="swiper-slide">
                                         <div class="row">
                                             @foreach ($productChunk as $product)
-
-                                            @php
-                                            $bg_color = 'none';
-                                            if ($user_id) {
-                                            $in_wishlist = DB::table('wishlists')
-                                            ->where('user_id', $user_id)
-                                            ->where('product_id', $product['id'])
-                                            ->exists();
-                                            $bg_color = $in_wishlist ? 'red' : 'none';
-                                            }
-                                            @endphp
                                             <div class="col-6 mb-3">
                                                 <div class="card">
                                                     <div class="card-body text-center">
                                                         <a href="product-detail/{{ $product['product_slug'] }}">
-                                                            <div class="wishlist-container">
-                                                                @if ($user_id)
-                                                                <button class="wishlist-btn"
-                                                                    data-id="{{ $product['id'] }}">
-                                                                    <svg class="wishlist-icon"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="{{ $bg_color }}" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke="currentColor"
-                                                                        class="feather feather-heart color-filled">
-                                                                        <path
-                                                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                        </path>
-                                                                    </svg>
-                                                                </button>
-                                                                @endif
-                                                            </div>
                                                             <img src="{{ asset('image/products/'.$product['product_image']) }}"
                                                                 class="img-fluid mb-3" loading="lazy" alt="...">
                                                             <h5 class="card-title-price text-center">
@@ -866,16 +683,9 @@
                                             {{ substr($desktopmotherboard->product_title, 0, 50) . '...' }}
                                         </p>
                                     </a>
-                                    @if($desktopmotherboard->availability == 0 )
-                                    <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                        Out of stock
-                                    </a>
-                                    @else
-                                    <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
-                                        data-id="{{ $desktopmotherboard->id }}">
-                                        <i class="bx bx-cart"></i> Add to Cart
-                                    </a>
-                                    @endif
+                                    <a href="javascript:void(0)" data-id="{{ $desktopmotherboard->id }}"
+                                        class="mb-2 pills-block-btn add-to-cart"> <i class="bx bx-cart"></i>
+                                        Add to Cart</a>
                                     <a href="#" class="addtoCompare ">+ Add to
                                         Compare</a>
                                 </div>
@@ -935,7 +745,7 @@
 
         <!-- tabs start  -->
         <div class="products d-lg-block d-none">
-            <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
+            <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-networking-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-networking" type="button" role="tab" aria-controls="pills-networking"
@@ -951,7 +761,7 @@
                         type="button" role="tab" aria-controls="pills-memory" aria-selected="false">Memory</button>
                 </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent2">
+            <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-networking" role="tabpanel"
                     aria-labelledby="pills-networking-tab" tabindex="0">
 
@@ -971,16 +781,9 @@
                                             <p class="card-text-para">
                                                 {{ substr($Network->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        @if($Network->availability == 0 )
-                                        <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                            Out of stock
-                                        </a>
-                                        @else
-                                        <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
-                                            data-id="{{ $Network->id }}">
-                                            <i class="bx bx-cart"></i> Add to Cart
-                                        </a>
-                                        @endif
+                                        <a href="javascript:void(0)" data-id="{{ $Network->id }}"
+                                            class="mb-2 pills-block-btn     ">
+                                            <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
                                     </div>
@@ -1013,16 +816,9 @@
                                             <p class="card-text-para">
                                                 {{ substr($powersupplyunit->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        @if($powersupplyunit->availability == 0 )
-                                        <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                            Out of stock
-                                        </a>
-                                        @else
-                                        <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
-                                            data-id="{{ $powersupplyunit->id }}">
-                                            <i class="bx bx-cart"></i> Add to Cart
-                                        </a>
-                                        @endif
+                                        <a href="javascript:void(0)" data-id="{{ $powersupplyunit->id }}"
+                                            class="mb-2 pills-block-btn add-to-cart">
+                                            <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
                                     </div>
@@ -1055,16 +851,9 @@
                                             <p class="card-text-para">
                                                 {{ substr($memories->product_title, 0, 50) . '...' }}</p>
                                         </a>
-                                        @if($memories->availability == 0 )
-                                        <a href="javascript:void(0)" disabled class="mb-2 pills-block-btn">
-                                            Out of stock
-                                        </a>
-                                        @else
-                                        <a href="javascript:void(0)" class="mb-2 pills-block-btn add-to-cart"
-                                            data-id="{{ $memories->id }}">
-                                            <i class="bx bx-cart"></i> Add to Cart
-                                        </a>
-                                        @endif
+                                        <a href="javascript:void(0)" data-id="{{ $memories->id }}"
+                                            class="mb-2 pills-block-btn add-to-cart">
+                                            <i class="bx bx-cart"></i> Add to Cart</a>
                                         <a href="#" class="addtoCompare">+ Add to
                                             Compare</a>
                                     </div>
@@ -1081,7 +870,7 @@
         </div>
 
         <div class="products d-block d-lg-none">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-networking-tab3" data-bs-toggle="pill"
                         data-bs-target="#pills-networking3" type="button" role="tab" aria-controls="pills-networking3"
@@ -1098,7 +887,7 @@
                         aria-selected="false">Memory</button>
                 </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-networking3" role="tabpanel"
                     aria-labelledby="pills-networking-tab3" tabindex="0">
 
